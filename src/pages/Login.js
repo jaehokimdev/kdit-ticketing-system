@@ -11,20 +11,42 @@ import {
   Alert,
 } from "react-bootstrap";
 import userApi from "../api/userApi";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
+  const Navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleOnSubmit = async (e) => {
+    setError("");
     e.preventDefault();
 
     if (!email || !password) {
-      alert("Fill up all the form!!");
+      setError("Fill up all the form!!");
     }
 
     const userData = await userApi();
     console.log(userData);
+    const result = userData.map((user) => {
+      if (user.email === email && user.password === password) {
+        return "success";
+      } else {
+        return "error";
+      }
+    });
+    switch (result[0]) {
+      case "success":
+        console.log("success");
+        //Navigate("main")
+        break;
+      case "error":
+        setError("Invaild Email or Password!");
+        break;
+      default:
+        break;
+    }
   };
 
   const handleOnChange = (e) => {
@@ -52,6 +74,7 @@ export const Login = () => {
               <Col>
                 <h1 style={{ textAlign: "center" }}>LOGIN</h1>
                 <hr />
+                {error !== "" && <Alert variant="danger">{error}</Alert>}
                 <Form autoComplete="off" onSubmit={handleOnSubmit}>
                   <Form.Group>
                     <Form.Label>Email</Form.Label>
