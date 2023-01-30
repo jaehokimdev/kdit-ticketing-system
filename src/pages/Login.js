@@ -18,8 +18,10 @@ export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loginstatus, setLoginstatus] = useState(false);
 
   const handleOnSubmit = async (e) => {
+    setLoginstatus(false);
     setError("");
     e.preventDefault();
 
@@ -28,24 +30,23 @@ export const Login = () => {
     }
 
     const userData = await userApi();
-    console.log(userData);
-    const result = userData.map((user) => {
-      if (user.email === email && user.password === password) {
-        return "success";
-      } else {
-        return "error";
+    // const result = userData.map((user) => {
+    //   if (user.email === email && user.password === password) {
+    //     loginstatus(true);
+    //   } else {
+    //     loginstatus(false);
+    //   }
+    // });
+    for (var i = 0; i < userData.length; i++) {
+      if (userData[i].email === email && userData[i].password === password) {
+        setLoginstatus(true);
       }
-    });
-    switch (result[0]) {
-      case "success":
-        console.log("success");
-        //Navigate("main")
-        break;
-      case "error":
-        setError("Invaild Email or Password!");
-        break;
-      default:
-        break;
+    }
+
+    if (loginstatus) {
+      console.log("success");
+    } else {
+      setError("Invaild Email or password!");
     }
   };
 
