@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Login } from "./pages/Login";
 import Layout from "./components/Layout";
 import Main from "./pages/Main";
+import { AddtTicket } from "./pages/AddTicket";
 
 function App() {
   return (
@@ -15,6 +16,14 @@ function App() {
             element={
               <Layout>
                 <Main />
+              </Layout>
+            }
+          />
+          <Route
+            path="add-ticket"
+            element={
+              <Layout>
+                <AddtTicket />
               </Layout>
             }
           />
