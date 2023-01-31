@@ -1,15 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../images/logo.webp";
 import "./Login.css";
-import {
-  Container,
-  Row,
-  Col,
-  Form,
-  Button,
-  Spinner,
-  Alert,
-} from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import userApi from "../api/userApi";
 import { useNavigate } from "react-router-dom";
 
@@ -18,25 +10,29 @@ export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [userData, setUserData] = useState("");
   const [loginstatus, setLoginstatus] = useState(false);
 
+  const userFetch = async () => {
+    const users = await userApi();
+    setUserData(users);
+  };
+
   const handleOnSubmit = async (e) => {
+    console.log(userData);
+    e.preventDefault();
     setLoginstatus(false);
     setError("");
-    e.preventDefault();
 
     if (!email || !password) {
       setError("Fill up all the form!!");
     }
+    console.log("1", userData);
+    if (!userData) {
+      userFetch();
+    }
+    console.log("2", userData);
 
-    const userData = await userApi();
-    // const result = userData.map((user) => {
-    //   if (user.email === email && user.password === password) {
-    //     loginstatus(true);
-    //   } else {
-    //     loginstatus(false);
-    //   }
-    // });
     for (var i = 0; i < userData.length; i++) {
       if (userData[i].email === email && userData[i].password === password) {
         setLoginstatus(true);
@@ -44,7 +40,7 @@ export const Login = () => {
     }
 
     if (loginstatus) {
-      console.log("success");
+      Navigate("main");
     } else {
       setError("Invaild Email or password!");
     }
