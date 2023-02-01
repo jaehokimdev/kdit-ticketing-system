@@ -1,49 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../images/logo.webp";
 import "./Login.css";
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
-import userApi from "../api/userApi";
 import { useNavigate } from "react-router-dom";
+import Axios from "axios";
 
 export const Login = () => {
+  const rootUrl = "http://localhost:8000/";
   const Navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [userData, setUserData] = useState("");
-  const [loginstatus, setLoginstatus] = useState(false);
 
-  const userFetch = async () => {
-    const users = await userApi();
-    setUserData(users);
-  };
+  useEffect(() => {
+    try {
+      Axios.get(rootUrl + "user/get").then((response) => {
+        setUserData(response.data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   const handleOnSubmit = async (e) => {
     console.log(userData);
     e.preventDefault();
-    setLoginstatus(false);
     setError("");
 
     if (!email || !password) {
       setError("Fill up all the form!!");
     }
     console.log("1", userData);
-    if (!userData) {
-      userFetch();
-    }
-    console.log("2", userData);
 
     for (var i = 0; i < userData.length; i++) {
       if (userData[i].email === email && userData[i].password === password) {
-        setLoginstatus(true);
+        Navigate("main");
       }
     }
 
-    if (loginstatus) {
-      Navigate("main");
-    } else {
-      setError("Invaild Email or password!");
-    }
+    // userData.map((user) => {
+    //   if (user.email === email && user.password === password) {
+    //     Navigate("main");
+    //   }
+    // });
+
+    setError("Invaild Email or password!");
   };
 
   const handleOnChange = (e) => {

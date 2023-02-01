@@ -24,7 +24,7 @@ export const Header = () => {
       <Navbar.Toggle aria-controls="basic-navber-nav" />
       <Navbar.Collapse id="basic-navber-nav">
         <Nav className="ms-auto">
-          <LinkContainer to="/dashboard">
+          <LinkContainer to="/main">
             <Nav.Link>Main</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/users">
