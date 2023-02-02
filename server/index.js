@@ -27,6 +27,13 @@ app.get("/user/get", (req, res) => {
   });
 });
 
+app.get("/ticket/get", (req, res) => {
+  const sqlQuery = "SELECT * FROM ticket;";
+  db.query(sqlQuery, (err, result) => {
+    res.send(result);
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`running on port ${PORT}`);
 });
