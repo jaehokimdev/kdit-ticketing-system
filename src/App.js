@@ -4,6 +4,7 @@ import { Login } from "./pages/Login";
 import Layout from "./components/Layout";
 import Main from "./pages/Main";
 import { AddtTicket } from "./pages/AddTicket";
+import { TicketList } from "./pages/TicketList";
 
 function App() {
   return (
@@ -28,6 +29,14 @@ function App() {
             }
           />
         </Routes>
+        <Route
+          path="tickets"
+          element={
+            <Layout>
+              <TicketList />
+            </Layout>
+          }
+        />
       </Router>
     </div>
   );
