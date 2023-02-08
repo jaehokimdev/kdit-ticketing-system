@@ -24,26 +24,18 @@ export const Login = () => {
   }, []);
 
   const handleOnSubmit = async (e) => {
-    console.log(userData);
     e.preventDefault();
     setError("");
 
     if (!email || !password) {
       setError("Fill up all the form!!");
     }
-    console.log("1", userData);
 
     for (var i = 0; i < userData.length; i++) {
       if (userData[i].email === email && userData[i].password === password) {
         Navigate("main");
       }
     }
-
-    // userData.map((user) => {
-    //   if (user.email === email && user.password === password) {
-    //     Navigate("main");
-    //   }
-    // });
 
     setError("Invaild Email or password!");
   };

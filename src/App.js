@@ -28,15 +28,15 @@ function App() {
               </Layout>
             }
           />
+          <Route
+            path="tickets"
+            element={
+              <Layout>
+                <TicketList />
+              </Layout>
+            }
+          />
         </Routes>
-        <Route
-          path="tickets"
-          element={
-            <Layout>
-              <TicketList />
-            </Layout>
-          }
-        />
       </Router>
     </div>
   );
