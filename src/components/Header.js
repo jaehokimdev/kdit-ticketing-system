@@ -13,7 +13,7 @@ export const Header = () => {
 
   return (
     <Navbar className="nav-color" collapseOnSelect variant="dark" expand="md">
-      <Navbar.Brand>
+      <Navbar.Brand style={{ marginRight: "80px" }}>
         <img
           src={logo}
           alt="logo"
@@ -21,14 +21,17 @@ export const Header = () => {
           style={{ paddingLeft: "10px" }}
         />
       </Navbar.Brand>
+      <Navbar.Text
+        className="mx-auto"
+        style={{ fontSize: "20px", color: "white" }}
+      >
+        KDIT Ticket Desk
+      </Navbar.Text>
       <Navbar.Toggle aria-controls="basic-navber-nav" />
-      <Navbar.Collapse id="basic-navber-nav">
-        <Nav className="ms-auto">
+      <Navbar.Collapse id="basic-navber-nav" className="flex-grow-0">
+        <Nav className="ms-auto pe-1" style={{ width: "200px" }}>
           <LinkContainer to="/main">
             <Nav.Link>Main</Nav.Link>
-          </LinkContainer>
-          <LinkContainer to="/users">
-            <Nav.Link>Users</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/tickets">
             <Nav.Link>Tickets</Nav.Link>
