@@ -1,24 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Container, Row, Col, Button, Alert } from "react-bootstrap";
 import { PageBreadcrumb } from "../components/PageBreadcrumb";
 import { Link } from "react-router-dom";
-import Axios from "axios";
+import { useDispatch } from "react-redux";
+import { fetchAlltickets } from "./ticketAction";
+import { useSelector } from "react-redux";
 
 const Main = () => {
-  const [tickets, setTickets] = useState("");
-  const rootUrl = "http://localhost:8000/";
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    try {
-      Axios.get(rootUrl + "ticket/get").then((response) => {
-        setTickets(response.data);
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+    dispatch(fetchAlltickets());
+  }, [dispatch]);
 
-  console.log(tickets);
+  const { tickets, isLoading, error } = useSelector((state) => state.tickets);
+
+  if (isLoading) return <h3>Loading ....</h3>;
+
+  if (error) return <h3>{error}</h3>;
 
   return (
     <Container>

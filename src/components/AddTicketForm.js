@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { fetchCategories } from "../pages/ticketAction";
 
 const initialFrmDt = {
   title: "",
   issueDate: "",
   message: "",
-  category: "",
 };
 
-export const AddTicketForm = ({ categories }) => {
+export const AddTicketForm = () => {
   const [frmData, setFrmDate] = useState(initialFrmDt);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
 
   useEffect(() => {}, [frmData]);
 
@@ -24,6 +32,14 @@ export const AddTicketForm = ({ categories }) => {
       [name]: value,
     });
   };
+
+  const { categories, isLoading, error } = useSelector(
+    (state) => state.tickets
+  );
+
+  if (isLoading) return <h3>Loading ....</h3>;
+
+  if (error) return <h3>{error}</h3>;
 
   return (
     <div
@@ -71,8 +87,8 @@ export const AddTicketForm = ({ categories }) => {
           </Form.Label>
           <Col sm={9}>
             <Form.Select name="category">
-              {categories.map((category) => {
-                return <option>{category}</option>;
+              {categories.map((category, i) => {
+                return <option key={i}>{category.category_name}</option>;
               })}
             </Form.Select>
           </Col>

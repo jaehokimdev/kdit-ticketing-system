@@ -3,41 +3,47 @@ import logo from "../images/logo.webp";
 import "./Login.css";
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import Axios from "axios";
+import { useDispatch } from "react-redux";
+import { fetchAllusers } from "./userAction";
+import { useSelector } from "react-redux";
 
 export const Login = () => {
-  const rootUrl = "http://localhost:8000/";
   const Navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [userData, setUserData] = useState("");
+  const [loginerror, setLoginError] = useState("");
+
+  // useEffect(() => {
+  //   try {
+  //     Axios.get(rootUrl + "user/get").then((response) => {
+  //       setUserData(response.data);
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, []);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    try {
-      Axios.get(rootUrl + "user/get").then((response) => {
-        setUserData(response.data);
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+    dispatch(fetchAllusers());
+  }, [dispatch]);
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+    setLoginError("");
 
     if (!email || !password) {
-      setError("Fill up all the form!!");
+      setLoginError("Fill up all the form!!");
     }
 
-    for (var i = 0; i < userData.length; i++) {
-      if (userData[i].email === email && userData[i].password === password) {
+    for (var i = 0; i < users.length; i++) {
+      if (users[i].email === email && users[i].password === password) {
         Navigate("main");
       }
     }
 
-    setError("Invaild Email or password!");
+    setLoginError("Invaild Email or password!");
   };
 
   const handleOnChange = (e) => {
@@ -55,6 +61,12 @@ export const Login = () => {
     }
   };
 
+  const { users, isLoading, error } = useSelector((state) => state.users);
+
+  if (isLoading) return <h3>Loading ....</h3>;
+
+  if (error) return <h3>{error}</h3>;
+
   return (
     <div className="login-main">
       <img className="logo" src={logo} alt="logo" />
@@ -65,7 +77,7 @@ export const Login = () => {
               <Col>
                 <h1 style={{ textAlign: "center" }}>LOGIN</h1>
                 <hr />
-                {error !== "" && <Alert variant="danger">{error}</Alert>}
+                {error !== "" && <Alert variant="danger">{loginerror}</Alert>}
                 <Form autoComplete="off" onSubmit={handleOnSubmit}>
                   <Form.Group>
                     <Form.Label>Email</Form.Label>
