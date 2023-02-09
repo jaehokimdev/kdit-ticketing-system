@@ -10,7 +10,7 @@ const externalUrl = "newdoldol.dynamic-dns.net";
 const internalUrl = "192.168.0.18";
 
 const db = mysql.createPool({
-  host: internalUrl,
+  host: externalUrl,
   user: "newdoldol",
   password: "Qlalfqjsgh!@12",
   database: "KDIT",
@@ -29,6 +29,13 @@ app.get("/user/get", (req, res) => {
 
 app.get("/ticket/get", (req, res) => {
   const sqlQuery = "SELECT * FROM ticket;";
+  db.query(sqlQuery, (err, result) => {
+    res.send(result);
+  });
+});
+
+app.get("/ticket/categories", (req, res) => {
+  const sqlQuery = "SELECT category_name FROM category;";
   db.query(sqlQuery, (err, result) => {
     res.send(result);
   });

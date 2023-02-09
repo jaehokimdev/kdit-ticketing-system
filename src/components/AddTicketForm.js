@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button, Row, Col, Spinner, Alert } from "react-bootstrap";
+import { Form, Button, Row, Col } from "react-bootstrap";
 
 const initialFrmDt = {
   title: "",
@@ -8,7 +8,7 @@ const initialFrmDt = {
   category: "",
 };
 
-export const AddTicketForm = () => {
+export const AddTicketForm = ({ categories }) => {
   const [frmData, setFrmDate] = useState(initialFrmDt);
 
   useEffect(() => {}, [frmData]);
@@ -64,6 +64,20 @@ export const AddTicketForm = () => {
             />
           </Col>
         </Form.Group>
+        <br />
+        <Form.Group as={Row}>
+          <Form.Label column sm={3}>
+            Category
+          </Form.Label>
+          <Col sm={9}>
+            <Form.Select name="category">
+              {categories.map((category) => {
+                return <option>{category}</option>;
+              })}
+            </Form.Select>
+          </Col>
+        </Form.Group>
+        <br />
         <Form.Group className="mt-3">
           <Form.Label>Detail</Form.Label>
           <Form.Control
@@ -73,21 +87,6 @@ export const AddTicketForm = () => {
             rows={5}
             onChange={handleOnChange}
           />
-        </Form.Group>
-        <br />
-        <Form.Group as={Row}>
-          <Form.Label column sm={3}>
-            Category
-          </Form.Label>
-          <Col sm={9}>
-            <Form.Control
-              name="category"
-              value={frmData.category}
-              onChange={handleOnChange}
-              placeholder="category"
-              minLength="3"
-            />
-          </Col>
         </Form.Group>
         <br />
         <div className="d-grid gap-2">
