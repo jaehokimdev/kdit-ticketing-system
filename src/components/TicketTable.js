@@ -18,22 +18,22 @@ export const TicketTable = () => {
   return (
     <Table striped hover>
       <thead>
-        <tr>
-          <th>#</th>
-          <th>Title</th>
+        <tr style={{ textAlign: "center" }}>
+          <th style={{ width: "80px" }}>#</th>
+          <th style={{ textAlign: "left" }}>Title</th>
           <th>Status</th>
           <th>Category</th>
           <th>Priority</th>
           <th>Opened Date</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody style={{ textAlign: "center" }}>
         {searchTicketList.length ? (
           searchTicketList.map((ticket) => (
             <LinkContainer to={`/ticket/${ticket._id}`} key={ticket._id}>
               <tr onMouseOver={changecursor}>
                 <td>{ticket.ticket_id}</td>
-                <td>{ticket.title}</td>
+                <td style={{ textAlign: "left" }}>{ticket.title}</td>
                 <td>{ticket.status_id}</td>
                 <td>{ticket.category_id}</td>
                 <td>{ticket.priority_id}</td>
@@ -46,7 +46,7 @@ export const TicketTable = () => {
           ))
         ) : (
           <tr>
-            <td colSpan="4" className="text-center">
+            <td colSpan="6" className="text-center">
               No Ticket
             </td>
           </tr>

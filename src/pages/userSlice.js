@@ -13,9 +13,9 @@ const userSlice = createSlice({
     getUsersPending: (state) => {
       state.isLoading = true;
     },
-    getUsersSuccess: (state, action) => {
+    getUsersSuccess: (state, { payload }) => {
       state.isLoading = false;
-      state.users = action.payload;
+      state.users = payload;
       state.error = "";
     },
     getUsersFail: (state, { payload }) => {

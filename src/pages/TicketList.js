@@ -14,17 +14,22 @@ export const TicketList = () => {
         </Col>
       </Row>
 
-      <Row className="mt-4">
+      <Row style={{ marginTop: "60px" }}>
         <Col>
           <Link to={"/add-ticket"}>
-            <Button variant="info">Add New Ticket</Button>
+            <Button
+              variant="outline-success"
+              style={{ fontSize: "1.3rem", padding: "10px 40px" }}
+            >
+              Add New Ticket
+            </Button>
           </Link>
         </Col>
         <Col className="text-right">
           <SearchForm />
         </Col>
       </Row>
-      <hr />
+      <hr style={{ marginTop: "30px" }} />ㅌ
       <Row>
         <Col>
           <TicketTable />

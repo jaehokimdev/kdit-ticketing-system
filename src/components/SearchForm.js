@@ -17,7 +17,7 @@ export const SearchForm = () => {
           <Form.Label column sm="2">
             Search:
           </Form.Label>
-          <Col sm="9">
+          <Col sm="10">
             <Form.Control
               name="searchStr"
               placeholder="search ..."
