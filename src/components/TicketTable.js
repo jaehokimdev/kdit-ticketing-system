@@ -25,20 +25,25 @@ export const TicketTable = () => {
           <th>Category</th>
           <th>Priority</th>
           <th>Opened Date</th>
+          <th>closed Date</th>
         </tr>
       </thead>
       <tbody style={{ textAlign: "center" }}>
         {searchTicketList.length ? (
-          searchTicketList.map((ticket) => (
+          searchTicketList.map((ticket, i) => (
             <LinkContainer to={`/ticket/${ticket._id}`} key={ticket._id}>
               <tr onMouseOver={changecursor}>
-                <td>{ticket.ticket_id}</td>
+                <td>{i + 1}</td>
                 <td style={{ textAlign: "left" }}>{ticket.title}</td>
-                <td>{ticket.status_id}</td>
-                <td>{ticket.category_id}</td>
-                <td>{ticket.priority_id}</td>
+                <td>{ticket.status_name}</td>
+                <td>{ticket.category_name}</td>
+                <td>{ticket.priority_name}</td>
                 <td>
                   {ticket.creation_date &&
+                    new Date(ticket.creation_date).toLocaleString()}
+                </td>
+                <td>
+                  {ticket.closure_date &&
                     new Date(ticket.creation_date).toLocaleString()}
                 </td>
               </tr>
@@ -46,7 +51,7 @@ export const TicketTable = () => {
           ))
         ) : (
           <tr>
-            <td colSpan="6" className="text-center">
+            <td colSpan="7" className="text-center">
               No Ticket
             </td>
           </tr>

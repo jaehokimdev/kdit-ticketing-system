@@ -29,7 +29,7 @@ export const TicketList = () => {
           <SearchForm />
         </Col>
       </Row>
-      <hr style={{ marginTop: "30px" }} />ㅌ
+      <hr style={{ marginTop: "30px" }} />
       <Row>
         <Col>
           <TicketTable />

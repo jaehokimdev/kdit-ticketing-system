@@ -13,16 +13,6 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const [loginerror, setLoginError] = useState("");
 
-  // useEffect(() => {
-  //   try {
-  //     Axios.get(rootUrl + "user/get").then((response) => {
-  //       setUserData(response.data);
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, []);
-
   const dispatch = useDispatch();
 
   useEffect(() => {

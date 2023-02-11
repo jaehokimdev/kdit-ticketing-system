@@ -27,6 +27,9 @@ const Main = () => {
         </Col>
       </Row>
       <Row>
+        
+      </Row>
+      <Row>
         <Col className="text-center" style={{ marginTop: "80px" }}>
           <Alert variant="primary">
             <h2>{tickets.length}</h2>Total Tickets
