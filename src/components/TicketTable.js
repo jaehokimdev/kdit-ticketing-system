@@ -38,14 +38,8 @@ export const TicketTable = () => {
                 <td>{ticket.status_name}</td>
                 <td>{ticket.category_name}</td>
                 <td>{ticket.priority_name}</td>
-                <td>
-                  {ticket.creation_date &&
-                    new Date(ticket.creation_date).toLocaleString()}
-                </td>
-                <td>
-                  {ticket.closure_date &&
-                    new Date(ticket.creation_date).toLocaleString()}
-                </td>
+                <td>{ticket.creation_date}</td>
+                <td>{ticket.closure_date}</td>
               </tr>
             </LinkContainer>
           ))

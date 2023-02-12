@@ -1,28 +1,55 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button, Row, Col, Alert } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { getCategories } from "../redux/ticket/ticketThunk";
+import {
+  getCategories,
+  getStatus,
+  getPriority,
+  createNewTicket,
+} from "../redux/ticket/ticketThunk";
 
 const initialFrmDt = {
   title: "",
-  issueDate: "",
-  message: "",
+  body: "",
+  category: "",
+  status: "",
+  priority: "",
+  creation_date: "",
 };
 
 export const AddTicketForm = () => {
   const [frmData, setFrmDate] = useState(initialFrmDt);
+  const [inputerror, setInputError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCategories());
+    dispatch(getStatus());
+    dispatch(getPriority());
   }, [dispatch]);
 
   useEffect(() => {}, [frmData]);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+
+    if (
+      frmData.title === "" ||
+      frmData.body === "" ||
+      frmData.category === "" ||
+      frmData.priority === "" ||
+      frmData.status === ""
+    ) {
+      setInputError("Please input or select all Fields");
+    } else {
+      setInputError("");
+      dispatch(createNewTicket(frmData));
+      setSuccess("Added new Ticket");
+      setFrmDate(initialFrmDt);
+    }
   };
 
   const handleOnChange = (e) => {
@@ -33,7 +60,7 @@ export const AddTicketForm = () => {
     });
   };
 
-  const { categories, isLoading, error } = useSelector(
+  const { categories, ticketstatus, priority, isLoading, error } = useSelector(
     (state) => state.tickets
   );
 
@@ -51,6 +78,8 @@ export const AddTicketForm = () => {
     >
       <h1 className="text-center">Add New Ticket</h1>
       <hr />
+      {inputerror !== "" && <Alert variant="danger">{inputerror}</Alert>}
+      {success !== "" && <Alert variant="success">{success}</Alert>}
       <Form autoComplete="off" onSubmit={handleOnSubmit}>
         <Form.Group as={Row}>
           <Form.Label column sm={3}>
@@ -69,24 +98,17 @@ export const AddTicketForm = () => {
         <br />
         <Form.Group as={Row}>
           <Form.Label column sm={3}>
-            Issue Found
-          </Form.Label>
-          <Col sm={9}>
-            <Form.Control
-              type="date"
-              name="issueDate"
-              value={frmData.issueDate}
-              onChange={handleOnChange}
-            />
-          </Col>
-        </Form.Group>
-        <br />
-        <Form.Group as={Row}>
-          <Form.Label column sm={3}>
             Category
           </Form.Label>
           <Col sm={9}>
-            <Form.Select name="category">
+            <Form.Select
+              name="category"
+              onChange={handleOnChange}
+              value={frmData.category}
+            >
+              <option isInvalid value={0}>
+                Select Cagtegory
+              </option>
               {categories.map((category, i) => {
                 return (
                   <option key={i} value={i + 1}>
@@ -98,12 +120,60 @@ export const AddTicketForm = () => {
           </Col>
         </Form.Group>
         <br />
+        <Form.Group as={Row}>
+          <Form.Label column sm={3}>
+            Status
+          </Form.Label>
+          <Col sm={9}>
+            <Form.Select
+              name="status"
+              onChange={handleOnChange}
+              value={frmData.status}
+            >
+              <option isInvalid value={0}>
+                Select Status
+              </option>
+              {ticketstatus.map((status, i) => {
+                return (
+                  <option key={i} value={i + 1}>
+                    {status.status_name.toUpperCase()}
+                  </option>
+                );
+              })}
+            </Form.Select>
+          </Col>
+        </Form.Group>
+        <br />
+        <Form.Group as={Row}>
+          <Form.Label column sm={3}>
+            Priority
+          </Form.Label>
+          <Col sm={9}>
+            <Form.Select
+              name="priority"
+              onChange={handleOnChange}
+              value={frmData.priority}
+            >
+              <option isInvalid value={0}>
+                Select Priority
+              </option>
+              {priority.map((priority, i) => {
+                return (
+                  <option key={i} value={i + 1}>
+                    {priority.priority_name.toUpperCase()}
+                  </option>
+                );
+              })}
+            </Form.Select>
+          </Col>
+        </Form.Group>
+        <br />
         <Form.Group className="mt-3">
           <Form.Label>Detail</Form.Label>
           <Form.Control
             as="textarea"
-            name="message"
-            value={frmData.message}
+            name="body"
+            value={frmData.body}
             rows={5}
             onChange={handleOnChange}
           />
