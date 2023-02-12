@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { fetchCategories } from "../pages/ticketAction";
+import { getCategories } from "../redux/ticket/ticketThunk";
 
 const initialFrmDt = {
   title: "",
@@ -16,7 +16,7 @@ export const AddTicketForm = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchCategories());
+    dispatch(getCategories());
   }, [dispatch]);
 
   useEffect(() => {}, [frmData]);

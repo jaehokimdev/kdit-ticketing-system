@@ -4,8 +4,8 @@ import "./Login.css";
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { fetchAllusers } from "./userAction";
 import { useSelector } from "react-redux";
+import { getAllUsers } from "../redux/user/userThunk";
 
 export const Login = () => {
   const Navigate = useNavigate();
@@ -16,7 +16,7 @@ export const Login = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchAllusers());
+    dispatch(getAllUsers());
   }, [dispatch]);
 
   const handleOnSubmit = async (e) => {

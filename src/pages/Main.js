@@ -3,14 +3,14 @@ import { Container, Row, Col, Button, Alert } from "react-bootstrap";
 import { PageBreadcrumb } from "../components/PageBreadcrumb";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { fetchAlltickets } from "./ticketAction";
+import { getAllTickets } from "../redux/ticket/ticketThunk";
 import { useSelector } from "react-redux";
 
 const Main = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchAlltickets());
+    dispatch(getAllTickets());
   }, [dispatch]);
 
   const { tickets, isLoading, error } = useSelector((state) => state.tickets);
@@ -26,9 +26,7 @@ const Main = () => {
           <PageBreadcrumb page="Main" />
         </Col>
       </Row>
-      <Row>
-        
-      </Row>
+      <Row></Row>
       <Row>
         <Col className="text-center" style={{ marginTop: "80px" }}>
           <Alert variant="primary">
