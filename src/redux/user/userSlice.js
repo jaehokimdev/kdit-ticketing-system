@@ -10,9 +10,13 @@ const initialState = {
 export const userSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {},
+  reducers: {
+    setModalOpen(state, { payload }) {
+      state.isModalOpen = payload;
+    },
+  },
   extraReducers: (builder) => {
-    builder.addCase(getAllUsers.pending, (state) => {
+    builder.addCase(getAllUsers.pending, (state, { payload }) => {
       state.status = "loading";
     });
     builder.addCase(getAllUsers.fulfilled, (state, { payload }) => {

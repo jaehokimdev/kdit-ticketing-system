@@ -88,7 +88,11 @@ export const AddTicketForm = () => {
           <Col sm={9}>
             <Form.Select name="category">
               {categories.map((category, i) => {
-                return <option key={i}>{category.category_name}</option>;
+                return (
+                  <option key={i} value={i + 1}>
+                    {category.category_name.toUpperCase()}
+                  </option>
+                );
               })}
             </Form.Select>
           </Col>

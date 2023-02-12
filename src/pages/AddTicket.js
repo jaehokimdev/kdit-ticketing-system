@@ -15,7 +15,7 @@ export const AddtTicket = () => {
 
       <Row>
         <Col>
-          <div className="addTicket-page">
+          <div className="addTicket-page mt-4">
             <AddTicketForm />
           </div>
         </Col>

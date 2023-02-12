@@ -13,6 +13,17 @@ export const getAllTickets = createAsyncThunk(
   }
 );
 
+export const getTicketByStatus = createAsyncThunk(
+  "ticket/getTicketByStatus",
+  async (_, { getState, dispatch, rejectedWithValue }) => {
+    const response = await axios.get(baseUrl + "ticket/get");
+
+    return response.status === 200
+      ? response
+      : rejectedWithValue(response.error);
+  }
+);
+
 export const getCategories = createAsyncThunk(
   "ticket/getCategories",
   async (_, { getState, dispatch, rejectedWithValue }) => {

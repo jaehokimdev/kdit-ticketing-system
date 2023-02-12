@@ -17,7 +17,7 @@ export const Login = () => {
 
   useEffect(() => {
     dispatch(getAllUsers());
-  }, [dispatch]);
+  }, [dispatch, loginerror]);
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
@@ -67,7 +67,9 @@ export const Login = () => {
               <Col>
                 <h1 style={{ textAlign: "center" }}>LOGIN</h1>
                 <hr />
-                {error !== "" && <Alert variant="danger">{loginerror}</Alert>}
+                {loginerror !== "" && (
+                  <Alert variant="danger">{loginerror}</Alert>
+                )}
                 <Form autoComplete="off" onSubmit={handleOnSubmit}>
                   <Form.Group>
                     <Form.Label>Email</Form.Label>

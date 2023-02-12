@@ -10,6 +10,7 @@ export const SearchForm = () => {
     const { value } = e.target;
     dispatch(ticketActions.searchTickets(value));
   };
+  
   return (
     <div>
       <Form>

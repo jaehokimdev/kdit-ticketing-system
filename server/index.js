@@ -27,6 +27,23 @@ app.get("/user/get", (req, res) => {
   });
 });
 
+app.post("/api/insert", (req, res) => {
+  const title = req.body.title;
+  const content = req.body.content;
+  const sqlQuery = "INSERT INTO simpleboard (title, content) VALUES (?,?);";
+  db.query(sqlQuery, [title, content], (err, result) => {
+    res.send("success!");
+  });
+});
+
+app.get("/ticket/newticket", (req, res) => {
+  const {title, issueDate, category, message} = req.body;
+  const sqlQuery = "SELECT * FROM user;";
+  db.query(sqlQuery, (err, result) => {
+    res.send(result);
+  });
+});
+
 app.get("/ticket/get", (req, res) => {
   const sqlQuery =
     "SELECT tk.ticket_id, tk.title, tk.body, st.status_name, ct.category_name, pt.priority_name, tk.creation_date, tk.closure_date from ticket_pool as tp, ticket tk, status st, category ct, priority pt where tp.ticket_id=tk.ticket_id AND tk.status_id=st.status_id AND ct.category_id= tk.category_id AND pt.priority_id = tk.priority_id";
