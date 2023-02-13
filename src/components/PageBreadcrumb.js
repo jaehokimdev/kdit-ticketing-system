@@ -5,7 +5,7 @@ import { LinkContainer } from "react-router-bootstrap";
 export const PageBreadcrumb = ({ page }) => {
   return (
     <Breadcrumb className="mt-3">
-      <LinkContainer to="/">
+      <LinkContainer to="/main">
         <Breadcrumb.Item>Home</Breadcrumb.Item>
       </LinkContainer>
       <Breadcrumb.Item active>{page}</Breadcrumb.Item>
