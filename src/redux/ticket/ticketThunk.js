@@ -2,6 +2,12 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { baseUrl } from "../../config/constants";
 import axios from "axios";
 
+const config = {
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded",
+  },
+};
+
 export const getAllTickets = createAsyncThunk(
   "ticket/getAllTickets",
   async (_, { getState, dispatch, rejectedWithValue }) => {
@@ -60,7 +66,11 @@ export const getPriority = createAsyncThunk(
 export const createNewTicket = createAsyncThunk(
   "ticket/createNewTicket",
   async (frmData, { getState, dispatch, rejectedWithValue }) => {
-    const response = await axios.post(baseUrl + "ticket/newticket", frmData);
+    const response = await axios.post(
+      baseUrl + "ticket/newticket",
+      frmData,
+      config
+    );
     console.log(frmData);
     return response.status === 200
       ? response

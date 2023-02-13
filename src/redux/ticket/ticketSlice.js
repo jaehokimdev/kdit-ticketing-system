@@ -4,6 +4,7 @@ import {
   getCategories,
   getStatus,
   getPriority,
+  createNewTicket,
 } from "./ticketThunk";
 
 const initialState = {
@@ -73,6 +74,9 @@ export const ticketSlice = createSlice({
     builder.addCase(getPriority.rejected, (state, { payload }) => {
       state.status = "error";
       state.error = payload;
+    });
+    builder.addCase(createNewTicket.fulfilled, (state, { payload }) => {
+      state.tickets.push(payload);
     });
   },
 });

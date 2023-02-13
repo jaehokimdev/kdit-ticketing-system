@@ -35,7 +35,8 @@ export const AddTicketForm = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-
+    setInputError("");
+    setSuccess("");
     if (
       frmData.title === "" ||
       frmData.body === "" ||
@@ -45,8 +46,12 @@ export const AddTicketForm = () => {
     ) {
       setInputError("Please input or select all Fields");
     } else {
-      setInputError("");
-      dispatch(createNewTicket(frmData));
+      let now = new Date();
+      let year = now.getFullYear();
+      let month = now.getMonth() + 1;
+      let day = now.getDate();
+      let today = year + "-" + month + "-" + day;
+      dispatch(createNewTicket({ ...frmData, creation_date: today }));
       setSuccess("Added new Ticket");
       setFrmDate(initialFrmDt);
     }
