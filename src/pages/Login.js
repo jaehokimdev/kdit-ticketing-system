@@ -5,14 +5,16 @@ import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { getAllUsers } from "../redux/user/userThunk";
+import { getAllUsers, getUser } from "../redux/user/userThunk";
 
 export const Login = () => {
   const Navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const initialFrmDt = {
+    email: "",
+    password: "",
+  };
   const [loginerror, setLoginError] = useState("");
-
+  const [frmData, setFrmDate] = useState(initialFrmDt);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,12 +25,16 @@ export const Login = () => {
     e.preventDefault();
     setLoginError("");
 
-    if (!email || !password) {
+    if (!frmData.email || !frmData.password) {
       setLoginError("Fill up all the form!!");
     }
 
     for (var i = 0; i < users.length; i++) {
-      if (users[i].email === email && users[i].password === password) {
+      if (
+        users[i].email === frmData.email &&
+        users[i].password === frmData.password
+      ) {
+        dispatch(getUser(frmData));
         Navigate("main");
       }
     }
@@ -38,17 +44,10 @@ export const Login = () => {
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
-
-    switch (name) {
-      case "email":
-        setEmail(value);
-        break;
-      case "password":
-        setPassword(value);
-        break;
-      default:
-        break;
-    }
+    setFrmDate({
+      ...frmData,
+      [name]: value,
+    });
   };
 
   const { users, isLoading, error } = useSelector((state) => state.users);
@@ -76,7 +75,7 @@ export const Login = () => {
                     <Form.Control
                       type="email"
                       name="email"
-                      value={email}
+                      value={frmData.email}
                       onChange={handleOnChange}
                       placeholder="Enter Email"
                     />
@@ -87,7 +86,7 @@ export const Login = () => {
                     <Form.Control
                       type="password"
                       name="password"
-                      value={password}
+                      value={frmData.password}
                       onChange={handleOnChange}
                       placeholder="Enter Password"
                     />

@@ -21,9 +21,18 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/user/get", (req, res) => {
+app.get("/user/getAllUsers", (req, res) => {
   const sqlQuery = "SELECT * FROM user;";
   db.query(sqlQuery, (err, result) => {
+    res.send(result);
+  });
+});
+
+app.get("/user/getuser", (req, res) => {
+  const { email } = req.body;
+  console.log(email);
+  const sqlQuery = "SELECT * FROM user WHERE email = ?;";
+  db.query(sqlQuery, [email], (err, result) => {
     res.send(result);
   });
 });

@@ -71,7 +71,6 @@ export const createNewTicket = createAsyncThunk(
       frmData,
       config
     );
-    console.log(frmData);
     return response.status === 200
       ? response
       : rejectedWithValue(response.error);
