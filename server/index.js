@@ -10,7 +10,7 @@ const externalUrl = "newdoldol.dynamic-dns.net";
 const internalUrl = "192.168.0.18";
 
 const db = mysql.createPool({
-  host: internalUrl,
+  host: externalUrl,
   user: "newdoldol",
   password: "Qlalfqjsgh!@12",
   dateStrings: "date",
@@ -29,8 +29,8 @@ app.get("/user/getAllUsers", (req, res) => {
 });
 
 app.get("/user/getuser", (req, res) => {
-  const { email } = req.body;
-  console.log(email);
+  const email = req.body;
+  console.log("server" + req.body);
   const sqlQuery = "SELECT * FROM user WHERE email = ?;";
   db.query(sqlQuery, [email], (err, result) => {
     res.send(result);

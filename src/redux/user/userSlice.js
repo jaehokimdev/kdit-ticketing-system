@@ -42,7 +42,7 @@ export const userSlice = createSlice({
     });
     builder.addCase(getUser.fulfilled, (state, { payload }) => {
       state.status = "done";
-      console.log("slice " + payload);
+      console.log("slice " + JSON.stringify(payload));
       state.user = payload.data;
     });
     builder.addCase(getUser.rejected, (state, { payload }) => {
