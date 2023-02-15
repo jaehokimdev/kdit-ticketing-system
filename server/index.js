@@ -38,12 +38,12 @@ app.get("/user/getuser", (req, res) => {
 });
 
 app.post("/ticket/newticket", (req, res) => {
-  const { title, body, category, status, priority, creation_date } = req.body;
+  const { title, body, category, priority, creation_date } = req.body;
   const sqlQuery =
-    "INSERT INTO ticket(title, body, category_id, status_id, priority_id, creation_date) VALUES (?,?,?,?,?,?);";
+    "INSERT INTO ticket(title, body, category_id, priority_id, creation_date) VALUES (?,?,?,?,?);";
   db.query(
     sqlQuery,
-    [title, body, category, status, priority, creation_date],
+    [title, body, category, priority, creation_date],
     (err, result) => {
       res.send(result);
     }

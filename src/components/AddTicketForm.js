@@ -13,7 +13,6 @@ const initialFrmDt = {
   title: "",
   body: "",
   category: "",
-  status: "",
   priority: "",
   creation_date: "",
 };
@@ -41,8 +40,7 @@ export const AddTicketForm = () => {
       frmData.title === "" ||
       frmData.body === "" ||
       frmData.category === "" ||
-      frmData.priority === "" ||
-      frmData.status === ""
+      frmData.priority === ""
     ) {
       setInputError("Please input or select all Fields");
     } else {
@@ -65,7 +63,7 @@ export const AddTicketForm = () => {
     });
   };
 
-  const { categories, ticketstatus, priority, isLoading, error } = useSelector(
+  const { categories, priority, isLoading, error } = useSelector(
     (state) => state.tickets
   );
 
@@ -118,30 +116,6 @@ export const AddTicketForm = () => {
                 return (
                   <option key={i} value={i + 1}>
                     {category.category_name.toUpperCase()}
-                  </option>
-                );
-              })}
-            </Form.Select>
-          </Col>
-        </Form.Group>
-        <br />
-        <Form.Group as={Row}>
-          <Form.Label column sm={3}>
-            Status
-          </Form.Label>
-          <Col sm={9}>
-            <Form.Select
-              name="status"
-              onChange={handleOnChange}
-              value={frmData.status}
-            >
-              <option isInvalid value={0}>
-                Select Status
-              </option>
-              {ticketstatus.map((status, i) => {
-                return (
-                  <option key={i} value={i + 1}>
-                    {status.status_name.toUpperCase()}
                   </option>
                 );
               })}
