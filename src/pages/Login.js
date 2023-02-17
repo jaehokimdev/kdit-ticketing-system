@@ -34,7 +34,7 @@ export const Login = () => {
         users[i].email === frmData.email &&
         users[i].password === frmData.password
       ) {
-        dispatch(getUser(frmData));
+        dispatch(getUser(users[i].email));
         Navigate("main");
       }
     }

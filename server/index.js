@@ -29,8 +29,8 @@ app.get("/user/getAllUsers", (req, res) => {
 });
 
 app.get("/user/getuser", (req, res) => {
-  const email = req.body;
-  console.log("server" + req.body);
+  const { email } = req.body;
+  console.log("server" + email);
   const sqlQuery = "SELECT * FROM user WHERE email = ?;";
   db.query(sqlQuery, [email], (err, result) => {
     res.send(result);

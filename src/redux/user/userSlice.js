@@ -3,16 +3,15 @@ import { getAllUsers, getUser } from "./userThunk";
 
 const initialState = {
   users: [],
-  user: [
-    // {
-    //   user_id: "",
-    //   first_name: "",
-    //   last_name: "",
-    //   email: "",
-    //   password: "",
-    //   role_id: "",
-    // },
-  ],
+  user: {
+    user_id: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    role_id: "",
+  },
+
   status: "loading",
   error: "",
 };
@@ -43,7 +42,7 @@ export const userSlice = createSlice({
     builder.addCase(getUser.fulfilled, (state, { payload }) => {
       state.status = "done";
       console.log("slice " + JSON.stringify(payload));
-      state.user = payload.data;
+      state.user = payload;
     });
     builder.addCase(getUser.rejected, (state, { payload }) => {
       state.status = "error";

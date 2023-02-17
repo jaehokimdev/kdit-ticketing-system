@@ -21,14 +21,13 @@ export const getAllUsers = createAsyncThunk(
 
 export const getUser = createAsyncThunk(
   "user/getUser",
-  async (frmData, { getState, dispatch, rejectedWithValue }) => {
+  async (email, { getState, dispatch, rejectedWithValue }) => {
     const response = await axios.get(
       baseUrl + "user/getuser",
-      frmData.email,
+      { email: email },
       config
     );
-    console.log("front " + JSON.stringify(response));
-    console.log("email " + frmData.email);
+    console.log("email " + email);
 
     return response.status === 200
       ? response
