@@ -22,11 +22,9 @@ export const getAllUsers = createAsyncThunk(
 export const getUser = createAsyncThunk(
   "user/getUser",
   async (email, { getState, dispatch, rejectedWithValue }) => {
-    const response = await axios.get(
-      baseUrl + "user/getuser",
-      { email: email },
-      config
-    );
+    const response = await axios.get(baseUrl + "user/getuser", {
+      params: { email },
+    });
     console.log("email " + email);
 
     return response.status === 200
