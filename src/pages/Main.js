@@ -14,10 +14,16 @@ const Main = () => {
   }, [dispatch]);
 
   const { tickets, isLoading, error } = useSelector((state) => state.tickets);
+  const { user, status, usererror } = useSelector((state) => state.users);
+  const ticketsByStatus = (input) =>
+    tickets.filter((ticket) => {
+      return ticket.status_name === input;
+    });
 
-  if (isLoading) return <h3>Loading ....</h3>;
+  if (isLoading || status === "loading") return <h3>Loading ....</h3>;
 
   if (error) return <h3>{error}</h3>;
+  if (usererror) return <h3>{usererror}</h3>;
 
   return (
     <Container>
@@ -26,7 +32,11 @@ const Main = () => {
           <PageBreadcrumb page="Main" />
         </Col>
       </Row>
-      <Row></Row>
+      <Row>
+        <Col className="text-center mt-3">
+          Welcome {user[0].last_name} {user[0].first_name}
+        </Col>
+      </Row>
       <Row>
         <Col className="text-center" style={{ marginTop: "80px" }}>
           <Alert variant="primary">
@@ -37,27 +47,27 @@ const Main = () => {
       <Row>
         <Col className="text-center mt-5 mb-2">
           <Alert variant="warning">
-            <h2>{tickets.length}</h2>Open
+            <h2>{ticketsByStatus("open").length}</h2>Open
           </Alert>
         </Col>
         <Col className="text-center mt-5 mb-2">
           <Alert variant="success">
-            <h2>{tickets.length}</h2>In progress
+            <h2>{ticketsByStatus("in progress").length}</h2>In progress
           </Alert>
         </Col>
         <Col className="text-center mt-5 mb-2">
           <Alert variant="info">
-            <h2>{tickets.length}</h2>Solved
+            <h2>{ticketsByStatus("solved").length}</h2>Solved
           </Alert>
         </Col>
         <Col className="text-center mt-5 mb-2">
           <Alert variant="danger">
-            <h2>{tickets.length}</h2>Pending
+            <h2>{ticketsByStatus("pending").length}</h2>Pending
           </Alert>
         </Col>
         <Col className="text-center mt-5 mb-4">
           <Alert variant="dark">
-            <h2>{tickets.length}</h2>Closed
+            <h2>{ticketsByStatus("closed").length}</h2>Closed
           </Alert>
         </Col>
       </Row>

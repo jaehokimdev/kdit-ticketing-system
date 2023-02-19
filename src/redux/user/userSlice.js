@@ -13,7 +13,7 @@ const initialState = {
   },
 
   status: "loading",
-  error: "",
+  usererror: "",
 };
 
 export const userSlice = createSlice({
@@ -34,19 +34,18 @@ export const userSlice = createSlice({
     });
     builder.addCase(getAllUsers.rejected, (state, { payload }) => {
       state.status = "error";
-      state.error = payload;
+      state.usererror = payload;
     });
     builder.addCase(getUser.pending, (state) => {
       state.status = "loading";
     });
     builder.addCase(getUser.fulfilled, (state, { payload }) => {
       state.status = "done";
-      console.log("slice " + JSON.stringify(payload));
-      state.user = payload;
+      state.user = payload.data;
     });
     builder.addCase(getUser.rejected, (state, { payload }) => {
       state.status = "error";
-      state.error = payload;
+      state.usererror = payload;
     });
   },
 });

@@ -25,8 +25,6 @@ export const getUser = createAsyncThunk(
     const response = await axios.get(baseUrl + "user/getuser", {
       params: { email },
     });
-    console.log("email " + email);
-
     return response.status === 200
       ? response
       : rejectedWithValue(response.error);
