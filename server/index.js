@@ -27,9 +27,26 @@ app.get("/user/getAllUsers", (req, res) => {
   });
 });
 
+app.get("/user/getAllAccounts", (req, res) => {
+  const sqlQuery = "SELECT * FROM accounts;";
+  db.query(sqlQuery, (err, result) => {
+    res.send(result);
+  });
+});
+
 app.get("/user/getuser", (req, res) => {
   const { email } = req.query;
-  const sqlQuery = "SELECT * FROM user WHERE email = ?;";
+  const sqlQuery =
+    "SELECT us.user_id, us.first_name, us.last_name, us.email, us.password, rl.role_name FROM user as us, role rl WHERE us.role_id=rl.role_id AND us.email = ?;";
+  db.query(sqlQuery, [email], (err, result) => {
+    res.send(result);
+  });
+});
+
+app.get("/user/getaccount", (req, res) => {
+  const { email } = req.query;
+  const sqlQuery =
+    "SELECT ac.account_id, ac.client_id, at.acctype_name, ac.first_name, ac.last_name, ac.email, ac.password FROM accounts as ac, account_type at WHERE ac.acctype_id=at.acctype_id AND ac.email = ?;";
   db.query(sqlQuery, [email], (err, result) => {
     res.send(result);
   });
@@ -50,7 +67,7 @@ app.post("/ticket/newticket", (req, res) => {
 
 app.get("/ticket/get", (req, res) => {
   const sqlQuery =
-    "SELECT tk.ticket_id, tk.title, tk.body, st.status_name, ct.category_name, pt.priority_name, tk.creation_date, tk.closure_date from ticket_pool as tp, ticket tk, status st, category ct, priority pt where tp.ticket_id=tk.ticket_id AND tk.status_id=st.status_id AND ct.category_id= tk.category_id AND pt.priority_id = tk.priority_id";
+    "SELECT tk.ticket_id, tk.title, tk.body, st.status_name, ct.category_name, pt.priority_name, tk.creation_date, tk.closure_date, tk.user_id, tk.account_id from ticket_pool as tp, ticket tk, status st, category ct, priority pt where tp.ticket_id=tk.ticket_id AND tk.status_id=st.status_id AND ct.category_id= tk.category_id AND pt.priority_id = tk.priority_id";
   db.query(sqlQuery, (err, result) => {
     if (err) {
       res.send(err);
@@ -59,17 +76,6 @@ app.get("/ticket/get", (req, res) => {
     }
   });
 });
-
-// app.get("/ticket/get", (req, res) => {
-//   const sqlQuery = "SELECT * FROM ticket;";
-//   db.query(sqlQuery, (err, result) => {
-//     if (err) {
-//       res.send(err);
-//     } else {
-//       res.send(result);
-//     }
-//   });
-// });
 
 app.get("/ticket/get/status", (req, res) => {
   const sqlQuery =

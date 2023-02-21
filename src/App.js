@@ -5,6 +5,7 @@ import Layout from "./components/Layout";
 import Main from "./pages/Main";
 import { AddtTicket } from "./pages/AddTicket";
 import { TicketList } from "./pages/TicketList";
+import { Ticket } from "./pages/Ticket";
 
 function App() {
   return (
@@ -33,6 +34,14 @@ function App() {
             element={
               <Layout>
                 <TicketList />
+              </Layout>
+            }
+          />
+          <Route
+            path="ticket/:tid"
+            element={
+              <Layout>
+                <Ticket />
               </Layout>
             }
           />

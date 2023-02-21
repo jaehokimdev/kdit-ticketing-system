@@ -14,7 +14,9 @@ const Main = () => {
   }, [dispatch]);
 
   const { tickets, isLoading, error } = useSelector((state) => state.tickets);
-  const { user, status, usererror } = useSelector((state) => state.users);
+  const { user, account, account_type, status, usererror } = useSelector(
+    (state) => state.users
+  );
   const ticketsByStatus = (input) =>
     tickets.filter((ticket) => {
       return ticket.status_name === input;
@@ -34,7 +36,17 @@ const Main = () => {
       </Row>
       <Row>
         <Col className="text-center mt-3">
-          Welcome {user[0].last_name} {user[0].first_name}
+          {account_type === "user" ? (
+            <h3>
+              Welcome {user[0].first_name} {user[0].last_name} (
+              {user[0].role_name})
+            </h3>
+          ) : (
+            <h3>
+              Welcome {account[0].first_name} {account[0].last_name} (
+              {account[0].acctype_name})
+            </h3>
+          )}
         </Col>
       </Row>
       <Row>

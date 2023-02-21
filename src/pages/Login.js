@@ -5,7 +5,12 @@ import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { getAllUsers, getUser } from "../redux/user/userThunk";
+import {
+  getAllAccounts,
+  getAccount,
+  getAllUsers,
+  getUser,
+} from "../redux/user/userThunk";
 
 export const Login = () => {
   const Navigate = useNavigate();
@@ -19,6 +24,7 @@ export const Login = () => {
 
   useEffect(() => {
     dispatch(getAllUsers());
+    dispatch(getAllAccounts());
   }, [dispatch, loginerror]);
 
   const handleOnSubmit = async (e) => {
@@ -39,6 +45,16 @@ export const Login = () => {
       }
     }
 
+    for (var j = 0; j < accounts.length; j++) {
+      if (
+        accounts[j].email === frmData.email &&
+        accounts[j].password === frmData.password
+      ) {
+        dispatch(getAccount(accounts[j].email));
+        Navigate("main");
+      }
+    }
+
     setLoginError("Invaild Email or password!");
   };
 
@@ -50,7 +66,9 @@ export const Login = () => {
     });
   };
 
-  const { users, isLoading, error } = useSelector((state) => state.users);
+  const { users, accounts, isLoading, error } = useSelector(
+    (state) => state.users
+  );
 
   if (isLoading) return <h3>Loading ....</h3>;
 

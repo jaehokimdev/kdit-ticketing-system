@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllUsers, getUser } from "./userThunk";
+import { getAllUsers, getAllAccounts, getUser, getAccount } from "./userThunk";
 
 const initialState = {
   users: [],
+  accounts: [],
   user: {
     user_id: "",
     first_name: "",
@@ -11,7 +12,16 @@ const initialState = {
     password: "",
     role_id: "",
   },
-
+  account: {
+    account_id: "",
+    client_id: "",
+    acctype_id: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+  },
+  account_type: "",
   status: "loading",
   usererror: "",
 };
@@ -36,14 +46,38 @@ export const userSlice = createSlice({
       state.status = "error";
       state.usererror = payload;
     });
+    builder.addCase(getAllAccounts.pending, (state) => {
+      state.status = "loading";
+    });
+    builder.addCase(getAllAccounts.fulfilled, (state, { payload }) => {
+      state.status = "done";
+      state.accounts = payload.data;
+    });
+    builder.addCase(getAllAccounts.rejected, (state, { payload }) => {
+      state.status = "error";
+      state.usererror = payload;
+    });
     builder.addCase(getUser.pending, (state) => {
       state.status = "loading";
     });
     builder.addCase(getUser.fulfilled, (state, { payload }) => {
       state.status = "done";
       state.user = payload.data;
+      state.account_type = "user";
     });
     builder.addCase(getUser.rejected, (state, { payload }) => {
+      state.status = "error";
+      state.usererror = payload;
+    });
+    builder.addCase(getAccount.pending, (state) => {
+      state.status = "loading";
+    });
+    builder.addCase(getAccount.fulfilled, (state, { payload }) => {
+      state.status = "done";
+      state.account = payload.data;
+      state.account_type = "account";
+    });
+    builder.addCase(getAccount.rejected, (state, { payload }) => {
       state.status = "error";
       state.usererror = payload;
     });
