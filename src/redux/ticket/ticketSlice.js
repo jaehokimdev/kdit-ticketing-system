@@ -5,10 +5,12 @@ import {
   getStatus,
   getPriority,
   createNewTicket,
+  getTicket,
 } from "./ticketThunk";
 
 const initialState = {
   tickets: [],
+  ticket: [],
   isLoading: false,
   error: "",
   categories: [],
@@ -39,6 +41,17 @@ export const ticketSlice = createSlice({
       state.searchTicketList = payload.data;
     });
     builder.addCase(getAllTickets.rejected, (state, { payload }) => {
+      state.status = "error";
+      state.error = payload;
+    });
+    builder.addCase(getTicket.pending, (state) => {
+      state.status = "loading";
+    });
+    builder.addCase(getTicket.fulfilled, (state, { payload }) => {
+      state.status = "done";
+      state.ticket = payload.data;
+    });
+    builder.addCase(getTicket.rejected, (state, { payload }) => {
       state.status = "error";
       state.error = payload;
     });

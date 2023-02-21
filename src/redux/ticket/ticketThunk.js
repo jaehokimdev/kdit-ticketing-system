@@ -11,7 +11,7 @@ const config = {
 export const getAllTickets = createAsyncThunk(
   "ticket/getAllTickets",
   async (_, { getState, dispatch, rejectedWithValue }) => {
-    const response = await axios.get(baseUrl + "ticket/get");
+    const response = await axios.get(baseUrl + "ticket/getAllTickets");
 
     return response.status === 200
       ? response
@@ -19,10 +19,12 @@ export const getAllTickets = createAsyncThunk(
   }
 );
 
-export const getTicketByStatus = createAsyncThunk(
-  "ticket/getTicketByStatus",
-  async (_, { getState, dispatch, rejectedWithValue }) => {
-    const response = await axios.get(baseUrl + "ticket/get");
+export const getTicket = createAsyncThunk(
+  "ticket/getTicket",
+  async (tid, { getState, dispatch, rejectedWithValue }) => {
+    const response = await axios.get(baseUrl + "ticket/getTicket", {
+      params: { tid },
+    });
 
     return response.status === 200
       ? response

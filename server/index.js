@@ -53,22 +53,36 @@ app.get("/user/getaccount", (req, res) => {
 });
 
 app.post("/ticket/newticket", (req, res) => {
-  const { title, body, category, priority, creation_date } = req.body;
+  const { title, body, category, priority, creation_date, account_id } =
+    req.body;
   const sqlQuery =
-    "INSERT INTO ticket(title, body, category_id, priority_id, creation_date) VALUES (?,?,?,?,?);";
+    "INSERT INTO ticket(title, body, category_id, priority_id, creation_date, account_id) VALUES (?,?,?,?,?,?);";
   db.query(
     sqlQuery,
-    [title, body, category, priority, creation_date],
+    [title, body, category, priority, creation_date, account_id],
     (err, result) => {
       res.send(result);
     }
   );
 });
 
-app.get("/ticket/get", (req, res) => {
+app.get("/ticket/getAllTickets", (req, res) => {
   const sqlQuery =
-    "SELECT tk.ticket_id, tk.title, tk.body, st.status_name, ct.category_name, pt.priority_name, tk.creation_date, tk.closure_date, tk.user_id, tk.account_id from ticket_pool as tp, ticket tk, status st, category ct, priority pt where tp.ticket_id=tk.ticket_id AND tk.status_id=st.status_id AND ct.category_id= tk.category_id AND pt.priority_id = tk.priority_id";
+    "SELECT tk.ticket_id, tk.title, tk.body, st.status_name, ct.category_name, pt.priority_name, tk.creation_date, tk.closure_date, tk.user_id, tk.account_id from ticket as tk, status st, category ct, priority pt where tk.status_id=st.status_id AND ct.category_id= tk.category_id AND pt.priority_id = tk.priority_id;";
   db.query(sqlQuery, (err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+app.get("/ticket/getTicket", (req, res) => {
+  const { tid } = req.query;
+  const sqlQuery =
+    "SELECT tk.ticket_id, tk.title, tk.body, st.status_name, ct.category_name, pt.priority_name, tk.creation_date, tk.closure_date, tk.user_id, tk.account_id from ticket as tk, status st, category ct, priority pt where tk.status_id=st.status_id AND ct.category_id= tk.category_id AND pt.priority_id = tk.priority_id AND tk.ticket_id = ?;";
+  db.query(sqlQuery, [tid], (err, result) => {
     if (err) {
       res.send(err);
     } else {

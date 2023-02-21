@@ -40,7 +40,8 @@ export const AddTicketForm = () => {
       frmData.title === "" ||
       frmData.body === "" ||
       frmData.category === "" ||
-      frmData.priority === ""
+      frmData.priority === "" ||
+      frmData.account_id === ""
     ) {
       setInputError("Please input or select all Fields");
     } else {
@@ -49,7 +50,13 @@ export const AddTicketForm = () => {
       let month = now.getMonth() + 1;
       let day = now.getDate();
       let today = year + "-" + month + "-" + day;
-      dispatch(createNewTicket({ ...frmData, creation_date: today }));
+      dispatch(
+        createNewTicket({
+          ...frmData,
+          creation_date: today,
+          account_id: account[0].account_id,
+        })
+      );
       setSuccess("Added new Ticket");
       setFrmDate(initialFrmDt);
     }
@@ -66,10 +73,12 @@ export const AddTicketForm = () => {
   const { categories, priority, isLoading, error } = useSelector(
     (state) => state.tickets
   );
+  const { account, status, usererror } = useSelector((state) => state.users);
 
-  if (isLoading) return <h3>Loading ....</h3>;
+  if (isLoading && status === "loading") return <h3>Loading ....</h3>;
 
   if (error) return <h3>{error}</h3>;
+  if (usererror) return <h3>{usererror}</h3>;
 
   return (
     <div

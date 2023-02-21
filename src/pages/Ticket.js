@@ -3,14 +3,17 @@ import { Container, Row, Col, Button, Spinner, Alert } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { PageBreadcrumb } from "../components/PageBreadcrumb";
+import { getTicket } from "../redux/ticket/ticketThunk";
 
 export const Ticket = () => {
   const { tid } = useParams();
   const dispatch = useDispatch();
-  const { isLoading, error, selectedTicket, replyTicketError, replyMsg } =
-    useSelector((state) => state.tickets);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    dispatch(getTicket(tid));
+  }, [dispatch]);
+
+  const { ticket, status, error } = useSelector((state) => state.tickets);
 
   return (
     <Container>
@@ -21,12 +24,10 @@ export const Ticket = () => {
       </Row>
       <Row>
         <Col>
-          {isLoading && <Spinner variant="primary" animation="border" />}
-          {error && <Alert variant="danger">{error}</Alert>}
-          {replyTicketError && (
-            <Alert variant="danger">{replyTicketError}</Alert>
+          {status === "loading" && (
+            <Spinner variant="primary" animation="border" />
           )}
-          {replyMsg && <Alert variant="success">{replyMsg}</Alert>}
+          {error && <Alert variant="danger">{error}</Alert>}
         </Col>
       </Row>
       <div
@@ -39,13 +40,21 @@ export const Ticket = () => {
       >
         <Row>
           <Col className="fw-bold text-secondary">
-            <div className="subject">Subject : {selectedTicket.subject}</div>
+            <div className="subject">Title : {ticket[0].title}</div>
             <div className="date">
               Date :{" "}
-              {selectedTicket.openAt &&
-                new Date(selectedTicket.openAt).toLocaleString()}
+              {ticket[0].creation_date &&
+                new Date(ticket[0].creation_date).toLocaleString()}
             </div>
-            <div className="status">Status : {selectedTicket.status}</div>
+            <div className="status">
+              Status : {ticket[0].status_name.toUpperCase()}
+            </div>
+            <div className="status">
+              Category : {ticket[0].category_name.toUpperCase()}
+            </div>
+            <div className="status">
+              Priority : {ticket[0].priority_name.toUpperCase()}
+            </div>
           </Col>
         </Row>
         <Row className="mt-4">

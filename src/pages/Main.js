@@ -84,28 +84,43 @@ const Main = () => {
         </Col>
       </Row>
       <hr />
-      <Row>
-        <Col className="text-center mt-5">
-          <Link to="/add-ticket">
-            <Button
-              variant="outline-success"
-              style={{ fontSize: "2rem", padding: "20px 60px" }}
-            >
-              Add New Ticket
-            </Button>
-          </Link>
-        </Col>
-        <Col className="text-center mt-5">
-          <Link to="/tickets">
-            <Button
-              variant="outline-primary"
-              style={{ fontSize: "2rem", padding: "20px 60px" }}
-            >
-              View Tickets
-            </Button>
-          </Link>
-        </Col>
-      </Row>
+      {account_type === "account" ? (
+        <Row>
+          <Col className="text-center mt-5">
+            <Link to="/add-ticket">
+              <Button
+                variant="outline-success"
+                style={{ fontSize: "2rem", padding: "20px 60px" }}
+              >
+                Add New Ticket
+              </Button>
+            </Link>
+          </Col>
+          <Col className="text-center mt-5">
+            <Link to="/tickets">
+              <Button
+                variant="outline-primary"
+                style={{ fontSize: "2rem", padding: "20px 60px" }}
+              >
+                View Tickets
+              </Button>
+            </Link>
+          </Col>
+        </Row>
+      ) : (
+        <Row>
+          <Col className="text-center mt-5">
+            <Link to="/tickets">
+              <Button
+                variant="outline-primary"
+                style={{ fontSize: "2rem", padding: "20px 60px" }}
+              >
+                View Tickets
+              </Button>
+            </Link>
+          </Col>
+        </Row>
+      )}
     </Container>
   );
 };

@@ -31,7 +31,10 @@ export const TicketTable = () => {
       <tbody style={{ textAlign: "center" }}>
         {searchTicketList.length ? (
           searchTicketList.map((ticket, i) => (
-            <LinkContainer to={`/ticket/${ticket._id}`} key={ticket._id}>
+            <LinkContainer
+              to={`/ticket/${ticket.ticket_id}`}
+              key={ticket.ticket_id}
+            >
               <tr onMouseOver={changecursor}>
                 <td>{i + 1}</td>
                 <td style={{ textAlign: "left" }}>{ticket.title}</td>
