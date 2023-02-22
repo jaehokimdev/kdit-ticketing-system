@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { PageBreadcrumb } from "../components/PageBreadcrumb";
 import { getTicket } from "../redux/ticket/ticketThunk";
+import { AddComment } from "../components/AddComment";
 
 export const Ticket = () => {
   const { tid } = useParams();
@@ -11,9 +12,13 @@ export const Ticket = () => {
 
   useEffect(() => {
     dispatch(getTicket(tid));
-  }, [dispatch]);
+  }, [tid, dispatch]);
 
   const { ticket, status, error } = useSelector((state) => state.tickets);
+
+  if (status === "loading") return <h3>Loading ....</h3>;
+
+  if (status === "error") return <h3>{error}</h3>;
 
   return (
     <Container>
@@ -40,7 +45,7 @@ export const Ticket = () => {
       >
         <Row>
           <Col className="fw-bold text-secondary">
-            <div className="subject">Title : {ticket[0].title}</div>
+            <div className="title">Title : {ticket[0].title}</div>
             <div className="date">
               Date :{" "}
               {ticket[0].creation_date &&
@@ -49,19 +54,20 @@ export const Ticket = () => {
             <div className="status">
               Status : {ticket[0].status_name.toUpperCase()}
             </div>
-            <div className="status">
+            <div className="category">
               Category : {ticket[0].category_name.toUpperCase()}
             </div>
-            <div className="status">
+            <div className="priority">
               Priority : {ticket[0].priority_name.toUpperCase()}
             </div>
+            <div className="body">Content : {ticket[0].body}</div>
           </Col>
         </Row>
         <Row className="mt-4">
           <Col></Col>
         </Row>
         <Row className="mt-4">
-          <Col></Col>
+          <Col>{/* <AddComment ticket_id={ticket[0].ticket_id} /> */}</Col>
         </Row>
       </div>
     </Container>
