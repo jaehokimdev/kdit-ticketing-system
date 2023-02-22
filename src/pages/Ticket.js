@@ -1,19 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Container, Row, Col, Button, Spinner, Alert } from "react-bootstrap";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { PageBreadcrumb } from "../components/PageBreadcrumb";
-import { getTicket } from "../redux/ticket/ticketThunk";
 import { AddComment } from "../components/AddComment";
 
 export const Ticket = () => {
-  const { tid } = useParams();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getTicket(tid));
-  }, [tid, dispatch]);
-
   const { ticket, status, error } = useSelector((state) => state.tickets);
 
   if (status === "loading") return <h3>Loading ....</h3>;
@@ -67,7 +58,9 @@ export const Ticket = () => {
           <Col></Col>
         </Row>
         <Row className="mt-4">
-          <Col>{/* <AddComment ticket_id={ticket[0].ticket_id} /> */}</Col>
+          <Col>
+            <AddComment ticket_id={ticket[0].ticket_id} />
+          </Col>
         </Row>
       </div>
     </Container>

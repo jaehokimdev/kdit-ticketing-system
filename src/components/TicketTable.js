@@ -2,6 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Table } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import { useDispatch } from "react-redux";
+import { getTicket } from "../redux/ticket/ticketThunk";
 
 export const TicketTable = () => {
   const changecursor = (e) => {
@@ -11,6 +13,8 @@ export const TicketTable = () => {
   const { searchTicketList, isLoading, error } = useSelector(
     (state) => state.tickets
   );
+
+  const dispatch = useDispatch();
 
   if (isLoading) return <h3>Loading ....</h3>;
 
@@ -34,6 +38,9 @@ export const TicketTable = () => {
             <LinkContainer
               to={`/ticket/${ticket.ticket_id}`}
               key={ticket.ticket_id}
+              onClick={() => {
+                dispatch(getTicket(ticket.ticket_id));
+              }}
             >
               <tr onMouseOver={changecursor}>
                 <td>{i + 1}</td>
