@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col, Button, Spinner, Alert } from "react-bootstrap";
+import { Container, Row, Col, Spinner, Alert } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { PageBreadcrumb } from "../components/PageBreadcrumb";
 import { AddComment } from "../components/AddComment";
@@ -35,7 +35,7 @@ export const Ticket = () => {
         }}
       >
         <Row>
-          <Col className="fw-bold text-secondary">
+          <Col className="fw-bold">
             <div className="title">Title : {ticket[0].title}</div>
             <div className="date">
               Date :{" "}
