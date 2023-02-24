@@ -5,12 +5,14 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getAllTickets } from "../redux/ticket/ticketThunk";
 import { useSelector } from "react-redux";
+import { ticketActions } from "../redux/store";
 
 const Main = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllTickets());
+    ticketActions.setOpenTickets();
   }, [dispatch]);
 
   const { tickets, isLoading, error } = useSelector((state) => state.tickets);

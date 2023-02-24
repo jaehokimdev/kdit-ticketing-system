@@ -1,16 +1,13 @@
 import React from "react";
 import { Form, Row, Col } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { ticketActions } from "../redux/ticket/ticketSlice";
+import { ticketActions } from "../redux/store";
 
 export const SearchForm = () => {
-  const dispatch = useDispatch();
-
   const handleOnChange = (e) => {
     const { value } = e.target;
-    dispatch(ticketActions.searchTickets(value));
+    ticketActions.searchTickets(value);
   };
-  
+
   return (
     <div>
       <Form>

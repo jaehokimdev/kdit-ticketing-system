@@ -10,7 +10,7 @@ const externalUrl = "newdoldol.dynamic-dns.net";
 const internalUrl = "192.168.0.18";
 
 const db = mysql.createPool({
-  host: internalUrl,
+  host: externalUrl,
   user: "newdoldol",
   password: "Qlalfqjsgh!@12",
   database: "KDIT",

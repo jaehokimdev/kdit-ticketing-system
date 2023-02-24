@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { bindActionCreators, createSlice } from "@reduxjs/toolkit";
 import {
   getAllTickets,
   getCategories,
@@ -12,6 +12,7 @@ import {
 const initialState = {
   tickets: [],
   ticket: [],
+  openTickets: [],
   comments: [],
   isLoading: false,
   error: "",
@@ -31,6 +32,11 @@ export const ticketSlice = createSlice({
 
         return row.subject.toLowerCase().includes(payload.toLowerCase());
       });
+    },
+    setOpenTickets: (state) => {
+      state.openTickets = state.tickets.filter(
+        (ticket) => ticket.status_name === "open"
+      );
     },
   },
   extraReducers: (builder) => {
@@ -106,5 +112,3 @@ export const ticketSlice = createSlice({
     });
   },
 });
-
-export const ticketActions = ticketSlice.actions;
