@@ -6,11 +6,13 @@ import {
   getPriority,
   createNewTicket,
   getTicket,
+  getComments,
 } from "./ticketThunk";
 
 const initialState = {
   tickets: [],
   ticket: [],
+  comments: [],
   isLoading: false,
   error: "",
   categories: [],
@@ -85,6 +87,17 @@ export const ticketSlice = createSlice({
       state.priority = payload.data;
     });
     builder.addCase(getPriority.rejected, (state, { payload }) => {
+      state.status = "error";
+      state.error = payload;
+    });
+    builder.addCase(getComments.pending, (state) => {
+      state.status = "loading";
+    });
+    builder.addCase(getComments.fulfilled, (state, { payload }) => {
+      state.status = "done";
+      state.comments = payload.data;
+    });
+    builder.addCase(getComments.rejected, (state, { payload }) => {
       state.status = "error";
       state.error = payload;
     });

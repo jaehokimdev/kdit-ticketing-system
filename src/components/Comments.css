@@ -1,18 +1,24 @@
 .comments-history {
   display: flex;
   flex-direction: row;
+  text-align: right;
   justify-content: space-between;
+  flex-direction: column-reverse;
+  align-items: flex-end;
 }
 
 .comments-history:nth-child(even) {
   display: flex;
   flex-direction: row-reverse;
+  text-align: left;
   justify-content: space-between;
+  flex-direction: column-reverse;
+  align-items: flex-start;
 }
 
 .comment {
   padding: 1rem;
-  width: 80%;
   border: 1px solid #ced4da;
-  border-radius: 0.25rem;
+  border-radius: 1.5rem;
+  background-color: deepskyblue;
 }

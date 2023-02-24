@@ -3,9 +3,12 @@ import { Container, Row, Col, Spinner, Alert } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { PageBreadcrumb } from "../components/PageBreadcrumb";
 import { AddComment } from "../components/AddComment";
+import { Comments } from "../components/Comments";
 
 export const Ticket = () => {
-  const { ticket, status, error } = useSelector((state) => state.tickets);
+  const { ticket, comments, status, error } = useSelector(
+    (state) => state.tickets
+  );
 
   if (status === "loading") return <h3>Loading ....</h3>;
 
@@ -55,7 +58,9 @@ export const Ticket = () => {
           </Col>
         </Row>
         <Row className="mt-4">
-          <Col></Col>
+          <Col>
+            <Comments cmts={comments} />
+          </Col>
         </Row>
         <Row className="mt-4">
           <Col>

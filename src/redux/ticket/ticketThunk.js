@@ -32,6 +32,19 @@ export const getTicket = createAsyncThunk(
   }
 );
 
+export const getComments = createAsyncThunk(
+  "ticket/getComments",
+  async (tid, { getState, dispatch, rejectedWithValue }) => {
+    const response = await axios.get(baseUrl + "ticket/getComments", {
+      params: { tid },
+    });
+
+    return response.status === 200
+      ? response
+      : rejectedWithValue(response.error);
+  }
+);
+
 export const getCategories = createAsyncThunk(
   "ticket/getCategories",
   async (_, { getState, dispatch, rejectedWithValue }) => {

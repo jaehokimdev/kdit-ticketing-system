@@ -67,10 +67,8 @@ app.post("/ticket/newticket", (req, res) => {
 });
 
 app.get("/ticket/getAllTickets", (req, res) => {
-  // const sqlQuery =
-  //   "SELECT tk.ticket_id, tk.title, tk.body, st.status_name, ct.category_name, pt.priority_name, tk.creation_date, tk.closure_date, tk.user_id, tk.account_id from ticket as tk, status st, category ct, priority pt where tk.status_id=st.status_id AND ct.category_id= tk.category_id AND pt.priority_id = tk.priority_id;";
   const sqlQuery =
-    "SELECT tk.ticket_id, tk.title, tk.body, st.status_name, ct.category_name, pt.priority_name, tk.creation_date, tk.closure_date from ticket_pool as tp, ticket tk, status st, category ct, priority pt where tp.ticket_id=tk.ticket_id AND tk.status_id=st.status_id AND ct.category_id= tk.category_id AND pt.priority_id = tk.priority_id order by tk.creation_date DESC";
+    "SELECT tk.ticket_id, tk.title, tk.body, st.status_name, ct.category_name, pt.priority_name, tk.creation_date, tk.closure_date , tk.user_id, tk.account_id from ticket tk, status st, category ct, priority pt where tk.status_id=st.status_id AND ct.category_id= tk.category_id AND pt.priority_id = tk.priority_id order by tk.creation_date DESC;";
   db.query(sqlQuery, (err, result) => {
     if (err) {
       res.send(err);
@@ -97,6 +95,19 @@ app.get("/ticket/get/status", (req, res) => {
   const sqlQuery =
     "SELECT tk.ticket_id, tk.title, tk.body, st.status_name, ct.category_name, pt.priority_name, tk.creation_date, tk.closure_date from ticket_pool as tp, ticket tk, status st, category ct, priority pt where tp.ticket_id=tk.ticket_id AND tk.status_id=st.status_id AND ct.category_id= tk.category_id AND pt.priority_id = tk.priority_id and st.status_name='open'";
   db.query(sqlQuery, (err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+app.get("/ticket/getComments", (req, res) => {
+  const { tid } = req.query;
+  const sqlQuery =
+    "select cm.comment_id, cm.comment_description, cm.creation_date, CONCAT(acc.last_name,' ',acc.first_name) AS Author from comments cm, accounts acc where cm.account_id=acc.account_id and ticket_id=2 union select cm.comment_id, cm.comment_description, cm.creation_date, CONCAT(us.last_name,' ', us.first_name) AS Author from comments cm, accounts acc, user us where us.user_id = cm.user_id and ticket_id=?;";
+  db.query(sqlQuery, [tid], (err, result) => {
     if (err) {
       res.send(err);
     } else {

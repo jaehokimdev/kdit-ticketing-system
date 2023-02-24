@@ -49,7 +49,21 @@ export const AddTicketForm = () => {
       let year = now.getFullYear();
       let month = now.getMonth() + 1;
       let day = now.getDate();
-      let today = year + "-" + month + "-" + day;
+      let hour = now.getHours();
+      let minute = now.getMinutes();
+      let second = now.getSeconds();
+      let today =
+        year +
+        "-" +
+        month +
+        "-" +
+        day +
+        " " +
+        hour +
+        ":" +
+        minute +
+        ":" +
+        second;
       dispatch(
         createNewTicket({
           ...frmData,
