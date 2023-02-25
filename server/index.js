@@ -10,7 +10,7 @@ const externalUrl = "newdoldol.dynamic-dns.net";
 const internalUrl = "192.168.0.18";
 
 const db = mysql.createPool({
-  host: externalUrl,
+  host: internalUrl,
   user: "newdoldol",
   password: "Qlalfqjsgh!@12",
   database: "KDIT",
@@ -106,8 +106,8 @@ app.get("/ticket/get/status", (req, res) => {
 app.get("/ticket/getComments", (req, res) => {
   const { tid } = req.query;
   const sqlQuery =
-    "select cm.comment_id, cm.comment_description, cm.creation_date, CONCAT(acc.last_name,' ',acc.first_name) AS Author from comments cm, accounts acc where cm.account_id=acc.account_id and ticket_id=2 union select cm.comment_id, cm.comment_description, cm.creation_date, CONCAT(us.last_name,' ', us.first_name) AS Author from comments cm, accounts acc, user us where us.user_id = cm.user_id and ticket_id=?;";
-  db.query(sqlQuery, [tid], (err, result) => {
+    "select cm.comment_id, cm.comment_description, cm.creation_date, CONCAT(acc.last_name,' ',acc.first_name) AS Author from comments cm, accounts acc where cm.account_id=acc.account_id and ticket_id=? union select cm.comment_id, cm.comment_description, cm.creation_date, CONCAT(us.last_name,' ', us.first_name) AS Author from comments cm, accounts acc, user us where us.user_id = cm.user_id and ticket_id=?;";
+  db.query(sqlQuery, [tid, tid], (err, result) => {
     if (err) {
       res.send(err);
     } else {

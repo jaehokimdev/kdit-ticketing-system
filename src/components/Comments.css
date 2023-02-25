@@ -1,18 +1,20 @@
 .comments-history {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.commentdate {
+  display: flex;
   flex-direction: row;
-  text-align: right;
-  justify-content: space-between;
-  flex-direction: column-reverse;
   align-items: flex-end;
 }
 
 .comments-history:nth-child(even) {
   display: flex;
-  flex-direction: row-reverse;
-  text-align: left;
-  justify-content: space-between;
-  flex-direction: column-reverse;
+  flex-direction: column;
+  justify-content: center;
   align-items: flex-start;
 }
 
