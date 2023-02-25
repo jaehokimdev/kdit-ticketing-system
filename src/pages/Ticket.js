@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col, Spinner, Alert } from "react-bootstrap";
+import { Container, Row, Col, Spinner, Alert, Badge } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { PageBreadcrumb } from "../components/PageBreadcrumb";
 import { AddComment } from "../components/AddComment";
@@ -46,13 +46,52 @@ export const Ticket = () => {
                 new Date(ticket[0].creation_date).toLocaleString()}
             </div>
             <div className="status">
-              Status : {ticket[0].status_name.toUpperCase()}
+              Status :{" "}
+              {ticket[0].status_name === "open" ? (
+                <Badge bg="warning" text="dark">
+                  {ticket[0].status_name.toUpperCase()}
+                </Badge>
+              ) : null}
+              {ticket[0].status_name === "in progress" ? (
+                <Badge bg="success">
+                  {ticket[0].status_name.toUpperCase()}
+                </Badge>
+              ) : null}
+              {ticket[0].status_name === "solved" ? (
+                <Badge bg="info">{ticket[0].status_name.toUpperCase()}</Badge>
+              ) : null}
+              {ticket[0].status_name === "pending" ? (
+                <Badge bg="danger">{ticket[0].status_name.toUpperCase()}</Badge>
+              ) : null}
+              {ticket[0].status_name === "closed" ? (
+                <Badge bg="dark">{ticket[0].status_name.toUpperCase()}</Badge>
+              ) : null}
             </div>
             <div className="category">
               Category : {ticket[0].category_name.toUpperCase()}
             </div>
             <div className="priority">
-              Priority : {ticket[0].priority_name.toUpperCase()}
+              Priority :{" "}
+              {ticket[0].priority_name === "low" ? (
+                <Badge bg="primary">
+                  {ticket[0].priority_name.toUpperCase()}
+                </Badge>
+              ) : null}
+              {ticket[0].priority_name === "normal" ? (
+                <Badge bg="success">
+                  {ticket[0].priority_name.toUpperCase()}
+                </Badge>
+              ) : null}
+              {ticket[0].priority_name === "high" ? (
+                <Badge bg="warning" text="dark">
+                  {ticket[0].priority_name.toUpperCase()}
+                </Badge>
+              ) : null}
+              {ticket[0].priority_name === "critical" ? (
+                <Badge bg="danger">
+                  {ticket[0].priority_name.toUpperCase()}
+                </Badge>
+              ) : null}
             </div>
             <div className="body">Content : {ticket[0].body}</div>
           </Col>

@@ -91,3 +91,31 @@ export const createNewTicket = createAsyncThunk(
       : rejectedWithValue(response.error);
   }
 );
+
+export const addCommentByUser = createAsyncThunk(
+  "ticket/addCommentByUser",
+  async (data, { getState, dispatch, rejectedWithValue }) => {
+    const response = await axios.post(
+      baseUrl + "ticket/addCommentByUser",
+      data,
+      config
+    );
+    return response.status === 200
+      ? response
+      : rejectedWithValue(response.error);
+  }
+);
+
+export const addCommentByAccount = createAsyncThunk(
+  "ticket/addCommentByUser",
+  async (data, { getState, dispatch, rejectedWithValue }) => {
+    const response = await axios.post(
+      baseUrl + "ticket/addCommentByAccount",
+      data,
+      config
+    );
+    return response.status === 200
+      ? response
+      : rejectedWithValue(response.error);
+  }
+);

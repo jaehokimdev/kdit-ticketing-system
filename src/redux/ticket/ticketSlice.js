@@ -1,4 +1,4 @@
-import { bindActionCreators, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import {
   getAllTickets,
   getCategories,
@@ -7,6 +7,8 @@ import {
   createNewTicket,
   getTicket,
   getComments,
+  addCommentByUser,
+  addCommentByAccount,
 } from "./ticketThunk";
 
 const initialState = {
@@ -37,6 +39,10 @@ export const ticketSlice = createSlice({
       state.openTickets = state.tickets.filter(
         (ticket) => ticket.status_name === "open"
       );
+    },
+    setLogoutTicket: (state) => {
+      state.ticket = initialState.ticket;
+      state.comments = initialState.comments;
     },
   },
   extraReducers: (builder) => {
@@ -110,5 +116,11 @@ export const ticketSlice = createSlice({
     builder.addCase(createNewTicket.fulfilled, (state, { payload }) => {
       state.tickets.push(payload);
     });
+    builder.addCase(addCommentByUser.fulfilled, (state, { payload }) => {
+      state.comments.push(payload);
+    });
+    // builder.addCase(addCommentByAccount.fulfilled, (state, { payload }) => {
+    //   state.comments.push(payload);
+    // });
   },
 });

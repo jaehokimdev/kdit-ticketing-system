@@ -33,6 +33,11 @@ export const userSlice = createSlice({
     setUser(state, { payload }) {
       state.user = payload;
     },
+    setLogoutUser(state) {
+      state.user = initialState.user;
+      state.account = initialState.account;
+      state.account_type = initialState.account_type;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getAllUsers.pending, (state) => {

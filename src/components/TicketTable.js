@@ -49,37 +49,47 @@ export const TicketTable = () => {
                 <td style={{ textAlign: "left" }}>
                   {ticket.status_name === "open" ? (
                     <Badge bg="warning" text="dark">
-                      {ticket.status_name}
+                      {ticket.status_name.toUpperCase()}
                     </Badge>
                   ) : null}
                   {ticket.status_name === "in progress" ? (
-                    <Badge bg="success">{ticket.status_name}</Badge>
+                    <Badge bg="success">
+                      {ticket.status_name.toUpperCase()}
+                    </Badge>
                   ) : null}
                   {ticket.status_name === "solved" ? (
-                    <Badge bg="info">{ticket.status_name}</Badge>
+                    <Badge bg="info">{ticket.status_name.toUpperCase()}</Badge>
                   ) : null}
                   {ticket.status_name === "pending" ? (
-                    <Badge bg="danger">{ticket.status_name}</Badge>
+                    <Badge bg="danger">
+                      {ticket.status_name.toUpperCase()}
+                    </Badge>
                   ) : null}
                   {ticket.status_name === "closed" ? (
-                    <Badge bg="dark">{ticket.status_name}</Badge>
+                    <Badge bg="dark">{ticket.status_name.toUpperCase()}</Badge>
                   ) : null}
                 </td>
                 <td>{ticket.category_name.toUpperCase()}</td>
                 <td style={{ textAlign: "left" }}>
                   {ticket.priority_name === "low" ? (
-                    <Badge bg="primary">{ticket.priority_name}</Badge>
+                    <Badge bg="primary">
+                      {ticket.priority_name.toUpperCase()}
+                    </Badge>
                   ) : null}
                   {ticket.priority_name === "normal" ? (
-                    <Badge bg="success">{ticket.priority_name}</Badge>
+                    <Badge bg="success">
+                      {ticket.priority_name.toUpperCase()}
+                    </Badge>
                   ) : null}
                   {ticket.priority_name === "high" ? (
                     <Badge bg="warning" text="dark">
-                      {ticket.priority_name}
+                      {ticket.priority_name.toUpperCase()}
                     </Badge>
                   ) : null}
                   {ticket.priority_name === "critical" ? (
-                    <Badge bg="danger">{ticket.priority_name}</Badge>
+                    <Badge bg="danger">
+                      {ticket.priority_name.toUpperCase()}
+                    </Badge>
                   ) : null}
                 </td>
                 <td>

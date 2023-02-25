@@ -1,4 +1,4 @@
-.comments-history {
+.comments-user {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -7,11 +7,11 @@
 
 .commentdate {
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
   align-items: flex-end;
 }
 
-.comments-history:nth-child(even) {
+.comments-user:nth-child(even) {
   display: flex;
   flex-direction: column;
   justify-content: center;

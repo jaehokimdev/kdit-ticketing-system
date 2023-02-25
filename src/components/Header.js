@@ -3,11 +3,15 @@ import { Navbar, Nav } from "react-bootstrap";
 import logo from "../images/logo.webp";
 import { useNavigate } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
+import { userActions } from "../redux/store";
+import { ticketActions } from "../redux/store";
 
 export const Header = () => {
   const navigate = useNavigate();
 
   const logMeOut = () => {
+    userActions.setLogoutUser();
+    ticketActions.setLogoutTicket();
     navigate("/");
   };
 

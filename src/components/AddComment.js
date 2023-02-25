@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
+import {
+  addCommentByUser,
+  addCommentByAccount,
+} from "../redux/ticket/ticketThunk";
 
-export const AddComment = ({ ticket_id }) => {
+export const AddComment = () => {
   const dispatch = useDispatch();
-  const { account } = useSelector((state) => state.users);
+  const { account, user } = useSelector((state) => state.users);
+  const { ticket } = useSelector((state) => state.tickets);
   const [message, setMessage] = useState("");
 
   const handleOnChange = (e) => {
@@ -13,10 +18,35 @@ export const AddComment = ({ ticket_id }) => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    const msgObj = {
-      message,
-      sender: account[0].first_name,
-    };
+    let now = new Date();
+    let year = now.getFullYear();
+    let month = now.getMonth() + 1;
+    let day = now.getDate();
+    let hour = now.getHours();
+    let minute = now.getMinutes();
+    let second = now.getSeconds();
+    let today =
+      year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
+    console.log(account.account_id);
+    if (account.account_id === "") {
+      dispatch(
+        addCommentByUser({
+          comment_description: message,
+          creation_date: today,
+          ticket_id: ticket[0].ticket_id,
+          user_id: user[0].user_id,
+        })
+      );
+    } else {
+      dispatch(
+        addCommentByAccount({
+          comment_description: message,
+          creation_date: today,
+          ticket_id: ticket[0].ticket_id,
+          account_id: account[0].account_id,
+        })
+      );
+    }
     setMessage("");
   };
   return (
