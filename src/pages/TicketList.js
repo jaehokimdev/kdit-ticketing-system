@@ -34,12 +34,10 @@ export const TicketList = () => {
         )}
         <Col className="text-right">
           <SearchForm />
-          <div className="mt-3 float-end">
-            <TicketDropdown />
-          </div>
+          <TicketDropdown />
         </Col>
       </Row>
-      <hr style={{ marginTop: "30px" }} />
+      <hr style={{ marginTop: "10px" }} />
       <Row>
         <Col>
           <TicketTable />
