@@ -75,7 +75,6 @@ app.post("/ticket/addCommentByUser", (req, res) => {
     [user_id, ticket_id, comment_description, creation_date],
     (err, result) => {
       res.send(result);
-      console.log(err);
     }
   );
 });
@@ -90,7 +89,6 @@ app.post("/ticket/addCommentByAccount", (req, res) => {
     [ticket_id, comment_description, account_id, creation_date],
     (err, result) => {
       res.send(result);
-      console.log(err);
     }
   );
 });
@@ -135,8 +133,21 @@ app.get("/ticket/get/status", (req, res) => {
 app.get("/ticket/getComments", (req, res) => {
   const { tid } = req.query;
   const sqlQuery =
-    "select cm.comment_id, cm.comment_description, cm.creation_date, CONCAT(acc.last_name,' ',acc.first_name) AS Author from comments cm, accounts acc where cm.account_id=acc.account_id and ticket_id=? union select cm.comment_id, cm.comment_description, cm.creation_date, CONCAT(us.last_name,' ', us.first_name) AS Author from comments cm, accounts acc, user us where us.user_id = cm.user_id and ticket_id=?;";
+    "select cm.comment_id, cm.comment_description, cm.creation_date, CONCAT(acc.last_name,' ',acc.first_name) AS Author from comments cm, accounts acc where cm.account_id=acc.account_id and ticket_id=? union select cm.comment_id, cm.comment_description, cm.creation_date, CONCAT(us.last_name,' ', us.first_name) AS Author from comments cm, accounts acc, user us where us.user_id = cm.user_id and ticket_id=? ORDER BY `creation_date` asc;";
   db.query(sqlQuery, [tid, tid], (err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+app.get("/ticket/getComment", (req, res) => {
+  const { cid } = req.query;
+  const sqlQuery =
+    "select cm.comment_id, cm.comment_description, cm.creation_date, CONCAT(acc.last_name,' ',acc.first_name) AS Author from comments cm, accounts acc where cm.account_id=acc.account_id and comment_id=? union select cm.comment_id, cm.comment_description, cm.creation_date, CONCAT(us.last_name,' ', us.first_name) AS Author from comments cm, accounts acc, user us where us.user_id = cm.user_id and comment_id=?";
+  db.query(sqlQuery, [cid, cid], (err, result) => {
     if (err) {
       res.send(err);
     } else {

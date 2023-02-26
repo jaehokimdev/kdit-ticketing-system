@@ -7,8 +7,7 @@ import {
   createNewTicket,
   getTicket,
   getComments,
-  addCommentByUser,
-  addCommentByAccount,
+  getComment,
 } from "./ticketThunk";
 
 const initialState = {
@@ -16,6 +15,7 @@ const initialState = {
   ticket: [],
   openTickets: [],
   comments: [],
+  comment: [],
   isLoading: false,
   error: "",
   categories: [],
@@ -32,7 +32,7 @@ export const ticketSlice = createSlice({
       state.searchTicketList = state.tickets.filter((row) => {
         if (!payload) return row;
 
-        return row.subject.toLowerCase().includes(payload.toLowerCase());
+        return row.title.toLowerCase().includes(payload.toLowerCase());
       });
     },
     setOpenTickets: (state) => {
@@ -43,6 +43,7 @@ export const ticketSlice = createSlice({
     setLogoutTicket: (state) => {
       state.ticket = initialState.ticket;
       state.comments = initialState.comments;
+      state.comment = initialState.comment;
     },
   },
   extraReducers: (builder) => {
@@ -113,14 +114,20 @@ export const ticketSlice = createSlice({
       state.status = "error";
       state.error = payload;
     });
+    builder.addCase(getComment.pending, (state) => {
+      state.status = "loading";
+    });
+    builder.addCase(getComment.fulfilled, (state, { payload }) => {
+      state.status = "done";
+      state.comment = payload.data;
+      state.comments.push(payload.data);
+    });
+    builder.addCase(getComment.rejected, (state, { payload }) => {
+      state.status = "error";
+      state.error = payload;
+    });
     builder.addCase(createNewTicket.fulfilled, (state, { payload }) => {
       state.tickets.push(payload);
     });
-    builder.addCase(addCommentByUser.fulfilled, (state, { payload }) => {
-      state.comments.push(payload);
-    });
-    // builder.addCase(addCommentByAccount.fulfilled, (state, { payload }) => {
-    //   state.comments.push(payload);
-    // });
   },
 });

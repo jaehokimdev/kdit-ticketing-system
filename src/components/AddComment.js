@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   addCommentByUser,
   addCommentByAccount,
+  getComments,
 } from "../redux/ticket/ticketThunk";
 
 export const AddComment = () => {
@@ -27,7 +28,6 @@ export const AddComment = () => {
     let second = now.getSeconds();
     let today =
       year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
-    console.log(account.account_id);
     if (account.account_id === "") {
       dispatch(
         addCommentByUser({
@@ -47,6 +47,7 @@ export const AddComment = () => {
         })
       );
     }
+    dispatch(getComments(ticket[0].ticket_id));
     setMessage("");
   };
   return (
