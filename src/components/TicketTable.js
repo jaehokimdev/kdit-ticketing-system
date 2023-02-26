@@ -23,13 +23,13 @@ export const TicketTable = () => {
     <Table striped hover>
       <thead>
         <tr style={{ textAlign: "center" }}>
-          <th style={{ width: "80px" }}>#</th>
-          <th style={{ textAlign: "left" }}>Title</th>
-          <th>Status</th>
-          <th>Category</th>
-          <th>Priority</th>
-          <th>Opened Date</th>
-          <th>closed Date</th>
+          <th style={{ width: "80px", fontSize: "18px" }}>#</th>
+          <th style={{ textAlign: "left", fontSize: "18px" }}>Title</th>
+          <th style={{ fontSize: "18px" }}>Status</th>
+          <th style={{ fontSize: "18px" }}>Category</th>
+          <th style={{ fontSize: "18px" }}>Priority</th>
+          <th style={{ fontSize: "18px" }}>Opened Date</th>
+          <th style={{ fontSize: "18px" }}>Closed Date</th>
         </tr>
       </thead>
       <tbody style={{ textAlign: "center" }}>

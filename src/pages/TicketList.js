@@ -3,11 +3,13 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import { PageBreadcrumb } from "../components/PageBreadcrumb";
 import { TicketTable } from "../components/TicketTable";
 import { SearchForm } from "../components/SearchForm";
+import { TicketDropdown } from "../components/TicketDropdown";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export const TicketList = () => {
   const { account_type } = useSelector((state) => state.users);
+
   return (
     <Container>
       <Row>
@@ -32,6 +34,9 @@ export const TicketList = () => {
         )}
         <Col className="text-right">
           <SearchForm />
+          <div className="mt-3 float-end">
+            <TicketDropdown />
+          </div>
         </Col>
       </Row>
       <hr style={{ marginTop: "30px" }} />

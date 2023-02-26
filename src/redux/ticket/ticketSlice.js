@@ -35,11 +35,23 @@ export const ticketSlice = createSlice({
         return row.title.toLowerCase().includes(payload.toLowerCase());
       });
     },
-    setOpenTickets: (state) => {
-      state.openTickets = state.tickets.filter(
-        (ticket) => ticket.status_name === "open"
-      );
+
+    TicketsByStatus: (state, { payload }) => {
+      state.searchTicketList = state.tickets.filter((row) => {
+        if (!payload) return row;
+
+        return row.status_name.toLowerCase().includes(payload.toLowerCase());
+      });
     },
+
+    TicketsByPriority: (state, { payload }) => {
+      state.searchTicketList = state.tickets.filter((row) => {
+        if (!payload) return row;
+
+        return row.priority_name.toLowerCase().includes(payload.toLowerCase());
+      });
+    },
+
     setLogoutTicket: (state) => {
       state.ticket = initialState.ticket;
       state.comments = initialState.comments;
@@ -54,6 +66,7 @@ export const ticketSlice = createSlice({
       state.status = "done";
       state.tickets = payload.data;
       state.searchTicketList = payload.data;
+      state.TicketsByStatusList = payload.data;
     });
     builder.addCase(getAllTickets.rejected, (state, { payload }) => {
       state.status = "error";
