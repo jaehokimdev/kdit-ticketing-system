@@ -1,5 +1,5 @@
 import React from "react";
-import { Dropdown, DropdownButton, Row } from "react-bootstrap";
+import { Dropdown, DropdownButton, Stack } from "react-bootstrap";
 import { ticketActions } from "../redux/store";
 
 export const TicketDropdown = () => {
@@ -12,9 +12,9 @@ export const TicketDropdown = () => {
   };
 
   return (
-    <div className="mt-3">
-      <Row>
-        <DropdownButton id="selStatus" title="Status">
+    <div className="mt-3 flex">
+      <Stack direction="horizontal w-100 ">
+        <DropdownButton id="selStatus" title="Status" className="ms-auto mx-3">
           <Dropdown.Item
             eventKey="all"
             onClick={() => {
@@ -106,7 +106,7 @@ export const TicketDropdown = () => {
             CRITICAL
           </Dropdown.Item>
         </DropdownButton>
-      </Row>
+      </Stack>
     </div>
   );
 };
