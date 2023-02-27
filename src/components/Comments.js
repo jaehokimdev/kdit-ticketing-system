@@ -10,7 +10,8 @@ export const Comments = ({ cmts }) => {
     <div>
       {cmts.map((cmt) => {
         const isCommentUser =
-          cmt.user_id === user.user_id || cmt.user_id === account.account_id;
+          cmt.account_id === account[0].account_id ||
+          cmt.user_id === user[0].user_id;
         return (
           <div
             key={cmt.comment_id}
@@ -19,8 +20,14 @@ export const Comments = ({ cmts }) => {
             }
           >
             <div className="fw-bold">{cmt.Author}</div>
-            <div className="commentdate">
-              <div className="comment fw-bold">{cmt.comment_description}</div>
+            <div
+              className={
+                isCommentUser
+                  ? "commentdate-user fw-bold"
+                  : "commentdate-other fw-bold"
+              }
+            >
+              <div className="comment">{cmt.comment_description}</div>
               <div className="date fw-bold" style={{ fontSize: "10px" }}>
                 {cmt.creation_date &&
                   new Date(cmt.creation_date).toLocaleString()}

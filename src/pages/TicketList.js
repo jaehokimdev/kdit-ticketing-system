@@ -19,7 +19,7 @@ export const TicketList = () => {
       </Row>
       <Row style={{ marginTop: "60px" }}>
         {account_type === "account" ? (
-          <Col className="text-left">
+          <Col className="mt-auto">
             <Link to={"/add-ticket"}>
               <Button
                 variant="outline-success"
@@ -32,10 +32,10 @@ export const TicketList = () => {
         ) : (
           <Col></Col>
         )}
-        <Col className="text-center mt-auto">
+        <Col className="mt-auto">
           <SearchForm />
         </Col>
-        <Col className="text-right">
+        <Col>
           <TicketDropdown />
         </Col>
       </Row>

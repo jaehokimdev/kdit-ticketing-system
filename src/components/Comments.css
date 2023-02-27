@@ -5,17 +5,22 @@
   align-items: flex-end;
 }
 
-.commentdate {
+.commentdate-user {
   display: flex;
   flex-direction: row-reverse;
   align-items: flex-end;
 }
 
-.comments-user:nth-child(even) {
+.comments-other {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+}
+
+.commentdate-other {
+  display: flex;
+  align-items: flex-end;
 }
 
 .comment {

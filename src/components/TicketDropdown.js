@@ -12,8 +12,8 @@ export const TicketDropdown = () => {
   };
 
   return (
-    <div className="mt-3 flex">
-      <Stack direction="horizontal w-100 ">
+    <div className="mt-3">
+      <Stack direction="horizontal">
         <DropdownButton id="selStatus" title="Status" className="ms-auto mx-3">
           <Dropdown.Item
             eventKey="all"
