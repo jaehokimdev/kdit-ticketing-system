@@ -1,11 +1,17 @@
 import React from "react";
 import "./Comments.css";
 import { useSelector } from "react-redux";
+import { Alert } from "react-bootstrap";
 
 export const Comments = ({ cmts }) => {
   const { account, user } = useSelector((state) => state.users);
-
-  if (!cmts) return null;
+  console.log(cmts);
+  if (cmts.length === 0)
+    return (
+      <Alert variant="danger">
+        <Alert.Heading className="ai-center">No Comments</Alert.Heading>
+      </Alert>
+    );
   return (
     <div>
       {cmts.map((cmt) => {

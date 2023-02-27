@@ -55,7 +55,7 @@ export const AddComment = () => {
       <hr />
       <Form.Label className="fw-bold">Add comment</Form.Label>
       <br />
-      <Form.Text>Please reply your comment here</Form.Text>
+      <Form.Text>Please add your comment here</Form.Text>
       <Form.Control
         as="textarea"
         row={15}

@@ -38,13 +38,19 @@ export const Ticket = () => {
         }}
       >
         <Row>
-          <Col className="fw-bold">
-            <div className="title">Title : {ticket[0].title}</div>
+          <Col className="fw-bold fs-5">
+            <div className="title">TITLE : {ticket[0].title}</div>
             <div className="date">
               Date :{" "}
               {ticket[0].creation_date &&
                 new Date(ticket[0].creation_date).toLocaleString()}
             </div>
+
+            <div className="category">
+              Category : {ticket[0].category_name.toUpperCase()}
+            </div>
+          </Col>
+          <Col className="fw-bold d-flex align-items-end flex-column">
             <div className="status">
               Status :{" "}
               {ticket[0].status_name === "open" ? (
@@ -66,9 +72,6 @@ export const Ticket = () => {
               {ticket[0].status_name === "closed" ? (
                 <Badge bg="dark">{ticket[0].status_name.toUpperCase()}</Badge>
               ) : null}
-            </div>
-            <div className="category">
-              Category : {ticket[0].category_name.toUpperCase()}
             </div>
             <div className="priority">
               Priority :{" "}
@@ -93,10 +96,15 @@ export const Ticket = () => {
                 </Badge>
               ) : null}
             </div>
-            <div className="body">Content : {ticket[0].body}</div>
           </Col>
         </Row>
-        <Row className="mt-4">
+        <Row>
+          <Col className="mt-3 fs-5">
+            <div className="body fw-bold">Content : {ticket[0].body}</div>
+            <hr />
+          </Col>
+        </Row>
+        <Row className="mt-2">
           <Col>
             <Comments cmts={comments} />
           </Col>
