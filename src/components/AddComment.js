@@ -28,7 +28,7 @@ export const AddComment = () => {
     let second = now.getSeconds();
     let today =
       year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
-    if (account.account_id === "") {
+    if (account[0].account_id === "") {
       dispatch(
         addCommentByUser({
           comment_description: message,

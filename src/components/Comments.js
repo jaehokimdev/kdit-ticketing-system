@@ -3,10 +3,10 @@ import "./Comments.css";
 import { useSelector } from "react-redux";
 import { Alert } from "react-bootstrap";
 
-export const Comments = ({ cmts }) => {
+export const Comments = () => {
   const { account, user } = useSelector((state) => state.users);
-  console.log(cmts);
-  if (cmts.length === 0)
+  const { comments } = useSelector((state) => state.tickets);
+  if (comments.length === 0)
     return (
       <Alert variant="danger">
         <Alert.Heading className="ai-center">No Comments</Alert.Heading>
@@ -14,7 +14,7 @@ export const Comments = ({ cmts }) => {
     );
   return (
     <div>
-      {cmts.map((cmt) => {
+      {comments.map((cmt) => {
         const isCommentUser =
           cmt.account_id === account[0].account_id ||
           cmt.user_id === user[0].user_id;
@@ -33,7 +33,13 @@ export const Comments = ({ cmts }) => {
                   : "commentdate-other fw-bold"
               }
             >
-              <div className="comment">{cmt.comment_description}</div>
+              <div
+                className={
+                  isCommentUser ? "comment-user mt-1" : "comment-other mt-1"
+                }
+              >
+                {cmt.comment_description}
+              </div>
               <div className="date fw-bold" style={{ fontSize: "10px" }}>
                 {cmt.creation_date &&
                   new Date(cmt.creation_date).toLocaleString()}

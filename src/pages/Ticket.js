@@ -6,9 +6,7 @@ import { AddComment } from "../components/AddComment";
 import { Comments } from "../components/Comments";
 
 export const Ticket = () => {
-  const { ticket, comments, status, error } = useSelector(
-    (state) => state.tickets
-  );
+  const { ticket, status, error } = useSelector((state) => state.tickets);
 
   if (status === "loading") return <h3>Loading ....</h3>;
 
@@ -106,7 +104,7 @@ export const Ticket = () => {
         </Row>
         <Row className="mt-2">
           <Col>
-            <Comments cmts={comments} />
+            <Comments />
           </Col>
         </Row>
         <Row className="mt-4">

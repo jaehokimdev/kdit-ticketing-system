@@ -23,9 +23,14 @@
   align-items: flex-end;
 }
 
-.comment {
+.comment-user {
   padding: 1rem;
-  border: 1px solid #ced4da;
   border-radius: 1.5rem;
   background-color: deepskyblue;
+}
+
+.comment-other {
+  padding: 1rem;
+  border-radius: 1.5rem;
+  background-color: darkgray;
 }
