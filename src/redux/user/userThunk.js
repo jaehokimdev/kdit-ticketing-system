@@ -19,6 +19,17 @@ export const getAllUsers = createAsyncThunk(
   }
 );
 
+export const getAllUserNames = createAsyncThunk(
+  "user/getAllUserNames",
+  async (_, { getState, dispatch, rejectedWithValue }) => {
+    const response = await axios.get(baseUrl + "user/getAllUserNames");
+
+    return response.status === 200
+      ? response
+      : rejectedWithValue(response.error);
+  }
+);
+
 export const getAllAccounts = createAsyncThunk(
   "user/getAllAccounts",
   async (_, { getState, dispatch, rejectedWithValue }) => {

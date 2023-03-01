@@ -4,6 +4,7 @@ import { PageBreadcrumb } from "../components/PageBreadcrumb";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getAllTickets } from "../redux/ticket/ticketThunk";
+import { getAllUserNames } from "../redux/user/userThunk";
 import { useSelector } from "react-redux";
 
 const Main = () => {
@@ -11,6 +12,7 @@ const Main = () => {
 
   useEffect(() => {
     dispatch(getAllTickets());
+    dispatch(getAllUserNames());
   }, [dispatch]);
 
   const { tickets, isLoading, error } = useSelector((state) => state.tickets);

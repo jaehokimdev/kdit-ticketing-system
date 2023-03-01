@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
-import { Table, Badge } from "react-bootstrap";
+import { Table, Badge, Form } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch } from "react-redux";
 import { getTicket, getComments } from "../redux/ticket/ticketThunk";
@@ -13,9 +13,21 @@ export const TicketTable = () => {
   const { searchTicketList, isLoading, error } = useSelector(
     (state) => state.tickets
   );
-  const { account_type } = useSelector((state) => state.users);
+  const { account_type, usernames } = useSelector((state) => state.users);
 
   const dispatch = useDispatch();
+
+  const options = useMemo(
+    () => (
+      <>
+        <option>No Agent</option>
+        {usernames.map((name) => {
+          return <option value={name.user_id}>{name.name}</option>;
+        })}
+      </>
+    ),
+    [usernames]
+  );
 
   const isAdmin = account_type === "Admin";
 
@@ -106,7 +118,21 @@ export const TicketTable = () => {
                   {ticket.closure_date &&
                     new Date(ticket.closure_date).toLocaleString()}
                 </td>
-                {isAdmin && <td>Agent</td>}
+                {isAdmin && (
+                  <td
+                    onClick={(event) => {
+                      event.stopPropagation();
+                    }}
+                  >
+                    <select
+                      class="form-control form-control-sm"
+                      aria-label="Agent"
+                      value={ticket.user_id}
+                    >
+                      {options}
+                    </select>
+                  </td>
+                )}
               </tr>
             </LinkContainer>
           ))

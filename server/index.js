@@ -9,6 +9,11 @@ const PORT = process.env.PORT || 8000;
 const externalUrl = "newdoldol.dynamic-dns.net";
 const internalUrl = "192.168.0.18";
 
+const urls = {
+  externalUrl: "newdoldol.dynamic-dns.net",
+  internalUrl: "192.168.0.18",
+};
+
 const db = mysql.createPool({
   host: internalUrl,
   user: "newdoldol",
@@ -22,6 +27,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/user/getAllUsers", (req, res) => {
   const sqlQuery = "SELECT * FROM user;";
+  db.query(sqlQuery, (err, result) => {
+    res.send(result);
+  });
+});
+
+app.get("/user/getAllUserNames", (req, res) => {
+  const sqlQuery =
+    "select user_id, CONCAT(first_name,' ', last_name) as name from user where user.role_id=1;";
   db.query(sqlQuery, (err, result) => {
     res.send(result);
   });
@@ -95,7 +108,7 @@ app.post("/ticket/addCommentByAccount", (req, res) => {
 
 app.get("/ticket/getAllTickets", (req, res) => {
   const sqlQuery =
-    "select ticket_id, title, body, client_name, status_name, category_name, priority_name, creation_date, closure_date, ticket.user_id from ticket, accounts, clients, status, category, priority where ticket.account_id = accounts.account_id and accounts.client_id=clients.client_id and status.status_id=ticket.status_id and category.category_id=ticket.category_id and ticket.priority_id= priority.priority_id ORDER BY creation_date DESC;";
+    "select ticket_id, title, body, client_name, status_name, category_name, priority_name, creation_date, closure_date, ticket.user_id, ticket.account_id from ticket, accounts, clients, status, category, priority where ticket.account_id = accounts.account_id and accounts.client_id=clients.client_id and status.status_id=ticket.status_id and category.category_id=ticket.category_id and ticket.priority_id= priority.priority_id ORDER BY creation_date DESC;";
   db.query(sqlQuery, (err, result) => {
     if (err) {
       res.send(err);

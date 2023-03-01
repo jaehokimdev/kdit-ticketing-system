@@ -1,9 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllUsers, getAllAccounts, getUser, getAccount } from "./userThunk";
+import {
+  getAllUsers,
+  getAllAccounts,
+  getUser,
+  getAccount,
+  getAllUserNames,
+} from "./userThunk";
 
 const initialState = {
   users: [],
   accounts: [],
+  usernames: [],
   user: [
     {
       user_id: "",
@@ -75,6 +82,17 @@ export const userSlice = createSlice({
       state.account_type = payload.data[0].role_name;
     });
     builder.addCase(getUser.rejected, (state, { payload }) => {
+      state.status = "error";
+      state.usererror = payload;
+    });
+    builder.addCase(getAllUserNames.pending, (state) => {
+      state.status = "loading";
+    });
+    builder.addCase(getAllUserNames.fulfilled, (state, { payload }) => {
+      state.status = "done";
+      state.usernames = payload.data;
+    });
+    builder.addCase(getAllUserNames.rejected, (state, { payload }) => {
       state.status = "error";
       state.usererror = payload;
     });
