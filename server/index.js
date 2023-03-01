@@ -6,16 +6,13 @@ const bodyParser = require("body-parser");
 const { urlencoded } = require("body-parser");
 const PORT = process.env.PORT || 8000;
 
-const externalUrl = "newdoldol.dynamic-dns.net";
-const internalUrl = "192.168.0.18";
-
 const urls = {
   externalUrl: "newdoldol.dynamic-dns.net",
   internalUrl: "192.168.0.18",
 };
 
 const db = mysql.createPool({
-  host: internalUrl,
+  host: urls.internalUrl,
   user: "newdoldol",
   password: "Qlalfqjsgh!@12",
   database: "KDIT",
