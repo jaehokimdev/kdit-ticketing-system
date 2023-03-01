@@ -72,7 +72,7 @@ export const userSlice = createSlice({
     builder.addCase(getUser.fulfilled, (state, { payload }) => {
       state.status = "done";
       state.user = payload.data;
-      state.account_type = "user";
+      state.account_type = payload.data[0].role_name;
     });
     builder.addCase(getUser.rejected, (state, { payload }) => {
       state.status = "error";
@@ -84,7 +84,7 @@ export const userSlice = createSlice({
     builder.addCase(getAccount.fulfilled, (state, { payload }) => {
       state.status = "done";
       state.account = payload.data;
-      state.account_type = "account";
+      state.account_type = payload.data[0].acctype_name;
     });
     builder.addCase(getAccount.rejected, (state, { payload }) => {
       state.status = "error";

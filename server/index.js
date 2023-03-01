@@ -95,7 +95,7 @@ app.post("/ticket/addCommentByAccount", (req, res) => {
 
 app.get("/ticket/getAllTickets", (req, res) => {
   const sqlQuery =
-    "SELECT tk.ticket_id, tk.title, tk.body, st.status_name, ct.category_name, pt.priority_name, tk.creation_date, tk.closure_date , tk.user_id, tk.account_id from ticket tk, status st, category ct, priority pt where tk.status_id=st.status_id AND ct.category_id= tk.category_id AND pt.priority_id = tk.priority_id order by tk.creation_date DESC;";
+    "select ticket_id, title, body, client_name, status_name, category_name, priority_name, creation_date, closure_date, ticket.user_id from ticket, accounts, clients, status, category, priority where ticket.account_id = accounts.account_id and accounts.client_id=clients.client_id and status.status_id=ticket.status_id and category.category_id=ticket.category_id and ticket.priority_id= priority.priority_id ORDER BY creation_date DESC;";
   db.query(sqlQuery, (err, result) => {
     if (err) {
       res.send(err);

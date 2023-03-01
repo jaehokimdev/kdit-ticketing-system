@@ -13,8 +13,11 @@ export const TicketTable = () => {
   const { searchTicketList, isLoading, error } = useSelector(
     (state) => state.tickets
   );
+  const { account_type } = useSelector((state) => state.users);
 
   const dispatch = useDispatch();
+
+  const isAdmin = account_type === "Admin";
 
   if (isLoading) return <h3>Loading ....</h3>;
 
@@ -25,11 +28,13 @@ export const TicketTable = () => {
         <tr style={{ textAlign: "center" }}>
           <th style={{ width: "80px", fontSize: "18px" }}>#</th>
           <th style={{ textAlign: "left", fontSize: "18px" }}>Title</th>
+          <th style={{ textAlign: "left", fontSize: "18px" }}>Company</th>
           <th style={{ fontSize: "18px" }}>Status</th>
           <th style={{ fontSize: "18px" }}>Category</th>
           <th style={{ fontSize: "18px" }}>Priority</th>
           <th style={{ fontSize: "18px" }}>Opened Date</th>
           <th style={{ fontSize: "18px" }}>Closed Date</th>
+          {isAdmin && <th style={{ fontSize: "18px" }}>Agent</th>}
         </tr>
       </thead>
       <tbody style={{ textAlign: "center" }}>
@@ -46,6 +51,7 @@ export const TicketTable = () => {
               <tr onMouseOver={changecursor}>
                 <td>{i + 1}</td>
                 <td style={{ textAlign: "left" }}>{ticket.title}</td>
+                <td style={{ textAlign: "left" }}>{ticket.client_name}</td>
                 <td style={{ textAlign: "left" }}>
                   {ticket.status_name === "open" ? (
                     <Badge bg="warning" text="dark">
@@ -100,6 +106,7 @@ export const TicketTable = () => {
                   {ticket.closure_date &&
                     new Date(ticket.closure_date).toLocaleString()}
                 </td>
+                {isAdmin && <td>Agent</td>}
               </tr>
             </LinkContainer>
           ))
