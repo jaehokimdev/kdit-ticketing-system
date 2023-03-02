@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
-import { Table, Badge, Form } from "react-bootstrap";
+import { Table, Badge } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch } from "react-redux";
-import { getTicket, getComments } from "../redux/ticket/ticketThunk";
+import { getTicket, getComments, addAgent } from "../redux/ticket/ticketThunk";
 
 export const TicketTable = () => {
   const changecursor = (e) => {
@@ -128,6 +128,9 @@ export const TicketTable = () => {
                       class="form-control form-control-sm"
                       aria-label="Agent"
                       value={ticket.user_id}
+                      onChange={() => {
+                        addAgent(ticket.user_id, ticket.ticket_id);
+                      }}
                     >
                       {options}
                     </select>

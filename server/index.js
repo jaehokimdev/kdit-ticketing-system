@@ -12,7 +12,7 @@ const urls = {
 };
 
 const db = mysql.createPool({
-  host: urls.internalUrl,
+  host: urls.externalUrl,
   user: "newdoldol",
   password: "Qlalfqjsgh!@12",
   database: "KDIT",
@@ -74,6 +74,14 @@ app.post("/ticket/newticket", (req, res) => {
       res.send(result);
     }
   );
+});
+
+app.post("/ticket/addAgent", (req, res) => {
+  const { user_id, ticket_id } = req.body;
+  const sqlQuery = "update ticket set user_id=? where ticket_id=?;";
+  db.query(sqlQuery, [user_id, ticket_id], (err, result) => {
+    res.send(result);
+  });
 });
 
 app.post("/ticket/addCommentByUser", (req, res) => {

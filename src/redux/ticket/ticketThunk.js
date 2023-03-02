@@ -133,3 +133,17 @@ export const addCommentByAccount = createAsyncThunk(
       : rejectedWithValue(response.error);
   }
 );
+
+export const addAgent = createAsyncThunk(
+  "ticket/addAgent",
+  async (data, { getState, dispatch, rejectedWithValue }) => {
+    const response = await axios.post(
+      baseUrl + "ticket/addAgent",
+      data,
+      config
+    );
+    return response.status === 200
+      ? response
+      : rejectedWithValue(response.error);
+  }
+);
