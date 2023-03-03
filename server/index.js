@@ -12,7 +12,7 @@ const urls = {
 };
 
 const db = mysql.createPool({
-  host: urls.externalUrl,
+  host: urls.internalUrl,
   user: "newdoldol",
   password: "Qlalfqjsgh!@12",
   database: "KDIT",

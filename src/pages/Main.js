@@ -86,7 +86,7 @@ const Main = () => {
         </Col>
       </Row>
       <hr />
-      {account_type === "account" ? (
+      {account_type === "Manager" || account_type === "Regular User" ? (
         <Row>
           <Col className="text-center mt-5">
             <Link to="/add-ticket">

@@ -18,7 +18,7 @@ export const TicketList = () => {
         </Col>
       </Row>
       <Row style={{ marginTop: "60px" }}>
-        {account_type === "account" ? (
+        {account_type === "Manager" || account_type === "Regular User" ? (
           <Col className="mt-auto">
             <Link to={"/add-ticket"}>
               <Button
