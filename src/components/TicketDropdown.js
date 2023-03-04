@@ -1,14 +1,22 @@
 import React from "react";
 import { Dropdown, DropdownButton, Stack } from "react-bootstrap";
 import { ticketActions } from "../redux/store";
+import { useSelector } from "react-redux";
 
 export const TicketDropdown = () => {
+  const { companies } = useSelector((state) => state.tickets);
+
   const getTicketsByStatus = (e) => {
     ticketActions.TicketsByStatus(e);
   };
 
   const getTicketsByPriority = (e) => {
     ticketActions.TicketsByPriority(e);
+  };
+
+  const getTicketsByCompany = (e) => {
+    console.log(e);
+    ticketActions.TicketsByCompany(e.client_name);
   };
 
   return (
@@ -63,6 +71,32 @@ export const TicketDropdown = () => {
           >
             CLOSED
           </Dropdown.Item>
+        </DropdownButton>
+        <DropdownButton
+          id="selCompany"
+          title="Company"
+          className="ms-auto mx-3"
+        >
+          <Dropdown.Item
+            eventKey="all"
+            onClick={() => {
+              getTicketsByCompany("");
+            }}
+          >
+            ALL
+          </Dropdown.Item>
+          {companies.map((company) => {
+            return (
+              <Dropdown.Item
+                eventKey={company.client_name}
+                onClick={() => {
+                  getTicketsByCompany(company);
+                }}
+              >
+                {company.client_name}
+              </Dropdown.Item>
+            );
+          })}
         </DropdownButton>
         <DropdownButton id="selPriority" title="Priority" variant="success">
           <Dropdown.Item

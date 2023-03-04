@@ -9,12 +9,12 @@ import {
   getComments,
   getComment,
   addAgent,
+  getCompany,
 } from "./ticketThunk";
 
 const initialState = {
   tickets: [],
   ticket: [],
-  openTickets: [],
   comments: [],
   comment: [],
   isLoading: false,
@@ -23,6 +23,7 @@ const initialState = {
   searchTicketList: [],
   ticketstatus: [],
   priority: [],
+  companies: [],
 };
 
 export const ticketSlice = createSlice({
@@ -57,7 +58,7 @@ export const ticketSlice = createSlice({
       state.searchTicketList = state.tickets.filter((row) => {
         if (!payload) return row;
 
-        return row.company_name.toLowerCase().includes(payload.toLowerCase());
+        return row.client_name.toLowerCase().includes(payload.toLowerCase());
       });
     },
 
@@ -122,6 +123,17 @@ export const ticketSlice = createSlice({
       state.priority = payload.data;
     });
     builder.addCase(getPriority.rejected, (state, { payload }) => {
+      state.status = "error";
+      state.error = payload;
+    });
+    builder.addCase(getCompany.pending, (state) => {
+      state.status = "loading";
+    });
+    builder.addCase(getCompany.fulfilled, (state, { payload }) => {
+      state.status = "done";
+      state.companies = payload.data;
+    });
+    builder.addCase(getCompany.rejected, (state, { payload }) => {
       state.status = "error";
       state.error = payload;
     });

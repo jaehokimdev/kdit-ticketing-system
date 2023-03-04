@@ -92,6 +92,17 @@ export const getPriority = createAsyncThunk(
   }
 );
 
+export const getCompany = createAsyncThunk(
+  "ticket/getCompany",
+  async (_, { getState, dispatch, rejectedWithValue }) => {
+    const response = await axios.get(baseUrl + "ticket/company");
+
+    return response.status === 200
+      ? response
+      : rejectedWithValue(response.error);
+  }
+);
+
 export const createNewTicket = createAsyncThunk(
   "ticket/createNewTicket",
   async (frmData, { getState, dispatch, rejectedWithValue }) => {
