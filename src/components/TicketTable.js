@@ -6,13 +6,6 @@ import { useDispatch } from "react-redux";
 import { getTicket, getComments, addAgent } from "../redux/ticket/ticketThunk";
 
 export const TicketTable = () => {
-  const initialValues = {
-    user_id: "",
-    ticket_id: "",
-  };
-
-  const [selectedValue, setSelectedValue] = useState(initialValues);
-
   const changecursor = (e) => {
     e.target.style.cursor = "pointer";
   };
@@ -24,18 +17,14 @@ export const TicketTable = () => {
 
   const dispatch = useDispatch();
 
-  const handleChangeSelect = (e) => {
-    console.log(e.target.value);
-    setSelectedValue({ ...selectedValue, user_id: e.target.value });
-    console.log(selectedValue);
-    addAgent(selectedValue);
-    setSelectedValue(initialValues);
+  const handleChangeSelect = (e, ticket_id) => {
+    dispatch(addAgent({ user_id: e.target.value, ticket_id: ticket_id }));
   };
 
   const options = useMemo(
     () => (
       <>
-        <option>No Agent</option>
+        <option value="">No Agent</option>
         {usernames.map((name) => {
           return <option value={name.user_id}>{name.name}</option>;
         })}
@@ -144,9 +133,8 @@ export const TicketTable = () => {
                       className="form-control form-control-sm"
                       aria-label="Agent"
                       value={ticket.user_id}
-                      onChange={() => {
-                        setSelectedValue({ ticket_id: ticket.ticket_id });
-                        handleChangeSelect();
+                      onChange={(e) => {
+                        handleChangeSelect(e, ticket.ticket_id);
                       }}
                     >
                       {options}

@@ -8,6 +8,7 @@ import {
   getTicket,
   getComments,
   getComment,
+  addAgent,
 } from "./ticketThunk";
 
 const initialState = {
@@ -49,6 +50,14 @@ export const ticketSlice = createSlice({
         if (!payload) return row;
 
         return row.priority_name.toLowerCase().includes(payload.toLowerCase());
+      });
+    },
+
+    TicketsByCompany: (state, { payload }) => {
+      state.searchTicketList = state.tickets.filter((row) => {
+        if (!payload) return row;
+
+        return row.company_name.toLowerCase().includes(payload.toLowerCase());
       });
     },
 
@@ -140,6 +149,9 @@ export const ticketSlice = createSlice({
       state.error = payload;
     });
     builder.addCase(createNewTicket.fulfilled, (state, { payload }) => {
+      state.tickets.push(payload);
+    });
+    builder.addCase(addAgent.fulfilled, (state, { payload }) => {
       state.tickets.push(payload);
     });
   },
