@@ -76,7 +76,6 @@ export const ticketSlice = createSlice({
       state.status = "done";
       state.tickets = payload.data;
       state.searchTicketList = payload.data;
-      state.TicketsByStatusList = payload.data;
     });
     builder.addCase(getAllTickets.rejected, (state, { payload }) => {
       state.status = "error";
