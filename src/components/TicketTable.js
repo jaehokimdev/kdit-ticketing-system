@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { Table, Badge } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
@@ -6,6 +6,13 @@ import { useDispatch } from "react-redux";
 import { getTicket, getComments, addAgent } from "../redux/ticket/ticketThunk";
 
 export const TicketTable = () => {
+  const initialValues = {
+    user_id: "",
+    ticket_id: "",
+  };
+
+  const [selectedValue, setSelectedValue] = useState(initialValues);
+
   const changecursor = (e) => {
     e.target.style.cursor = "pointer";
   };
@@ -16,6 +23,14 @@ export const TicketTable = () => {
   const { account_type, usernames } = useSelector((state) => state.users);
 
   const dispatch = useDispatch();
+
+  const handleChangeSelect = (e) => {
+    console.log(e.target.value);
+    setSelectedValue({ ...selectedValue, user_id: e.target.value });
+    console.log(selectedValue);
+    addAgent(selectedValue);
+    setSelectedValue(initialValues);
+  };
 
   const options = useMemo(
     () => (
@@ -125,11 +140,13 @@ export const TicketTable = () => {
                     }}
                   >
                     <select
-                      class="form-control form-control-sm"
+                      name="Agent"
+                      className="form-control form-control-sm"
                       aria-label="Agent"
                       value={ticket.user_id}
                       onChange={() => {
-                        addAgent(ticket.user_id, ticket.ticket_id);
+                        setSelectedValue({ ticket_id: ticket.ticket_id });
+                        handleChangeSelect();
                       }}
                     >
                       {options}
