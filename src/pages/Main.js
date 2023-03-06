@@ -3,7 +3,11 @@ import { Container, Row, Col, Button, Alert } from "react-bootstrap";
 import { PageBreadcrumb } from "../components/PageBreadcrumb";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getAllTickets, getCompany } from "../redux/ticket/ticketThunk";
+import {
+  getAllTickets,
+  getCompany,
+  getStatus,
+} from "../redux/ticket/ticketThunk";
 import { getAllUserNames } from "../redux/user/userThunk";
 import { useSelector } from "react-redux";
 
@@ -14,6 +18,7 @@ const Main = () => {
     dispatch(getAllTickets());
     dispatch(getAllUserNames());
     dispatch(getCompany());
+    dispatch(getStatus());
   }, [dispatch]);
 
   const { tickets, isLoading, error } = useSelector((state) => state.tickets);

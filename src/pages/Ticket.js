@@ -15,7 +15,15 @@ export const Ticket = () => {
 
   if (status === "error") return <h3>{error}</h3>;
 
-  const ticketStatusName = ticket[0].status_name;
+  const isAdmin = account_type === "Admin" || account_type === "Agent";
+
+  const options = ticketstatus.map((status) => {
+    return (
+      <option value={status.status_name}>
+        {status.status_name.toUpperCase()}
+      </option>
+    );
+  });
 
   return (
     <Container>
@@ -54,10 +62,19 @@ export const Ticket = () => {
             </div>
           </Col>
           <Col className="fw-bold d-flex align-items-end flex-column">
-            <div className="status">
+            <div className="status" style={{ minWidth: "190px" }}>
               Status :{" "}
-              {account_type === "Admin" ? (
-                account_type
+              {isAdmin ? (
+                <select
+                  name="Status"
+                  aria-label="Status"
+                  value={ticket[0].status_name}
+                  // onChange={(e) => {
+                  //   handleChangeSelect(e, ticket.ticket_id);
+                  // }}
+                >
+                  {options}
+                </select>
               ) : ticket[0].status_name === "open" ? (
                 <Badge bg="warning" text="dark">
                   {ticket[0].status_name.toUpperCase()}
@@ -70,13 +87,11 @@ export const Ticket = () => {
                 <Badge bg="info">{ticket[0].status_name.toUpperCase()}</Badge>
               ) : ticket[0].status_name === "pending" ? (
                 <Badge bg="danger">{ticket[0].status_name.toUpperCase()}</Badge>
-              ) : ticket[0].status_name === "pending" ? (
-                <Badge bg="danger">{ticket[0].status_name.toUpperCase()}</Badge>
               ) : ticket[0].status_name === "closed" ? (
                 <Badge bg="dark">{ticket[0].status_name.toUpperCase()}</Badge>
               ) : null}
             </div>
-            <div className="priority">
+            <div className="priority" style={{ minWidth: "190px" }}>
               Priority :{" "}
               {ticket[0].priority_name === "low" ? (
                 <Badge bg="primary">
