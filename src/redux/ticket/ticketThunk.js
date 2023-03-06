@@ -35,7 +35,6 @@ export const getTicket = createAsyncThunk(
 export const getComments = createAsyncThunk(
   "ticket/getComments",
   async (tid, { getState, dispatch, rejectedWithValue }) => {
-    console.log(tid);
     const response = await axios.get(baseUrl + "ticket/getComments", {
       params: { tid },
     });

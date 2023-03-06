@@ -6,11 +6,16 @@ import { AddComment } from "../components/AddComment";
 import { Comments } from "../components/Comments";
 
 export const Ticket = () => {
-  const { ticket, status, error } = useSelector((state) => state.tickets);
+  const { ticket, ticketstatus, status, error } = useSelector(
+    (state) => state.tickets
+  );
+  const { account_type } = useSelector((state) => state.users);
 
   if (status === "loading") return <h3>Loading ....</h3>;
 
   if (status === "error") return <h3>{error}</h3>;
+
+  const ticketStatusName = ticket[0].status_name;
 
   return (
     <Container>
@@ -51,23 +56,23 @@ export const Ticket = () => {
           <Col className="fw-bold d-flex align-items-end flex-column">
             <div className="status">
               Status :{" "}
-              {ticket[0].status_name === "open" ? (
+              {account_type === "Admin" ? (
+                account_type
+              ) : ticket[0].status_name === "open" ? (
                 <Badge bg="warning" text="dark">
                   {ticket[0].status_name.toUpperCase()}
                 </Badge>
-              ) : null}
-              {ticket[0].status_name === "in progress" ? (
+              ) : ticket[0].status_name === "in progress" ? (
                 <Badge bg="success">
                   {ticket[0].status_name.toUpperCase()}
                 </Badge>
-              ) : null}
-              {ticket[0].status_name === "solved" ? (
+              ) : ticket[0].status_name === "solved" ? (
                 <Badge bg="info">{ticket[0].status_name.toUpperCase()}</Badge>
-              ) : null}
-              {ticket[0].status_name === "pending" ? (
+              ) : ticket[0].status_name === "pending" ? (
                 <Badge bg="danger">{ticket[0].status_name.toUpperCase()}</Badge>
-              ) : null}
-              {ticket[0].status_name === "closed" ? (
+              ) : ticket[0].status_name === "pending" ? (
+                <Badge bg="danger">{ticket[0].status_name.toUpperCase()}</Badge>
+              ) : ticket[0].status_name === "closed" ? (
                 <Badge bg="dark">{ticket[0].status_name.toUpperCase()}</Badge>
               ) : null}
             </div>

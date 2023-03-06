@@ -84,6 +84,14 @@ app.post("/ticket/addAgent", (req, res) => {
   });
 });
 
+app.post("/ticket/updateStatus", (req, res) => {
+  const { status_id, ticket_id } = req.body;
+  const sqlQuery = "update ticket set status_id=? where ticket_id=?;";
+  db.query(sqlQuery, [status_id, ticket_id], (err, result) => {
+    res.send(result);
+  });
+});
+
 app.post("/ticket/addCommentByUser", (req, res) => {
   const { comment_description, ticket_id, user_id, creation_date } = req.body;
   const sqlQuery =
