@@ -174,7 +174,15 @@ export const ticketSlice = createSlice({
       state.comments.push(payload.data[0]);
     });
     builder.addCase(addAgent.fulfilled, (state, { payload }) => {
-      state.tickets.push(payload);
+      let index;
+      state.tickets.map((ticket, i) => {
+        if (ticket.ticket_id === payload.data[0].ticket_id) {
+          index = i;
+        }
+      });
+      state.tickets.splice(index, 1, payload.data[0]);
+      console.log("1 " + state.tickets[index].user_id);
+      console.log("2 " + payload.data[0].user_id);
     });
   },
 });

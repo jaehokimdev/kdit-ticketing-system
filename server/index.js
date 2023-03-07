@@ -83,16 +83,15 @@ app.post("/ticket/addAgent", (req, res) => {
   const { user_id, ticket_id } = req.body;
   const sqlQuery = "update ticket set user_id=? where ticket_id=?;";
   db.query(sqlQuery, [user_id, ticket_id], (err, result) => {
-    res.send(result);
-  });
-});
-
-app.post("/ticket/addAgent2", (req, res) => {
-  const { user_id, ticket_id } = req.body;
-  const sqlQuery = "update ticket set user_id=? where ticket_id=?;";
-  db.query(sqlQuery, [user_id, ticket_id], (err, result) => {
-    res.send(result);
-    console.log(result);
+    const sqlQuery2 =
+      "SELECT tk.ticket_id, tk.title, tk.body, st.status_name, ct.category_name, pt.priority_name, tk.creation_date, tk.closure_date, tk.user_id, tk.account_id from ticket as tk, status st, category ct, priority pt where tk.status_id=st.status_id AND ct.category_id= tk.category_id AND pt.priority_id = tk.priority_id AND tk.ticket_id = ?;";
+    db.query(sqlQuery2, [ticket_id], (err, result) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(result);
+      }
+    });
   });
 });
 
