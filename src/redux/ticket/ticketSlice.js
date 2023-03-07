@@ -62,6 +62,14 @@ export const ticketSlice = createSlice({
       });
     },
 
+    TicketsByCategory: (state, { payload }) => {
+      state.searchTicketList = state.tickets.filter((row) => {
+        if (!payload) return row;
+
+        return row.category_name.toLowerCase().includes(payload.toLowerCase());
+      });
+    },
+
     setLogoutTicket: (state) => {
       state.ticket = initialState.ticket;
       state.comments = initialState.comments;

@@ -7,6 +7,7 @@ import {
   getAllTickets,
   getCompany,
   getStatus,
+  getCategories,
 } from "../redux/ticket/ticketThunk";
 import { getAllUserNames } from "../redux/user/userThunk";
 import { useSelector } from "react-redux";
@@ -19,6 +20,7 @@ const Main = () => {
     dispatch(getAllUserNames());
     dispatch(getCompany());
     dispatch(getStatus());
+    dispatch(getCategories());
   }, [dispatch]);
 
   const { tickets, isLoading, error } = useSelector((state) => state.tickets);

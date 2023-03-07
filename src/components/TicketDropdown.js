@@ -4,7 +4,7 @@ import { ticketActions } from "../redux/store";
 import { useSelector } from "react-redux";
 
 export const TicketDropdown = () => {
-  const { companies } = useSelector((state) => state.tickets);
+  const { companies, categories } = useSelector((state) => state.tickets);
 
   const getTicketsByStatus = (e) => {
     ticketActions.TicketsByStatus(e);
@@ -15,13 +15,44 @@ export const TicketDropdown = () => {
   };
 
   const getTicketsByCompany = (e) => {
-    console.log(e);
     ticketActions.TicketsByCompany(e.client_name);
+  };
+
+  const getTicketsByCategory = (e) => {
+    ticketActions.TicketsByCategory(e.category_name);
   };
 
   return (
     <div className="mt-3">
       <Stack direction="horizontal">
+        <DropdownButton
+          id="selCompany"
+          title="Company"
+          className="ms-auto mx-3"
+          variant="danger"
+        >
+          <Dropdown.Item
+            eventKey="all"
+            onClick={() => {
+              getTicketsByCompany("");
+            }}
+          >
+            ALL
+          </Dropdown.Item>
+          {companies.map((company) => {
+            return (
+              <Dropdown.Item
+                eventKey={company.client_name}
+                key={company.client_name}
+                onClick={() => {
+                  getTicketsByCompany(company);
+                }}
+              >
+                {company.client_name}
+              </Dropdown.Item>
+            );
+          })}
+        </DropdownButton>
         <DropdownButton id="selStatus" title="Status" className="ms-auto mx-3">
           <Dropdown.Item
             eventKey="all"
@@ -73,27 +104,29 @@ export const TicketDropdown = () => {
           </Dropdown.Item>
         </DropdownButton>
         <DropdownButton
-          id="selCompany"
-          title="Company"
+          id="selCategoty"
+          title="Category"
           className="ms-auto mx-3"
+          variant="warning"
         >
           <Dropdown.Item
             eventKey="all"
             onClick={() => {
-              getTicketsByCompany("");
+              getTicketsByCategory("");
             }}
           >
             ALL
           </Dropdown.Item>
-          {companies.map((company) => {
+          {categories.map((category) => {
             return (
               <Dropdown.Item
-                eventKey={company.client_name}
+                eventKey={category.category_name}
+                key={category.category_name}
                 onClick={() => {
-                  getTicketsByCompany(company);
+                  getTicketsByCategory(category);
                 }}
               >
-                {company.client_name}
+                {category.category_name}
               </Dropdown.Item>
             );
           })}
