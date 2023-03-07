@@ -7,22 +7,33 @@ import {
   createNewTicket,
   getTicket,
   getComments,
-  getComment,
   addAgent,
   getCompany,
+  addCommentByUser,
 } from "./ticketThunk";
 
 const initialState = {
   tickets: [],
-  ticket: [],
+  ticket: [
+    {
+      ticket_id: "",
+      title: "",
+      body: "",
+      status_name: "",
+      category_name: "",
+      priority_name: "",
+      creation_date: "",
+      closure_date: null,
+      user_id: null,
+      account_id: "",
+    },
+  ],
   comments: [],
-  comment: [],
   isLoading: false,
   error: "",
   categories: [],
   searchTicketList: [],
   ticketstatus: [],
-  priority: [],
   companies: [],
 };
 
@@ -155,21 +166,12 @@ export const ticketSlice = createSlice({
       state.status = "error";
       state.error = payload;
     });
-    builder.addCase(getComment.pending, (state) => {
-      state.status = "loading";
-    });
-    builder.addCase(getComment.fulfilled, (state, { payload }) => {
-      state.status = "done";
-      state.comment = payload.data;
-      state.comments.push(payload.data);
-    });
-    builder.addCase(getComment.rejected, (state, { payload }) => {
-      state.status = "error";
-      state.error = payload;
-    });
     builder.addCase(createNewTicket.fulfilled, (state, { payload }) => {
       state.tickets.unshift(payload.data[0]);
       state.searchTicketList.unshift(payload.data[0]);
+    });
+    builder.addCase(addCommentByUser.fulfilled, (state, { payload }) => {
+      state.comments.push(payload.data[0]);
     });
     builder.addCase(addAgent.fulfilled, (state, { payload }) => {
       state.tickets.push(payload);

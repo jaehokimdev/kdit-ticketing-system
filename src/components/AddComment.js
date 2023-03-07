@@ -47,7 +47,6 @@ export const AddComment = () => {
         })
       );
     }
-    dispatch(getComments(ticket[0].ticket_id));
     setMessage("");
   };
   return (

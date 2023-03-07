@@ -1,11 +1,13 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { Table, Badge } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch } from "react-redux";
 import { getTicket, getComments, addAgent } from "../redux/ticket/ticketThunk";
+import { useNavigate } from "react-router-dom";
 
 export const TicketTable = () => {
+  const navigate = useNavigate();
+
   const changecursor = (e) => {
     e.target.style.cursor = "pointer";
   };
@@ -61,93 +63,87 @@ export const TicketTable = () => {
       <tbody style={{ textAlign: "center" }}>
         {searchTicketList.length ? (
           searchTicketList.map((ticket, i) => (
-            <LinkContainer
-              to={`/ticket/${ticket.ticket_id}`}
-              key={ticket.ticket_id}
+            <tr
+              onMouseOver={changecursor}
               onClick={() => {
                 dispatch(getTicket(ticket.ticket_id));
                 dispatch(getComments(ticket.ticket_id));
+                navigate(`/ticket/${ticket.ticket_id}`);
               }}
             >
-              <tr onMouseOver={changecursor}>
-                <td>{i + 1}</td>
-                <td style={{ textAlign: "left" }}>{ticket.title}</td>
-                <td style={{ textAlign: "left" }}>{ticket.client_name}</td>
-                <td style={{ textAlign: "left" }}>
-                  {ticket.status_name === "open" ? (
-                    <Badge bg="warning" text="dark">
-                      {ticket.status_name.toUpperCase()}
-                    </Badge>
-                  ) : null}
-                  {ticket.status_name === "in progress" ? (
-                    <Badge bg="success">
-                      {ticket.status_name.toUpperCase()}
-                    </Badge>
-                  ) : null}
-                  {ticket.status_name === "solved" ? (
-                    <Badge bg="info">{ticket.status_name.toUpperCase()}</Badge>
-                  ) : null}
-                  {ticket.status_name === "pending" ? (
-                    <Badge bg="danger">
-                      {ticket.status_name.toUpperCase()}
-                    </Badge>
-                  ) : null}
-                  {ticket.status_name === "closed" ? (
-                    <Badge bg="dark">{ticket.status_name.toUpperCase()}</Badge>
-                  ) : null}
-                </td>
-                <td>{ticket.category_name.toUpperCase()}</td>
-                <td style={{ textAlign: "left" }}>
-                  {ticket.priority_name === "low" ? (
-                    <Badge bg="primary">
-                      {ticket.priority_name.toUpperCase()}
-                    </Badge>
-                  ) : null}
-                  {ticket.priority_name === "normal" ? (
-                    <Badge bg="success">
-                      {ticket.priority_name.toUpperCase()}
-                    </Badge>
-                  ) : null}
-                  {ticket.priority_name === "high" ? (
-                    <Badge bg="warning" text="dark">
-                      {ticket.priority_name.toUpperCase()}
-                    </Badge>
-                  ) : null}
-                  {ticket.priority_name === "critical" ? (
-                    <Badge bg="danger">
-                      {ticket.priority_name.toUpperCase()}
-                    </Badge>
-                  ) : null}
-                </td>
-                <td>
-                  {ticket.creation_date &&
-                    new Date(ticket.creation_date).toLocaleString()}
-                </td>
-                <td>
-                  {ticket.closure_date &&
-                    new Date(ticket.closure_date).toLocaleString()}
-                </td>
-                {isAdmin && (
-                  <td
-                    onClick={(event) => {
-                      event.stopPropagation();
+              <td>{i + 1}</td>
+              <td style={{ textAlign: "left" }}>{ticket.title}</td>
+              <td style={{ textAlign: "left" }}>{ticket.client_name}</td>
+              <td style={{ textAlign: "left" }}>
+                {ticket.status_name === "open" ? (
+                  <Badge bg="warning" text="dark">
+                    {ticket.status_name.toUpperCase()}
+                  </Badge>
+                ) : null}
+                {ticket.status_name === "in progress" ? (
+                  <Badge bg="success">{ticket.status_name.toUpperCase()}</Badge>
+                ) : null}
+                {ticket.status_name === "solved" ? (
+                  <Badge bg="info">{ticket.status_name.toUpperCase()}</Badge>
+                ) : null}
+                {ticket.status_name === "pending" ? (
+                  <Badge bg="danger">{ticket.status_name.toUpperCase()}</Badge>
+                ) : null}
+                {ticket.status_name === "closed" ? (
+                  <Badge bg="dark">{ticket.status_name.toUpperCase()}</Badge>
+                ) : null}
+              </td>
+              <td>{ticket.category_name.toUpperCase()}</td>
+              <td style={{ textAlign: "left" }}>
+                {ticket.priority_name === "low" ? (
+                  <Badge bg="primary">
+                    {ticket.priority_name.toUpperCase()}
+                  </Badge>
+                ) : null}
+                {ticket.priority_name === "normal" ? (
+                  <Badge bg="success">
+                    {ticket.priority_name.toUpperCase()}
+                  </Badge>
+                ) : null}
+                {ticket.priority_name === "high" ? (
+                  <Badge bg="warning" text="dark">
+                    {ticket.priority_name.toUpperCase()}
+                  </Badge>
+                ) : null}
+                {ticket.priority_name === "critical" ? (
+                  <Badge bg="danger">
+                    {ticket.priority_name.toUpperCase()}
+                  </Badge>
+                ) : null}
+              </td>
+              <td>
+                {ticket.creation_date &&
+                  new Date(ticket.creation_date).toLocaleString()}
+              </td>
+              <td>
+                {ticket.closure_date &&
+                  new Date(ticket.closure_date).toLocaleString()}
+              </td>
+              {isAdmin && (
+                <td
+                  onClick={(event) => {
+                    event.stopPropagation();
+                  }}
+                >
+                  <select
+                    name="Agent"
+                    className="form-control form-control-sm"
+                    aria-label="Agent"
+                    value={ticket.user_id}
+                    onChange={(e) => {
+                      handleChangeSelect(e, ticket.ticket_id);
                     }}
                   >
-                    <select
-                      name="Agent"
-                      className="form-control form-control-sm"
-                      aria-label="Agent"
-                      value={ticket.user_id}
-                      onChange={(e) => {
-                        handleChangeSelect(e, ticket.ticket_id);
-                      }}
-                    >
-                      {options}
-                    </select>
-                  </td>
-                )}
-              </tr>
-            </LinkContainer>
+                    {options}
+                  </select>
+                </td>
+              )}
+            </tr>
           ))
         ) : (
           <tr>

@@ -45,7 +45,8 @@ export const Ticket = () => {
     }
   };
 
-  if (status === "loading") return <h3>Loading ....</h3>;
+  if (status === "loading" || ticket.ticket_id === "")
+    return <h3>Loading ....</h3>;
 
   if (status === "error") return <h3>{error}</h3>;
 
