@@ -1,4 +1,8 @@
-import { bindActionCreators, configureStore } from "@reduxjs/toolkit";
+import {
+  bindActionCreators,
+  configureStore,
+  getDefaultMiddleware,
+} from "@reduxjs/toolkit";
 import { ticketSlice } from "./ticket/ticketSlice";
 import { userSlice } from "./user/userSlice";
 
@@ -7,6 +11,9 @@ const store = configureStore({
     users: userSlice.reducer,
     tickets: ticketSlice.reducer,
   },
+  middleware: getDefaultMiddleware({
+    serializableCheck: false,
+  }),
 });
 
 export default store;

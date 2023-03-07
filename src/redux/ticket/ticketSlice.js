@@ -168,7 +168,8 @@ export const ticketSlice = createSlice({
       state.error = payload;
     });
     builder.addCase(createNewTicket.fulfilled, (state, { payload }) => {
-      state.tickets.push(payload);
+      state.tickets.unshift(payload.data[0]);
+      state.searchTicketList.unshift(payload.data[0]);
     });
     builder.addCase(addAgent.fulfilled, (state, { payload }) => {
       state.tickets.push(payload);

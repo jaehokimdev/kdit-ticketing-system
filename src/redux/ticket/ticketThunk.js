@@ -157,3 +157,17 @@ export const addAgent = createAsyncThunk(
       : rejectedWithValue(response.error);
   }
 );
+
+export const updateStatus = createAsyncThunk(
+  "ticket/updateStatus",
+  async (data, { getState, dispatch, rejectedWithValue }) => {
+    const response = await axios.post(
+      baseUrl + "ticket/updateStatus",
+      data,
+      config
+    );
+    return response.status === 200
+      ? response
+      : rejectedWithValue(response.error);
+  }
+);

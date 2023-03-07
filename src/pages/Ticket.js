@@ -4,26 +4,50 @@ import { useSelector } from "react-redux";
 import { PageBreadcrumb } from "../components/PageBreadcrumb";
 import { AddComment } from "../components/AddComment";
 import { Comments } from "../components/Comments";
+import { useDispatch } from "react-redux";
+import { updateStatus } from "../redux/ticket/ticketThunk";
 
 export const Ticket = () => {
   const { ticket, ticketstatus, status, error } = useSelector(
     (state) => state.tickets
   );
+
   const { account_type } = useSelector((state) => state.users);
 
-  if (status === "loading") return <h3>Loading ....</h3>;
-
-  if (status === "error") return <h3>{error}</h3>;
+  const dispatch = useDispatch();
 
   const isAdmin = account_type === "Admin" || account_type === "Agent";
 
   const options = ticketstatus.map((status) => {
     return (
-      <option value={status.status_name}>
+      <option value={status.status_name} key={status.status_name}>
         {status.status_name.toUpperCase()}
       </option>
     );
   });
+
+  const handleChangeStatus = (e, ticket_id) => {
+    switch (e.target.value) {
+      case "open":
+        dispatch(updateStatus({ status_id: 1, ticket_id: ticket_id }));
+        break;
+      case "in progress":
+        dispatch(updateStatus({ status_id: 2, ticket_id: ticket_id }));
+        break;
+      case "solved":
+        dispatch(updateStatus({ status_id: 3, ticket_id: ticket_id }));
+        break;
+      case "closed":
+        dispatch(updateStatus({ status_id: 4, ticket_id: ticket_id }));
+        break;
+      default:
+        dispatch(updateStatus({ status_id: 5, ticket_id: ticket_id }));
+    }
+  };
+
+  if (status === "loading") return <h3>Loading ....</h3>;
+
+  if (status === "error") return <h3>{error}</h3>;
 
   return (
     <Container>
@@ -69,9 +93,9 @@ export const Ticket = () => {
                   name="Status"
                   aria-label="Status"
                   value={ticket[0].status_name}
-                  // onChange={(e) => {
-                  //   handleChangeSelect(e, ticket.ticket_id);
-                  // }}
+                  onChange={(e) => {
+                    handleChangeStatus(e, ticket[0].ticket_id);
+                  }}
                 >
                   {options}
                 </select>

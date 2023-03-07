@@ -27,7 +27,11 @@ export const TicketTable = () => {
       <>
         <option value="">No Agent</option>
         {usernames.map((name) => {
-          return <option value={name.user_id}>{name.name}</option>;
+          return (
+            <option value={name.user_id} key={name.name}>
+              {name.name}
+            </option>
+          );
         })}
       </>
     ),

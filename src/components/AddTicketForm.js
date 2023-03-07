@@ -3,7 +3,6 @@ import { Form, Button, Row, Col, Alert } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {
-  getCategories,
   getStatus,
   getPriority,
   createNewTicket,
@@ -25,7 +24,6 @@ export const AddTicketForm = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getCategories());
     dispatch(getStatus());
     dispatch(getPriority());
   }, [dispatch]);
