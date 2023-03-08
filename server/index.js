@@ -101,7 +101,6 @@ app.post("/ticket/updateStatus", (req, res) => {
   const sqlQuery = "update ticket set status_id=? where ticket_id=?;";
   db.query(sqlQuery, [status_id, ticket_id], (err, result) => {
     res.send(result);
-    console.log(result);
   });
 });
 
