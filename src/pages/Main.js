@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
   getAllTickets,
+  getTicketsById,
   getCompany,
   getStatus,
   getCategories,
@@ -15,18 +16,24 @@ import { useSelector } from "react-redux";
 const Main = () => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getAllTickets());
-    dispatch(getAllUserNames());
-    dispatch(getCompany());
-    dispatch(getStatus());
-    dispatch(getCategories());
-  }, [dispatch]);
-
   const { tickets, isLoading, error } = useSelector((state) => state.tickets);
   const { user, account, account_type, status, usererror } = useSelector(
     (state) => state.users
   );
+
+  useEffect(() => {
+    if (account_type === "Admin" || account_type === "Agent") {
+      dispatch(getAllTickets());
+    } else if (account_type === "Regular User") {
+      console.log("regular user " + account[0].account_id);
+      dispatch(getTicketsById(account[0].account_id));
+    }
+    dispatch(getAllUserNames());
+    dispatch(getCompany());
+    dispatch(getStatus());
+    dispatch(getCategories());
+  }, [dispatch, account_type, account]);
+
   const ticketsByStatus = (input) =>
     tickets.filter((ticket) => {
       return ticket.status_name === input;

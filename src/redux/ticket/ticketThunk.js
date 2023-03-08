@@ -19,6 +19,19 @@ export const getAllTickets = createAsyncThunk(
   }
 );
 
+export const getTicketsById = createAsyncThunk(
+  "ticket/getTicketsById",
+  async (aid, { getState, dispatch, rejectedWithValue }) => {
+    const response = await axios.get(baseUrl + "ticket/getTicketsById", {
+      params: { aid },
+    });
+
+    return response.status === 200
+      ? response
+      : rejectedWithValue(response.error);
+  }
+);
+
 export const getTicket = createAsyncThunk(
   "ticket/getTicket",
   async (tid, { getState, dispatch, rejectedWithValue }) => {
@@ -118,7 +131,7 @@ export const addCommentByUser = createAsyncThunk(
 );
 
 export const addCommentByAccount = createAsyncThunk(
-  "ticket/addCommentByUser",
+  "ticket/addCommentByAccount",
   async (data, { getState, dispatch, rejectedWithValue }) => {
     const response = await axios.post(
       baseUrl + "ticket/addCommentByAccount",

@@ -161,6 +161,26 @@ app.get("/ticket/getAllTickets", (req, res) => {
   });
 });
 
+app.get("/ticket/getTicketsById", (req, res) => {
+  const { aid } = req.query;
+  console.log(aid);
+  const sqlQuery =
+    "select ticket_id, title, body, client_name, status_name, category_name, priority_name, creation_date, closure_date, ticket.user_id, ticket.account_id from ticket, accounts, clients, status, category, priority where ticket.account_id = accounts.account_id and accounts.client_id=clients.client_id and status.status_id=ticket.status_id and category.category_id=ticket.category_id and ticket.priority_id= priority.priority_id ORDER BY creation_date DESC;";
+  db.query(sqlQuery, (err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      let filtertickets = result.filter((ticket) => {
+        return ticket.account_id === aid;
+      });
+      res.send(filtertickets);
+      console.log("filtertickets " + filtertickets);
+      filtertickets.map((ticket) => console.log(ticket));
+      // result.map((ticket) => console.log(ticket));
+    }
+  });
+});
+
 app.get("/ticket/getTicket", (req, res) => {
   const { tid } = req.query;
   const sqlQuery =
