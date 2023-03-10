@@ -22,13 +22,12 @@ const Main = () => {
   );
 
   useEffect(() => {
-    // if (account_type === "Admin" || account_type === "Agent") {
-    //   dispatch(getAllTickets());
-    // } else if (account_type === "Regular User") {
-    //   console.log("regular user " + account[0].account_id);
-    //   dispatch(getTicketsById(account[0].account_id));
-    // }
-    dispatch(getAllTickets());
+    if (account_type === "Admin" || account_type === "Agent") {
+      dispatch(getAllTickets());
+    } else if (account_type === "Regular User") {
+      console.log("regular user " + account[0].account_id);
+      dispatch(getTicketsById(account[0].account_id));
+    }
     dispatch(getAllUserNames());
     dispatch(getCompany());
     dispatch(getStatus());
