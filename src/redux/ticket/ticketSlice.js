@@ -12,6 +12,7 @@ import {
   addCommentByUser,
   addCommentByAccount,
   getTicketsById,
+  updateStatus,
 } from "./ticketThunk";
 
 const initialState = {
@@ -197,8 +198,15 @@ export const ticketSlice = createSlice({
       );
       state.tickets.splice(index, 1, payload.data[0]);
       state.searchTicketList.splice(index, 1, payload.data[0]);
-      console.log("1 " + state.tickets[index].user_id);
-      console.log("2 " + payload.data[0].user_id);
+    });
+    builder.addCase(updateStatus.fulfilled, (state, { payload }) => {
+      const index = state.tickets.findIndex(
+        (ticket) => ticket.ticket_id === payload.data[0].ticket_id
+      );
+      state.tickets.splice(index, 1, payload.data[0]);
+      state.searchTicketList.splice(index, 1, payload.data[0]);
+      console.log(payload.data[0]);
+      state.ticket[0] = payload.data[0];
     });
   },
 });
