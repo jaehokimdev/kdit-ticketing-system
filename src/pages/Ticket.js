@@ -29,6 +29,16 @@ export const Ticket = () => {
   });
 
   const handleChangeStatus = (e, ticket_id) => {
+    let now = new Date();
+    let year = now.getFullYear();
+    let month = now.getMonth() + 1;
+    let day = now.getDate();
+    let hour = now.getHours();
+    let minute = now.getMinutes();
+    let second = now.getSeconds();
+    let today =
+      year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
+
     switch (e.target.value) {
       case "open":
         dispatch(updateStatus({ status_id: 1, ticket_id: ticket_id }));
