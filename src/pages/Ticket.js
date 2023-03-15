@@ -41,19 +41,49 @@ export const Ticket = () => {
 
     switch (e.target.value) {
       case "open":
-        dispatch(updateStatus({ status_id: 1, ticket_id: ticket_id }));
+        dispatch(
+          updateStatus({
+            status_id: 1,
+            ticket_id: ticket_id,
+            closure_date: null,
+          })
+        );
         break;
       case "in progress":
-        dispatch(updateStatus({ status_id: 2, ticket_id: ticket_id }));
+        dispatch(
+          updateStatus({
+            status_id: 2,
+            ticket_id: ticket_id,
+            closure_date: null,
+          })
+        );
         break;
       case "solved":
-        dispatch(updateStatus({ status_id: 3, ticket_id: ticket_id }));
+        dispatch(
+          updateStatus({
+            status_id: 3,
+            ticket_id: ticket_id,
+            closure_date: null,
+          })
+        );
         break;
       case "closed":
-        dispatch(updateStatus({ status_id: 4, ticket_id: ticket_id }));
+        dispatch(
+          updateStatus({
+            status_id: 4,
+            ticket_id: ticket_id,
+            closure_date: today,
+          })
+        );
         break;
       default:
-        dispatch(updateStatus({ status_id: 5, ticket_id: ticket_id }));
+        dispatch(
+          updateStatus({
+            status_id: 5,
+            ticket_id: ticket_id,
+            closure_date: null,
+          })
+        );
     }
   };
 
