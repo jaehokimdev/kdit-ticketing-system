@@ -161,6 +161,7 @@ export const addAgent = createAsyncThunk(
 export const updateStatus = createAsyncThunk(
   "ticket/updateStatus",
   async (data, { getState, dispatch, rejectedWithValue }) => {
+    console.log(data);
     const response = await axios.post(
       baseUrl + "ticket/updateStatus",
       data,
