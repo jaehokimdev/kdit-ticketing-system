@@ -12,8 +12,6 @@ export const Ticket = () => {
     (state) => state.tickets
   );
 
-  console.log(ticket);
-
   const { account_type } = useSelector((state) => state.users);
 
   const dispatch = useDispatch();
