@@ -32,6 +32,19 @@ export const getTicketsById = createAsyncThunk(
   }
 );
 
+export const getTicketsByCompany = createAsyncThunk(
+  "ticket/getTicketsByCompany",
+  async (aid, { getState, dispatch, rejectedWithValue }) => {
+    const response = await axios.get(baseUrl + "ticket/getTicketsByCompany", {
+      params: { aid },
+    });
+
+    return response.status === 200
+      ? response
+      : rejectedWithValue(response.error);
+  }
+);
+
 export const getTicket = createAsyncThunk(
   "ticket/getTicket",
   async (tid, { getState, dispatch, rejectedWithValue }) => {

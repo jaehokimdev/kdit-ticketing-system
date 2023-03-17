@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import {
   getAllTickets,
   getTicketsById,
+  getTicketsByCompany,
   getCompany,
   getStatus,
   getCategories,
@@ -25,10 +26,8 @@ const Main = () => {
     if (account_type === "Admin" || account_type === "Agent") {
       dispatch(getAllTickets());
     } else if (account_type === "Manager") {
-      console.log(account[0].account_id);
-      dispatch(getTicketsById(account[0].account_id));
+      dispatch(getTicketsByCompany(account[0].account_id));
     } else if (account_type === "Regular User") {
-      console.log("regular user " + account[0].account_id);
       dispatch(getTicketsById(account[0].account_id));
     }
     dispatch(getAllUserNames());
