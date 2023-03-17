@@ -27,7 +27,7 @@ export const TicketTable = () => {
   const options = useMemo(
     () => (
       <>
-        <option value="">No Agent</option>
+        <option value="null">No Agent</option>
         {usernames.map((name) => {
           return (
             <option value={name.user_id} key={name.name}>
