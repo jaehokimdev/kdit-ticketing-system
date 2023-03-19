@@ -41,7 +41,6 @@ export const TicketTable = () => {
   );
 
   const isAdmin = account_type === "Admin";
-  console.log(isAdmin);
   if (isLoading) return <h3>Loading ....</h3>;
 
   if (error) return <h3>{error}</h3>;
