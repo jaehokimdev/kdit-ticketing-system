@@ -12,6 +12,7 @@ import {
   addCommentByUser,
   addCommentByAccount,
   getTicketsById,
+  getTicketsByCompany,
   updateStatus,
 } from "./ticketThunk";
 
@@ -87,8 +88,9 @@ export const ticketSlice = createSlice({
 
     setLogoutTicket: (state) => {
       state.ticket = initialState.ticket;
+      state.tickets = initialState.tickets;
+      state.searchTicketList = initialState.searchTicketList;
       state.comments = initialState.comments;
-      state.comment = initialState.comment;
     },
   },
   extraReducers: (builder) => {
@@ -113,6 +115,18 @@ export const ticketSlice = createSlice({
       state.searchTicketList = payload.data;
     });
     builder.addCase(getTicketsById.rejected, (state, { payload }) => {
+      state.status = "error";
+      state.error = payload;
+    });
+    builder.addCase(getTicketsByCompany.pending, (state) => {
+      state.status = "loading";
+    });
+    builder.addCase(getTicketsByCompany.fulfilled, (state, { payload }) => {
+      state.status = "done";
+      state.tickets = payload.data;
+      state.searchTicketList = payload.data;
+    });
+    builder.addCase(getTicketsByCompany.rejected, (state, { payload }) => {
       state.status = "error";
       state.error = payload;
     });

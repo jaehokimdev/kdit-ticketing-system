@@ -26,7 +26,7 @@ const Main = () => {
     if (account_type === "Admin" || account_type === "Agent") {
       dispatch(getAllTickets());
     } else if (account_type === "Manager") {
-      dispatch(getTicketsByCompany(account[0].account_id));
+      dispatch(getTicketsByCompany(account[0].client_id));
     } else if (account_type === "Regular User") {
       dispatch(getTicketsById(account[0].account_id));
     }

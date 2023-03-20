@@ -172,9 +172,21 @@ app.get("/ticket/getAllTickets", (req, res) => {
 
 app.get("/ticket/getTicketsById", (req, res) => {
   const { aid } = req.query;
-  console.log(aid);
   const sqlQuery =
-    "select ticket_id, title, body, client_name, status_name, category_name, priority_name, creation_date, closure_date, ticket.user_id, ticket.account_id from ticket, accounts, clients, status, category, priority where accounts.client_id=clients.client_id and status.status_id=ticket.status_id and category.category_id=ticket.category_id and ticket.priority_id= priority.priority_id and ticket.account_id = ? ORDER BY creation_date DESC;";
+    "select ticket.account_id, ticket_id, title, body, client_name, status_name, category_name, priority_name, creation_date, closure_date, ticket.user_id from ticket, accounts, clients, status, category, priority where ticket.account_id = accounts.account_id and accounts.client_id=clients.client_id and status.status_id=ticket.status_id and category.category_id=ticket.category_id and ticket.priority_id= priority.priority_id and ticket.account_id = ? order by ticket.creation_date DESC;";
+  db.query(sqlQuery, [aid], (err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+app.get("/ticket/getTicketsByCompany", (req, res) => {
+  const { aid } = req.query;
+  const sqlQuery =
+    "select ticket.account_id, ticket_id, title, body, client_name, status_name, category_name, priority_name, creation_date, closure_date, ticket.user_id from ticket, accounts, clients, status, category, priority where ticket.account_id = accounts.account_id and accounts.client_id=clients.client_id and status.status_id=ticket.status_id and category.category_id=ticket.category_id and ticket.priority_id= priority.priority_id and clients.client_id = ? order by ticket.creation_date DESC;";
   db.query(sqlQuery, [aid], (err, result) => {
     if (err) {
       res.send(err);
