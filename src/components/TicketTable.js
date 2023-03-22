@@ -21,14 +21,13 @@ export const TicketTable = () => {
   const dispatch = useDispatch();
 
   const handleChangeSelect = (e, ticket_id) => {
-    console.log(e.target.value);
     dispatch(addAgent({ user_id: e.target.value, ticket_id: ticket_id }));
   };
 
   const options = useMemo(
     () => (
       <>
-        <option value="No Agent">No Agent</option>
+        <option value="null">No Agent</option>
         {usernames.map((name) => {
           return (
             <option value={name.user_id} key={name.name}>
@@ -64,6 +63,7 @@ export const TicketTable = () => {
         {searchTicketList.length ? (
           searchTicketList.map((ticket, i) => (
             <tr
+              key={ticket.ticket_id}
               onMouseOver={changecursor}
               onClick={() => {
                 dispatch(getTicket(ticket.ticket_id));

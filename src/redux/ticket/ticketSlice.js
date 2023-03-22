@@ -207,22 +207,19 @@ export const ticketSlice = createSlice({
       state.comments.push(payload.data[0]);
     });
     builder.addCase(addAgent.fulfilled, (state, { payload }) => {
-      console.log(payload.date[0]);
       const index = state.tickets.findIndex(
-        (ticket) => ticket.ticket_id === payload.data[0].ticket_id
+        (ticket) => ticket.ticket_id === payload.data.ticket_id
       );
-      console.log("index " + index);
-      state.tickets.splice(index, 1, payload.data[0]);
-      state.searchTicketList.splice(index, 1, payload.data[0]);
+      state.tickets.splice(index, 1, payload.data);
+      state.searchTicketList.splice(index, 1, payload.data);
     });
     builder.addCase(updateStatus.fulfilled, (state, { payload }) => {
       const index = state.tickets.findIndex(
-        (ticket) => ticket.ticket_id === payload.data[0].ticket_id
+        (ticket) => ticket.ticket_id === payload.data.ticket_id
       );
-      state.tickets.splice(index, 1, payload.data[0]);
-      state.searchTicketList.splice(index, 1, payload.data[0]);
-      console.log(payload.data[0]);
-      state.ticket[0] = payload.data[0];
+      state.tickets.splice(index, 1, payload.data);
+      state.searchTicketList.splice(index, 1, payload.data);
+      state.ticket[0] = payload.data;
     });
   },
 });
