@@ -21,13 +21,14 @@ export const TicketTable = () => {
   const dispatch = useDispatch();
 
   const handleChangeSelect = (e, ticket_id) => {
+    console.log(e.target.value);
     dispatch(addAgent({ user_id: e.target.value, ticket_id: ticket_id }));
   };
 
   const options = useMemo(
     () => (
       <>
-        <option value="null">No Agent</option>
+        <option value="No Agent">No Agent</option>
         {usernames.map((name) => {
           return (
             <option value={name.user_id} key={name.name}>
