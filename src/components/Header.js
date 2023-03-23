@@ -56,7 +56,7 @@ export const Header = () => {
 
   return (
     <Navbar className="nav-color" collapseOnSelect variant="dark" expand="md">
-      <Navbar.Brand style={{ marginRight: "100px" }}>
+      <Navbar.Brand style={{ marginRight: "160px" }}>
         <img
           src={logo}
           alt="logo"

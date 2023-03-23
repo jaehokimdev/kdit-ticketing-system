@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { PageBreadcrumb } from "../components/PageBreadcrumb";
 import { TicketTable } from "../components/TicketTable";
+import { TicketTable2 } from "../components/TicketTable2";
 import { SearchForm } from "../components/SearchForm";
 import { TicketDropdown } from "../components/TicketDropdown";
 import { Link } from "react-router-dom";
@@ -42,7 +43,7 @@ export const TicketList = () => {
       <hr style={{ marginTop: "10px" }} />
       <Row>
         <Col>
-          <TicketTable />
+          <TicketTable2 />
         </Col>
       </Row>
     </Container>
