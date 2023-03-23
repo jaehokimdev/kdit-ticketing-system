@@ -72,7 +72,7 @@ app.post("/ticket/newticket", (req, res) => {
         if (err) {
           res.send(err);
         } else {
-          res.send(result[0]);
+          res.send(result);
         }
       });
     }

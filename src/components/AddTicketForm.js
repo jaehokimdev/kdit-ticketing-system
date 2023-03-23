@@ -130,7 +130,7 @@ export const AddTicketForm = () => {
               onChange={handleOnChange}
               value={frmData.category}
             >
-              <option isInvalid value={0}>
+              <option isinvalid="true" value={0}>
                 Select Cagtegory
               </option>
               {categories.map((category, i) => {
@@ -154,7 +154,7 @@ export const AddTicketForm = () => {
               onChange={handleOnChange}
               value={frmData.priority}
             >
-              <option isInvalid value={0}>
+              <option isinvalid="true" value={0}>
                 Select Priority
               </option>
               {priority.map((priority, i) => {
