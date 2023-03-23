@@ -7,11 +7,12 @@ import { userActions } from "../redux/store";
 import { ticketActions } from "../redux/store";
 import { useSelector } from "react-redux";
 import Avatar from "@mui/material/Avatar";
+import Chip from "@mui/material/Chip";
 
 export const Header = () => {
   const navigate = useNavigate();
 
-  const { user, account } = useSelector((state) => state.users);
+  const { user, account, account_type } = useSelector((state) => state.users);
 
   let username;
   if (user[0].first_name !== "") {
@@ -71,7 +72,7 @@ export const Header = () => {
       </Navbar.Text>
       <Navbar.Toggle aria-controls="basic-navber-nav" />
       <Navbar.Collapse id="basic-navber-nav" className="flex-grow-0">
-        <Nav className="ms-auto pe-1" style={{ width: "250px" }}>
+        <Nav className="ms-auto" style={{ marginRight: "10px" }}>
           <LinkContainer to="/main">
             <Nav.Link>Main</Nav.Link>
           </LinkContainer>
@@ -79,7 +80,13 @@ export const Header = () => {
             <Nav.Link>Tickets</Nav.Link>
           </LinkContainer>
           <Nav.Link onClick={logMeOut}>Logout</Nav.Link>
-          <Avatar {...stringAvatar(username)} />
+          <Chip
+            avatar={<Avatar {...stringAvatar(username)} />}
+            color="primary"
+            size="medium"
+            label={account_type}
+            style={{ marginTop: "4px" }}
+          />
         </Nav>
       </Navbar.Collapse>
     </Navbar>
