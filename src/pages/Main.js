@@ -69,43 +69,53 @@ const Main = () => {
         </Col>
       </Row>
       <Row>
-        <Col className="text-center" style={{ marginTop: "80px" }}>
+        <Col className="text-center mt-5">
           <Alert variant="primary">
             <h2>{tickets.length}</h2>Total Tickets
           </Alert>
         </Col>
+        <Col></Col>
       </Row>
       <Row>
-        <Col className="text-center mt-5 mb-2">
+        <Col className="text-center mt-3 mb-2">
           <Alert variant="warning">
             <h2>{ticketsByStatus("open").length}</h2>Open
           </Alert>
         </Col>
-        <Col className="text-center mt-5 mb-2">
+        <Col className="text-center mt-3 mb-2">
           <Alert variant="success">
             <h2>{ticketsByStatus("in progress").length}</h2>In progress
           </Alert>
         </Col>
-        <Col className="text-center mt-5 mb-2">
+        <Col></Col>
+        <Col></Col>
+      </Row>
+      <Row>
+        <Col className="text-center mt-3 mb-2">
           <Alert variant="info">
             <h2>{ticketsByStatus("solved").length}</h2>Solved
           </Alert>
         </Col>
-        <Col className="text-center mt-5 mb-2">
+        <Col className="text-center mt-3 mb-2">
           <Alert variant="danger">
             <h2>{ticketsByStatus("pending").length}</h2>Pending
           </Alert>
         </Col>
-        <Col className="text-center mt-5 mb-4">
+        <Col></Col>
+        <Col></Col>
+      </Row>
+      <Row>
+        <Col className="text-center mt-3 mb-4">
           <Alert variant="dark">
             <h2>{ticketsByStatus("closed").length}</h2>Closed
           </Alert>
         </Col>
+        <Col></Col>
       </Row>
       <hr />
       {account_type === "Manager" || account_type === "Regular User" ? (
         <Row>
-          <Col className="text-center mt-5">
+          <Col className="text-center mt-3 mb-4">
             <Link to="/add-ticket">
               <Button
                 variant="outline-success"
@@ -115,7 +125,7 @@ const Main = () => {
               </Button>
             </Link>
           </Col>
-          <Col className="text-center mt-5">
+          <Col className="text-center mt-3 mb-4">
             <Link to="/tickets">
               <Button
                 variant="outline-primary"
