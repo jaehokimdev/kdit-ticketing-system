@@ -68,20 +68,80 @@ export const TicketTable = () => {
       <TableContainer sx={{ maxHeight: 700 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
-            <TableRow style={{ textAlign: "center" }}>
-              <TableCell style={{ textAlign: "left", fontSize: "18px" }}>
-                Title
+            <TableRow>
+              <TableCell
+                style={{
+                  textAlign: "center",
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                }}
+              >
+                TITLE
               </TableCell>
-              <TableCell style={{ textAlign: "left", fontSize: "18px" }}>
-                Company
+              <TableCell
+                style={{
+                  textAlign: "center",
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                }}
+              >
+                COMPANY
               </TableCell>
-              <TableCell style={{ fontSize: "18px" }}>Status</TableCell>
-              <TableCell style={{ fontSize: "18px" }}>Category</TableCell>
-              <TableCell style={{ fontSize: "18px" }}>Priority</TableCell>
-              <TableCell style={{ fontSize: "18px" }}>Opened Date</TableCell>
-              <TableCell style={{ fontSize: "18px" }}>Closed Date</TableCell>
+              <TableCell
+                style={{
+                  textAlign: "center",
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                }}
+              >
+                STATUS
+              </TableCell>
+              <TableCell
+                style={{
+                  textAlign: "center",
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                }}
+              >
+                CATEGORY
+              </TableCell>
+              <TableCell
+                style={{
+                  textAlign: "center",
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                }}
+              >
+                PRIORITY
+              </TableCell>
+              <TableCell
+                style={{
+                  textAlign: "center",
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                }}
+              >
+                OPEN DATE
+              </TableCell>
+              <TableCell
+                style={{
+                  textAlign: "center",
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                }}
+              >
+                CLOSED DATE
+              </TableCell>
               {isAdmin && (
-                <TableCell style={{ fontSize: "18px" }}>Agent</TableCell>
+                <TableCell
+                  style={{
+                    textAlign: "center",
+                    fontSize: "15px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  AGENT
+                </TableCell>
               )}
             </TableRow>
           </TableHead>
