@@ -68,7 +68,7 @@ const Main = () => {
           )}
         </Col>
       </Row>
-      <Row>
+      {/* <Row>
         <Col className="text-center mt-5">
           <Alert variant="primary">
             <h2>{tickets.length}</h2>Total Tickets
@@ -111,7 +111,51 @@ const Main = () => {
           </Alert>
         </Col>
         <Col></Col>
+      </Row> */}
+      <Row>
+        <Col>
+          <Row>
+            <Col className="text-center mt-5">
+              <Alert variant="primary">
+                <h2>{tickets.length}</h2>Total Tickets
+              </Alert>
+            </Col>
+          </Row>
+          <Row>
+            <Col className="text-center mt-3 mb-2">
+              <Alert variant="warning">
+                <h2>{ticketsByStatus("open").length}</h2>Open
+              </Alert>
+            </Col>
+            <Col className="text-center mt-3 mb-2">
+              <Alert variant="success">
+                <h2>{ticketsByStatus("in progress").length}</h2>In progress
+              </Alert>
+            </Col>
+          </Row>
+          <Row>
+            <Col className="text-center mt-3 mb-2">
+              <Alert variant="info">
+                <h2>{ticketsByStatus("solved").length}</h2>Solved
+              </Alert>
+            </Col>
+            <Col className="text-center mt-3 mb-2">
+              <Alert variant="danger">
+                <h2>{ticketsByStatus("pending").length}</h2>Pending
+              </Alert>
+            </Col>
+          </Row>
+          <Row>
+            <Col className="text-center mt-3 mb-4">
+              <Alert variant="dark">
+                <h2>{ticketsByStatus("closed").length}</h2>Closed
+              </Alert>
+            </Col>
+          </Row>
+        </Col>
+        <Col>haha</Col>
       </Row>
+
       <hr />
       {account_type === "Manager" || account_type === "Regular User" ? (
         <Row>
