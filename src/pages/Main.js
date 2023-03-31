@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Container, Row, Col, Button, Alert } from "react-bootstrap";
 import { PageBreadcrumb } from "../components/PageBreadcrumb";
-import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
   getAllTickets,
@@ -13,9 +12,23 @@ import {
 } from "../redux/ticket/ticketThunk";
 import { getAllUserNames } from "../redux/user/userThunk";
 import { useSelector } from "react-redux";
+import { Grid } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
+import PieGraph from "../components/PieGraph";
 
 const Main = () => {
   const dispatch = useDispatch();
+  const theme = createTheme({
+    palette: {
+      custom: {
+        open: "#ffecb5",
+        prograss: "#badbcc",
+        solved: "#b6effb",
+        pending: "#f5c2c7",
+        closed: "#bcbebf",
+      },
+    },
+  });
 
   const { tickets, isLoading, error } = useSelector((state) => state.tickets);
   const { user, account, account_type, status, usererror } = useSelector(
@@ -40,6 +53,12 @@ const Main = () => {
     tickets.filter((ticket) => {
       return ticket.status_name === input;
     });
+
+  let openNumber = ticketsByStatus("open").length;
+  let progressNumber = ticketsByStatus("in progress").length;
+  let solvedNumber = ticketsByStatus("solved").length;
+  let pendingNumber = ticketsByStatus("pending").length;
+  let closedNumber = ticketsByStatus("closed").length;
 
   if (isLoading || status === "loading") return <h3>Loading ....</h3>;
 
@@ -68,7 +87,7 @@ const Main = () => {
           )}
         </Col>
       </Row>
-      <Row>
+      <Row className="mt-5">
         <Col>
           <Row>
             <Col className="text-center mt-5">
@@ -80,75 +99,57 @@ const Main = () => {
           <Row>
             <Col className="text-center mt-3 mb-2">
               <Alert variant="warning">
-                <h2>{ticketsByStatus("open").length}</h2>Open
+                <h2>{openNumber}</h2>Open
               </Alert>
             </Col>
             <Col className="text-center mt-3 mb-2">
               <Alert variant="success">
-                <h2>{ticketsByStatus("in progress").length}</h2>In progress
+                <h2>{progressNumber}</h2>In progress
               </Alert>
             </Col>
           </Row>
           <Row>
             <Col className="text-center mt-3 mb-2">
               <Alert variant="info">
-                <h2>{ticketsByStatus("solved").length}</h2>Solved
+                <h2>{solvedNumber}</h2>Solved
               </Alert>
             </Col>
             <Col className="text-center mt-3 mb-2">
               <Alert variant="danger">
-                <h2>{ticketsByStatus("pending").length}</h2>Pending
+                <h2>{pendingNumber}</h2>Pending
               </Alert>
             </Col>
           </Row>
           <Row>
             <Col className="text-center mt-3">
               <Alert variant="dark">
-                <h2>{ticketsByStatus("closed").length}</h2>Closed
+                <h2>{closedNumber}</h2>Closed
               </Alert>
             </Col>
           </Row>
         </Col>
-        <Col>haha</Col>
+        <Col>
+          <Grid item xs={12} md={6} lg={4} className="mt-5">
+            <PieGraph
+              title="Ticket Status Graph"
+              chartData={[
+                { label: "Open", value: openNumber },
+                { label: "In progress", value: progressNumber },
+                { label: "Solved", value: solvedNumber },
+                { label: "Pending", value: pendingNumber },
+                { label: "Closed", value: closedNumber },
+              ]}
+              chartColors={[
+                theme.palette.custom.open,
+                theme.palette.custom.prograss,
+                theme.palette.custom.solved,
+                theme.palette.custom.pending,
+                theme.palette.custom.closed,
+              ]}
+            />
+          </Grid>
+        </Col>
       </Row>
-      {/* <hr />
-      {account_type === "Manager" || account_type === "Regular User" ? (
-        <Row>
-          <Col className="text-center mt-3 mb-4">
-            <Link to="/add-ticket">
-              <Button
-                variant="outline-success"
-                style={{ fontSize: "2rem", padding: "20px 60px" }}
-              >
-                Add New Ticket
-              </Button>
-            </Link>
-          </Col>
-          <Col className="text-center mt-3 mb-4">
-            <Link to="/tickets">
-              <Button
-                variant="outline-primary"
-                style={{ fontSize: "2rem", padding: "20px 60px" }}
-              >
-                View Tickets
-              </Button>
-            </Link>
-          </Col>
-        </Row>
-      ) : (
-        <Row>
-          <Col className="text-center mt-5">
-            <Link to="/tickets">
-              <Button
-                variant="outline-primary"
-                style={{ fontSize: "2rem", padding: "20px 60px" }}
-              >
-                View Tickets
-              </Button>
-            </Link>
-          </Col>
-        </Row>
-      )} */}
     </Container>
   );
 };
