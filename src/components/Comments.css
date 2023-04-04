@@ -24,13 +24,11 @@
 }
 
 .comment-user {
-  padding: 1rem;
   border-radius: 1.5rem;
   background-color: deepskyblue;
 }
 
 .comment-other {
-  padding: 1rem;
   border-radius: 1.5rem;
   background-color: darkgray;
 }

@@ -1,7 +1,6 @@
 import React from "react";
 import { Container, Row, Col, Spinner, Alert, Badge } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { PageBreadcrumb } from "../components/PageBreadcrumb";
 import { AddComment } from "../components/AddComment";
 import { Comments } from "../components/Comments";
 import { useDispatch } from "react-redux";
@@ -92,11 +91,6 @@ export const Ticket = () => {
 
   return (
     <Container>
-      <Row>
-        <Col>
-          <PageBreadcrumb page="Ticket" />
-        </Col>
-      </Row>
       <Row>
         <Col>
           {status === "loading" && (

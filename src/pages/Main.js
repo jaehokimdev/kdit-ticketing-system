@@ -68,18 +68,22 @@ const Main = () => {
     <>
       <Container maxWidth="xl">
         {account_type === "Regular User" || account_type === "Manager" ? (
-          <Typography variant="h4" sx={{ mb: 5, mt: 5 }}>
+          <Typography variant="h4" sx={{ mb: 5 }}>
             Hi, Welcome back {account[0].first_name} {account[0].last_name}
           </Typography>
         ) : (
-          <Typography variant="h4" sx={{ mb: 5, mt: 5 }}>
+          <Typography variant="h4" sx={{ mb: 5 }}>
             Hi, Welcome back {user[0].first_name} {user[0].last_name}
           </Typography>
         )}
 
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={12}>
-            <AppWidgetSummary title="Total" total={32} icon={"mdi:ballot"} />
+            <AppWidgetSummary
+              title="Total"
+              total={tickets.length}
+              icon={"mdi:ballot"}
+            />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>

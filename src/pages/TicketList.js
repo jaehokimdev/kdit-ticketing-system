@@ -1,6 +1,5 @@
 import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { PageBreadcrumb } from "../components/PageBreadcrumb";
 import { TicketTable } from "../components/TicketTable";
 import { SearchForm } from "../components/SearchForm";
 import { TicketDropdown } from "../components/TicketDropdown";
@@ -13,11 +12,6 @@ export const TicketList = () => {
   return (
     <Container>
       <Row>
-        <Col>
-          <PageBreadcrumb page="Ticket Lists" />
-        </Col>
-      </Row>
-      <Row style={{ marginTop: "60px" }}>
         {account_type === "Manager" || account_type === "Regular User" ? (
           <Col className="mt-auto">
             <Link to={"/add-ticket"}>

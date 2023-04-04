@@ -11,6 +11,8 @@ import {
   getAllUsers,
   getUser,
 } from "../redux/user/userThunk";
+import { userActions } from "../redux/store";
+import { ticketActions } from "../redux/store";
 
 export const Login = () => {
   const Navigate = useNavigate();
@@ -25,6 +27,8 @@ export const Login = () => {
   useEffect(() => {
     dispatch(getAllUsers());
     dispatch(getAllAccounts());
+    userActions.setLogoutUser();
+    ticketActions.setLogoutTicket();
   }, [dispatch, loginerror]);
 
   const handleOnSubmit = async (e) => {
