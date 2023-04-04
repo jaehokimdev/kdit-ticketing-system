@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { styled, alpha } from "@mui/material/styles";
 import { Box, Link, Drawer, Typography, Avatar } from "@mui/material";
 import useResponsive from "../components/useResponsive";
@@ -26,8 +27,15 @@ Nav.propTypes = {
 
 export default function Nav({ openNav, onCloseNav }) {
   const { pathname } = useLocation();
-
+  const { user, account } = useSelector((state) => state.users);
   const isDesktop = useResponsive("up", "lg");
+
+  let username;
+  if (user[0].first_name !== "") {
+    username = user[0].first_name + " " + user[0].last_name;
+  } else {
+    username = account[0].first_name + " " + account[0].last_name;
+  }
 
   useEffect(() => {
     if (openNav) {
@@ -80,11 +88,11 @@ export default function Nav({ openNav, onCloseNav }) {
       <Box sx={{ mb: 5, mx: 2.5 }}>
         <Link underline="none">
           <StyledAccount>
-            <Avatar {...stringAvatar("Jaeho Kim")} />
+            <Avatar {...stringAvatar(username)} />
 
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: "white" }}>
-                Jaeho Kim
+                {username}
               </Typography>
             </Box>
           </StyledAccount>
