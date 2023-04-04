@@ -10,7 +10,7 @@ import useChart from "./useChart";
 
 // ----------------------------------------------------------------------
 
-const CHART_HEIGHT = 420;
+const CHART_HEIGHT = 408;
 const LEGEND_HEIGHT = 72;
 
 const StyledChartWrapper = styled("div")(({ theme }) => ({
@@ -55,7 +55,7 @@ export default function PieGraph({
     labels: chartLabels,
     stroke: { colors: [theme.palette.background.paper] },
     legend: { floating: true, horizontalAlign: "center" },
-    dataLabels: { enabled: true, dropShadow: { enabled: false } },
+    dataLabels: { enabled: true, dropShadow: { enabled: true } },
     tooltip: {
       fillSeriesColor: false,
       y: {
