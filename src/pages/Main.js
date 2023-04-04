@@ -79,11 +79,7 @@ const Main = () => {
 
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={12}>
-            <AppWidgetSummary
-              title="Total"
-              total={32}
-              icon={"ant-design:android-filled"}
-            />
+            <AppWidgetSummary title="Total" total={32} icon={"mdi:ballot"} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
@@ -92,13 +88,13 @@ const Main = () => {
               title="Open"
               total={openNumber}
               color="info"
-              icon={"ant-design:apple-filled"}
+              icon={"mdi:folder-open"}
             />
             <AppWidgetSummary
               title="In progress"
               total={progressNumber}
               color="success"
-              icon={"ant-design:bug-filled"}
+              icon={"mdi:progress-clock"}
             />
           </Grid>
 
@@ -108,13 +104,13 @@ const Main = () => {
               title="Solved"
               total={solvedNumber}
               color="warning"
-              icon={"ant-design:windows-filled"}
+              icon={"mdi:check-bold"}
             />
             <AppWidgetSummary
               title="Pending"
               total={pendingNumber}
               color="secondary"
-              icon={"ant-design:windows-filled"}
+              icon={"mdi:account-clock"}
             />
           </Grid>
 
@@ -143,7 +139,7 @@ const Main = () => {
               title="Closed"
               total={closedNumber}
               color="error"
-              icon={"ant-design:bug-filled"}
+              icon={"mdi:curtains-closed"}
             />
           </Grid>
         </Grid>

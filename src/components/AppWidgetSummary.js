@@ -1,7 +1,7 @@
-// @mui
 import PropTypes from "prop-types";
 import { alpha, styled } from "@mui/material/styles";
 import { Card, Typography } from "@mui/material";
+import Iconify from "../iconify";
 
 // ----------------------------------------------------------------------
 
@@ -55,7 +55,9 @@ export default function AppWidgetSummary({
               0
             )} 0%, ${alpha(theme.palette[color].dark, 0.24)} 100%)`,
         }}
-      ></StyledIcon>
+      >
+        <Iconify icon={icon} width={24} height={24} />
+      </StyledIcon>
 
       <Typography variant="h3">{total}</Typography>
 
