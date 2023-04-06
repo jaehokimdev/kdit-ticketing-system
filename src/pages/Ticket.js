@@ -109,7 +109,7 @@ export const Ticket = () => {
       >
         <Row>
           <Col className="fw-bold fs-5">
-            <div className="title">TITLE : {ticket[0].title}</div>
+            <div className="title">Title : {ticket[0].title}</div>
             <div className="date">
               Date :{" "}
               {ticket[0].creation_date &&

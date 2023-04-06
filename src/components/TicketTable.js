@@ -76,6 +76,15 @@ export const TicketTable = () => {
                   fontWeight: "bold",
                 }}
               >
+                TICKET ID
+              </TableCell>
+              <TableCell
+                style={{
+                  textAlign: "center",
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                }}
+              >
                 TITLE
               </TableCell>
               <TableCell
@@ -162,6 +171,13 @@ export const TicketTable = () => {
                       navigate(`/ticket/${ticket.ticket_id}`);
                     }}
                   >
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                      }}
+                    >
+                      {ticket.ticket_id}
+                    </TableCell>
                     <TableCell>{ticket.title}</TableCell>
                     <TableCell>{ticket.client_name}</TableCell>
                     <TableCell>
@@ -214,11 +230,21 @@ export const TicketTable = () => {
                         </Badge>
                       ) : null}
                     </TableCell>
-                    <TableCell>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        fontSize: "12px",
+                      }}
+                    >
                       {ticket.creation_date &&
                         new Date(ticket.creation_date).toLocaleString()}
                     </TableCell>
-                    <TableCell>
+                    <TableCell
+                      style={{
+                        textAlign: "center",
+                        fontSize: "12px",
+                      }}
+                    >
                       {ticket.closure_date &&
                         new Date(ticket.closure_date).toLocaleString()}
                     </TableCell>
