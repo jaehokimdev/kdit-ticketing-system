@@ -184,3 +184,16 @@ export const updateStatus = createAsyncThunk(
       : rejectedWithValue(response.error);
   }
 );
+export const updateCategory = createAsyncThunk(
+  "ticket/updateCategory",
+  async (data, { getState, dispatch, rejectedWithValue }) => {
+    const response = await axios.post(
+      baseUrl + "ticket/updateCategory",
+      data,
+      config
+    );
+    return response.status === 200
+      ? response
+      : rejectedWithValue(response.error);
+  }
+);

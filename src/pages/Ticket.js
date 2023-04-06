@@ -5,9 +5,10 @@ import { AddComment } from "../components/AddComment";
 import { Comments } from "../components/Comments";
 import { useDispatch } from "react-redux";
 import { updateStatus } from "../redux/ticket/ticketThunk";
+import { updateCategory } from "../redux/ticket/ticketThunk";
 
 export const Ticket = () => {
-  const { ticket, ticketstatus, status, error } = useSelector(
+  const { ticket, ticketstatus, categories, status, error } = useSelector(
     (state) => state.tickets
   );
 
@@ -17,10 +18,18 @@ export const Ticket = () => {
 
   const isAdmin = account_type === "Admin" || account_type === "Agent";
 
-  const options = ticketstatus.map((status) => {
+  const statusoptions = ticketstatus.map((status) => {
     return (
       <option value={status.status_name} key={status.status_name}>
         {status.status_name.toUpperCase()}
+      </option>
+    );
+  });
+
+  const categoryoptions = categories.map((category) => {
+    return (
+      <option value={category.category_name} key={category.category_name}>
+        {category.category_name.toUpperCase()}
       </option>
     );
   });
@@ -84,6 +93,50 @@ export const Ticket = () => {
     }
   };
 
+  const handleChangeCategory = (e, ticket_id) => {
+    switch (e.target.value) {
+      case "request":
+        dispatch(
+          updateCategory({
+            category_id: 1,
+            ticket_id: ticket_id,
+          })
+        );
+        break;
+      case "bug":
+        dispatch(
+          updateCategory({
+            category_id: 2,
+            ticket_id: ticket_id,
+          })
+        );
+        break;
+      case "defect":
+        dispatch(
+          updateCategory({
+            category_id: 3,
+            ticket_id: ticket_id,
+          })
+        );
+        break;
+      case "support":
+        dispatch(
+          updateCategory({
+            category_id: 4,
+            ticket_id: ticket_id,
+          })
+        );
+        break;
+      default:
+        dispatch(
+          updateCategory({
+            category_id: 5,
+            ticket_id: ticket_id,
+          })
+        );
+    }
+  };
+
   if (status === "loading" || ticket.ticket_id === "")
     return <h3>Loading ....</h3>;
 
@@ -115,10 +168,7 @@ export const Ticket = () => {
               {ticket[0].creation_date &&
                 new Date(ticket[0].creation_date).toLocaleString()}
             </div>
-
-            <div className="category">
-              Category : {ticket[0].category_name.toUpperCase()}
-            </div>
+            <div className="body fw-bold">Content : {ticket[0].body}</div>
           </Col>
           <Col className="fw-bold d-flex align-items-end flex-column">
             <div className="status" style={{ minWidth: "190px" }}>
@@ -132,7 +182,7 @@ export const Ticket = () => {
                     handleChangeStatus(e, ticket[0].ticket_id);
                   }}
                 >
-                  {options}
+                  {statusoptions}
                 </select>
               ) : ticket[0].status_name === "open" ? (
                 <Badge bg="warning" text="dark">
@@ -149,6 +199,23 @@ export const Ticket = () => {
               ) : ticket[0].status_name === "closed" ? (
                 <Badge bg="dark">{ticket[0].status_name.toUpperCase()}</Badge>
               ) : null}
+            </div>
+            <div className="category" style={{ minWidth: "190px" }}>
+              Category :{" "}
+              {isAdmin ? (
+                <select
+                  name="Category"
+                  aria-label="Category"
+                  value={ticket[0].category_name}
+                  onChange={(e) => {
+                    handleChangeCategory(e, ticket[0].ticket_id);
+                  }}
+                >
+                  {categoryoptions}
+                </select>
+              ) : (
+                <>{ticket[0].category_name.toUpperCase()}</>
+              )}
             </div>
             <div className="priority" style={{ minWidth: "190px" }}>
               Priority :{" "}
@@ -175,12 +242,7 @@ export const Ticket = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col className="mt-3 fs-5">
-            <div className="body fw-bold">Content : {ticket[0].body}</div>
-            <hr />
-          </Col>
-        </Row>
+        <hr />
         <Row className="mt-2">
           <Col>
             <Comments />

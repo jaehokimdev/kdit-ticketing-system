@@ -97,10 +97,25 @@ app.post("/ticket/addAgent", (req, res) => {
 
 app.post("/ticket/updateStatus", (req, res) => {
   const { status_id, ticket_id, closure_date } = req.body;
-  console.log(closure_date);
   const sqlQuery =
     "update ticket set status_id=?, closure_date=? where ticket_id=?;";
   db.query(sqlQuery, [status_id, closure_date, ticket_id], (err, result) => {
+    const sqlQuery2 =
+      "select ticket_id, title, body, client_name, status_name, category_name, priority_name, creation_date, closure_date, ticket.user_id, ticket.account_id from ticket, accounts, clients, status, category, priority where ticket.account_id = accounts.account_id and accounts.client_id=clients.client_id and status.status_id=ticket.status_id and category.category_id=ticket.category_id and ticket.priority_id= priority.priority_id and ticket.ticket_id = ?;";
+    db.query(sqlQuery2, [ticket_id], (err, result) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(result[0]);
+      }
+    });
+  });
+});
+
+app.post("/ticket/updateCategory", (req, res) => {
+  const { category_id, ticket_id } = req.body;
+  const sqlQuery = "update ticket set category_id=? where ticket_id=?;";
+  db.query(sqlQuery, [category_id, ticket_id], (err, result) => {
     const sqlQuery2 =
       "select ticket_id, title, body, client_name, status_name, category_name, priority_name, creation_date, closure_date, ticket.user_id, ticket.account_id from ticket, accounts, clients, status, category, priority where ticket.account_id = accounts.account_id and accounts.client_id=clients.client_id and status.status_id=ticket.status_id and category.category_id=ticket.category_id and ticket.priority_id= priority.priority_id and ticket.ticket_id = ?;";
     db.query(sqlQuery2, [ticket_id], (err, result) => {

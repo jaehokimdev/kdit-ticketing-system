@@ -14,6 +14,7 @@ import {
   getTicketsById,
   getTicketsByCompany,
   updateStatus,
+  updateCategory,
 } from "./ticketThunk";
 
 const initialState = {
@@ -214,6 +215,14 @@ export const ticketSlice = createSlice({
       state.searchTicketList.splice(index, 1, payload.data);
     });
     builder.addCase(updateStatus.fulfilled, (state, { payload }) => {
+      const index = state.tickets.findIndex(
+        (ticket) => ticket.ticket_id === payload.data.ticket_id
+      );
+      state.tickets.splice(index, 1, payload.data);
+      state.searchTicketList.splice(index, 1, payload.data);
+      state.ticket[0] = payload.data;
+    });
+    builder.addCase(updateCategory.fulfilled, (state, { payload }) => {
       const index = state.tickets.findIndex(
         (ticket) => ticket.ticket_id === payload.data.ticket_id
       );
