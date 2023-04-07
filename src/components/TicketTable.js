@@ -37,7 +37,9 @@ export const TicketTable = () => {
   const options = useMemo(
     () => (
       <>
-        <option value="null">No Agent</option>
+        <option value="null" disabled>
+          No Agent
+        </option>
         {usernames.map((name) => {
           return (
             <option value={name.user_id} key={name.name}>
@@ -72,7 +74,7 @@ export const TicketTable = () => {
               <TableCell
                 style={{
                   textAlign: "center",
-                  fontSize: "15px",
+                  fontSize: "20px",
                   fontWeight: "bold",
                 }}
               >
@@ -81,7 +83,7 @@ export const TicketTable = () => {
               <TableCell
                 style={{
                   textAlign: "center",
-                  fontSize: "15px",
+                  fontSize: "20px",
                   fontWeight: "bold",
                 }}
               >
@@ -90,7 +92,7 @@ export const TicketTable = () => {
               <TableCell
                 style={{
                   textAlign: "center",
-                  fontSize: "15px",
+                  fontSize: "20px",
                   fontWeight: "bold",
                 }}
               >
@@ -99,7 +101,7 @@ export const TicketTable = () => {
               <TableCell
                 style={{
                   textAlign: "center",
-                  fontSize: "15px",
+                  fontSize: "20px",
                   fontWeight: "bold",
                 }}
               >
@@ -108,7 +110,7 @@ export const TicketTable = () => {
               <TableCell
                 style={{
                   textAlign: "center",
-                  fontSize: "15px",
+                  fontSize: "20px",
                   fontWeight: "bold",
                 }}
               >
@@ -117,7 +119,7 @@ export const TicketTable = () => {
               <TableCell
                 style={{
                   textAlign: "center",
-                  fontSize: "15px",
+                  fontSize: "20px",
                   fontWeight: "bold",
                 }}
               >
@@ -126,7 +128,7 @@ export const TicketTable = () => {
               <TableCell
                 style={{
                   textAlign: "center",
-                  fontSize: "15px",
+                  fontSize: "20px",
                   fontWeight: "bold",
                 }}
               >
@@ -135,7 +137,7 @@ export const TicketTable = () => {
               <TableCell
                 style={{
                   textAlign: "center",
-                  fontSize: "15px",
+                  fontSize: "20px",
                   fontWeight: "bold",
                 }}
               >
@@ -145,7 +147,7 @@ export const TicketTable = () => {
                 <TableCell
                   style={{
                     textAlign: "center",
-                    fontSize: "15px",
+                    fontSize: "20px",
                     fontWeight: "bold",
                   }}
                 >
@@ -174,13 +176,30 @@ export const TicketTable = () => {
                     <TableCell
                       style={{
                         textAlign: "center",
+                        fontSize: "18px",
                       }}
                     >
                       {ticket.ticket_id}
                     </TableCell>
-                    <TableCell>{ticket.title}</TableCell>
-                    <TableCell>{ticket.client_name}</TableCell>
-                    <TableCell>
+                    <TableCell
+                      style={{
+                        fontSize: "18px",
+                      }}
+                    >
+                      {ticket.title}
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        fontSize: "18px",
+                      }}
+                    >
+                      {ticket.client_name}
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        fontSize: "18px",
+                      }}
+                    >
                       {ticket.status_name === "open" ? (
                         <Badge bg="warning" text="dark">
                           {ticket.status_name.toUpperCase()}
@@ -207,8 +226,18 @@ export const TicketTable = () => {
                         </Badge>
                       ) : null}
                     </TableCell>
-                    <TableCell>{ticket.category_name.toUpperCase()}</TableCell>
-                    <TableCell>
+                    <TableCell
+                      style={{
+                        fontSize: "18px",
+                      }}
+                    >
+                      {ticket.category_name.toUpperCase()}
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        fontSize: "18px",
+                      }}
+                    >
                       {ticket.priority_name === "low" ? (
                         <Badge bg="primary">
                           {ticket.priority_name.toUpperCase()}
@@ -233,7 +262,7 @@ export const TicketTable = () => {
                     <TableCell
                       style={{
                         textAlign: "center",
-                        fontSize: "12px",
+                        fontSize: "15px",
                       }}
                     >
                       {ticket.creation_date &&
@@ -242,7 +271,7 @@ export const TicketTable = () => {
                     <TableCell
                       style={{
                         textAlign: "center",
-                        fontSize: "12px",
+                        fontSize: "15px",
                       }}
                     >
                       {ticket.closure_date &&

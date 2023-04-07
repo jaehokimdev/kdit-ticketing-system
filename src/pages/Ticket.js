@@ -67,7 +67,7 @@ export const Ticket = () => {
       case "solved":
         dispatch(
           updateStatus({
-            status_id: 3,
+            status_id: 4,
             ticket_id: ticket_id,
             closure_date: null,
           })
@@ -76,7 +76,7 @@ export const Ticket = () => {
       case "closed":
         dispatch(
           updateStatus({
-            status_id: 4,
+            status_id: 5,
             ticket_id: ticket_id,
             closure_date: today,
           })
@@ -85,7 +85,7 @@ export const Ticket = () => {
       default:
         dispatch(
           updateStatus({
-            status_id: 5,
+            status_id: 3,
             ticket_id: ticket_id,
             closure_date: null,
           })
