@@ -37,7 +37,7 @@ export const TicketTable = () => {
   const options = useMemo(
     () => (
       <>
-        <option value="null" disabled>
+        <option value="noagent" disabled>
           No Agent
         </option>
         {usernames.map((name) => {
@@ -288,6 +288,7 @@ export const TicketTable = () => {
                           className="form-control form-control-sm"
                           aria-label="Agent"
                           value={ticket.user_id}
+                          defaultValue="noagent"
                           onChange={(e) => {
                             handleChangeSelect(e, ticket.ticket_id);
                           }}
