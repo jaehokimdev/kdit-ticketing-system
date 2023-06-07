@@ -143,9 +143,9 @@
     * Select the priority of the ticket using the Priority dropdown menu.
       * Possible selections include:
         * LOW
-	      * NORMAL
-	      * HIGH
-	      * CRITICAL
+	* NORMAL
+	* HIGH
+	* CRITICAL
 
    <p align="center"><img src="./screenshots/21.png" width="40%" /></p>
    
