@@ -95,22 +95,25 @@
   #### Changing Status/Category
 
   * Note: This feature can only be used by Admins and Agents.
-	* In the upper left-hand corner use the drop down menus to change the Status/Category:
-	  * Selection for Status:
-	    * OPEN
-	    * IN PROGRESS
-	    * SOLVED
-	    * CLOSED
-	    * PENDING
+  	* In the upper left-hand corner use the drop down menus to change the Status/Category:
 
-   <p align="center"><img src="./screenshots/17.png" width="40%" /></p>  
-   
-    * Selection for Category:
-	    * REQUEST
-	    * BUG
-	    * DEFECT
-	    * SUPPORT
-	    * ENHACEMENT
+    * Selection for Status:
+      * Possible selections include:
+      	* OPEN
+      	* IN PROGRESS
+      	* SOLVED
+      	* CLOSED
+      	* PENDING
+
+   <p align="center"><img src="./screenshots/17.png" width="40%" /></p>
+
+	* Selection for Category
+		* Possible selections include:
+			* REQUEST
+			* BUG
+			* DEFECT
+			* SUPPORT
+			* ENHACEMENT
 
    <p align="center"><img src="./screenshots/18.png" width="40%" /></p>
    
