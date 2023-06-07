@@ -132,20 +132,20 @@
   
     * Select the category of the ticket using the Category dropdown menu.
       * Possible selections include:
-        * REQUEST
-	      * BUG
-	      * DEFECT
-	      * SUPPORT
-	      * ENHACEMENT
+      	* REQUEST
+      	* BUG
+      	* DEFECT
+      	* SUPPORT
+      	* ENHANCEMENT
 
    <p align="center"><img src="./screenshots/20.png" width="40%" /></p>
-   
-    * Select the priority of the ticket using the Priority dropdown menu.
-      * Possible selections include:
-        * LOW
-	* NORMAL
-	* HIGH
-	* CRITICAL
+
+	* Select the priority of the ticket using the Priority dropdown menu.
+		* Possible selections include:
+			* LOW
+			* NORMAL
+			* HIGH
+			* CRITICAL
 
    <p align="center"><img src="./screenshots/21.png" width="40%" /></p>
    
